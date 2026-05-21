@@ -1,0 +1,91 @@
+categories:
+  - id: foundation-models
+    name: Foundation Models
+    subcategories:
+      - id: llm
+        name: Large Language Models
+      - id: multimodal
+        name: Multimodal Models
+
+  - id: agentic-harnesses
+    name: Agentic Harnesses
+    subcategories:
+      - id: multi-agent
+        name: Multi-Agent Frameworks
+      - id: single-agent
+        name: Single-Agent Frameworks
+
+  - id: protocols-standards
+    name: Protocols & Standards
+
+  - id: mcp-servers-marketplaces
+    name: MCP Servers & Marketplaces
+
+  - id: data-knowledge
+    name: Data & Knowledge
+
+  - id: training-fine-tuning
+    name: Training & Fine-Tuning
+
+  - id: inference-deployment
+    name: Inference & Deployment
+
+  - id: observability-evals
+    name: Observability & Evals
+
+  - id: security-governance
+    name: Security & Governance
+
+  - id: developer-tools
+    name: Developer Tools
+
+  - id: platforms-applications
+    name: Platforms & Applications
+
+  - id: research-benchmarks
+    name: Research & Benchmarks
+
+entries:
+  - id: claude
+    name: Claude
+    category: foundation-models
+    subcategory: llm
+    organization: Anthropic
+    description: "Anthropic's AI assistant family, optimized for safety and helpfulness"
+    website: https://claude.ai
+    github: null
+    license: proprietary
+    pricing: freemium
+    api_available: true
+    tags: [reasoning, coding, multimodal, safety]
+    added: 2026-05-19
+    updated: 2026-05-19
+
+  - id: claude-code
+    name: Claude Code
+    category: agentic-harnesses
+    subcategory: single-agent
+    organization: Anthropic
+    description: "Agentic AI coding assistant that operates in your terminal with full codebase context"
+    website: https://claude.ai/code
+    github: null
+    license: proprietary
+    pricing: freemium
+    api_available: true
+    tags: [coding, cli, agentic]
+    added: 2026-05-19
+    updated: 2026-05-19
+
+  - id: model-context-protocol
+    name: Model Context Protocol
+    category: protocols-standards
+    organization: Anthropic
+    description: "Open protocol for connecting AI models to external data sources and tools"
+    website: https://modelcontextprotocol.io
+    github: https://github.com/modelcontextprotocol
+    license: MIT
+    pricing: free
+    api_available: true
+    tags: [protocol, open-source, tooling, interoperability]
+    added: 2026-05-19
+    updated: 2026-05-19
