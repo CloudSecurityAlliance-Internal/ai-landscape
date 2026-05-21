@@ -1,0 +1,88 @@
+---
+import EntryTile from "./EntryTile.astro";
+
+interface Entry {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  website: string;
+  logo?: string;
+  organization: string;
+  pricing: string;
+  license: string;
+  api_available?: boolean;
+  tags?: string[];
+  added: string;
+}
+
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface Props {
+  landscape: { categories: Category[]; entries: Entry[] };
+}
+
+const { landscape } = Astro.props;
+
+const byCategory = Object.fromEntries(
+  landscape.categories.map((cat) => [
+    cat.id,
+    landscape.entries.filter((e) => e.category === cat.id),
+  ])
+);
+---
+
+<main class="landscape">
+  {
+    landscape.categories.map((cat) => (
+      <section class="category-section" data-category={cat.id}>
+        <h2 class="category-header">
+          {cat.name}
+          <span class="count">{byCategory[cat.id]?.length ?? 0}</span>
+        </h2>
+        <div class="tile-grid">
+          {(byCategory[cat.id] ?? []).map((entry) => (
+            <EntryTile entry={entry} />
+          ))}
+        </div>
+      </section>
+    ))
+  }
+</main>
+
+<style>
+  .landscape {
+    padding: 16px 20px;
+  }
+  .category-section {
+    margin-bottom: 24px;
+  }
+  .category-header {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #7eb8f7;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .count {
+    font-size: 10px;
+    background: #1e3a5f;
+    color: #7eb8f7;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: normal;
+    letter-spacing: 0;
+  }
+  .tile-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+</style>

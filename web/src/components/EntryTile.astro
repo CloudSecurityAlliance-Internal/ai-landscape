@@ -1,0 +1,104 @@
+---
+interface Entry {
+  id: string;
+  name: string;
+  description: string;
+  website: string;
+  logo?: string;
+  organization: string;
+  pricing: string;
+  license: string;
+  api_available?: boolean;
+  tags?: string[];
+  added: string;
+}
+
+interface Props {
+  entry: Entry;
+}
+
+const { entry } = Astro.props;
+const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+  .toISOString()
+  .split("T")[0];
+const isNew = entry.added > thirtyDaysAgo;
+---
+
+<a
+  href={entry.website}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="entry-tile"
+  data-pagefind-body
+  title={`${entry.name} — ${entry.description} (${entry.organization})`}
+>
+  {
+    entry.logo ? (
+      <img
+        src={`/${entry.logo}`}
+        alt={entry.name}
+        class="logo"
+        width="20"
+        height="20"
+      />
+    ) : (
+      <div class="logo-placeholder">{entry.name[0]}</div>
+    )
+  }
+  <span class="name">{entry.name}</span>
+  {isNew && <span class="new-badge">NEW</span>}
+</a>
+
+<style>
+  .entry-tile {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 8px;
+    background: #0f1a2a;
+    border: 1px solid #1a2a3a;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #ccc;
+    font-size: 11px;
+    transition: border-color 0.15s, background 0.15s;
+    max-width: 160px;
+  }
+  .entry-tile:hover {
+    border-color: #2a4a6a;
+    color: #fff;
+    background: #111f30;
+  }
+  .logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .logo-placeholder {
+    width: 20px;
+    height: 20px;
+    background: #1e3a5f;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    color: #7eb8f7;
+    flex-shrink: 0;
+  }
+  .name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .new-badge {
+    font-size: 8px;
+    background: #1a3d2b;
+    color: #6fcc8c;
+    padding: 1px 4px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+</style>

@@ -1,0 +1,81 @@
+---
+import yaml from "js-yaml";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import LandscapeGrid from "../components/LandscapeGrid.astro";
+import FilterBar from "../components/FilterBar.astro";
+
+const landscapePath = resolve(process.cwd(), "../data/landscape.yaml");
+const landscape = yaml.load(readFileSync(landscapePath, "utf8")) as any;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CSA AI Landscape</title>
+    <meta
+      name="description"
+      content="A map of the AI ecosystem by the Cloud Security Alliance"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        background: #0a0f1a;
+        color: #e0e0e0;
+        min-height: 100vh;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        background: #0d1520;
+        border-bottom: 1px solid #1a2a3a;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        height: 52px;
+      }
+      .site-title {
+        font-size: 1rem;
+        color: #7eb8f7;
+        font-weight: 600;
+      }
+      .site-subtitle {
+        font-size: 11px;
+        color: #555;
+        margin-left: 8px;
+      }
+      #search {
+        width: 260px;
+      }
+    </style>
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <span class="site-title">CSA AI Landscape</span>
+        <span class="site-subtitle"
+          >{landscape.entries.length} tools across {landscape.categories.length} categories</span
+        >
+      </div>
+      <div id="search"></div>
+    </header>
+    <FilterBar categories={landscape.categories} />
+    <LandscapeGrid landscape={landscape} />
+    <script is:inline src="/pagefind/pagefind-ui.js"></script>
+    <script is:inline>
+      new PagefindUI({ element: "#search", showSubResults: false });
+    </script>
+  </body>
+</html>
