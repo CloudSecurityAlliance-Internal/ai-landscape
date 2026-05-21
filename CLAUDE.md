@@ -10,7 +10,7 @@ License: **AGPL-3.0**. All dependencies and integrations must be AGPL-compatible
 
 ## Status
 
-This project is in active development. Phase 1 (data foundation) and Phase 3 (Astro web frontend) are complete and merged. Core conventions are established — see Key Conventions below. Check recent commits before assuming anything beyond what's documented here.
+This project is in active development. Phases 1–3 (data foundation, MCP server, and Astro web frontend) are complete and merged. Core conventions are established — see Key Conventions below. Check recent commits before assuming anything beyond what's documented here.
 
 ## Architecture
 
@@ -49,7 +49,7 @@ docs/superpowers/specs/   — design spec (taxonomy, data model, component detai
 - ✅ Phase 1 Task 1 — `agent/schema.py` (Pydantic models)
 - ✅ Phase 1 Task 2 — `data/landscape.yaml` seed file
 - ✅ Phase 1 Task 3 — `agent/validate.py` + CI workflow
-- ⬜ Phase 2 — MCP server (`mcp/`)
+- ✅ Phase 2 — MCP server (`mcp/`)
 - ✅ Phase 3 — Astro web frontend (`web/`)
 - ⬜ Phase 4 — Research + PR agent (`agent/research.py`, `agent/github_pr.py`, `agent/agent.py`)
 - ⬜ Phase 5 — Deploy + agent GitHub Actions workflows
