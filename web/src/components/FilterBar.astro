@@ -1,0 +1,70 @@
+---
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface Props {
+  categories: Category[];
+}
+
+const { categories } = Astro.props;
+---
+
+<nav class="filter-bar">
+  <button class="filter-btn active" data-category="all">All</button>
+  {
+    categories.map((cat) => (
+      <button class="filter-btn" data-category={cat.id}>
+        {cat.name}
+      </button>
+    ))
+  }
+</nav>
+
+<style>
+  .filter-bar {
+    display: flex;
+    gap: 4px;
+    padding: 8px 20px;
+    overflow-x: auto;
+    background: #0d1520;
+    border-bottom: 1px solid #1a2a3a;
+    position: sticky;
+    top: 52px;
+    z-index: 9;
+  }
+  .filter-btn {
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid #1a2a3a;
+    background: transparent;
+    color: #888;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+  .filter-btn.active,
+  .filter-btn:hover {
+    background: #1e3a5f;
+    color: #7eb8f7;
+    border-color: #2a4a6a;
+  }
+</style>
+
+<script>
+  document.querySelectorAll(".filter-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document
+        .querySelectorAll(".filter-btn")
+        .forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      const cat = btn.getAttribute("data-category");
+      document.querySelectorAll(".category-section").forEach((section) => {
+        const show =
+          cat === "all" || section.getAttribute("data-category") === cat;
+        (section as HTMLElement).style.display = show ? "" : "none";
+      });
+    });
+  });
+</script>
