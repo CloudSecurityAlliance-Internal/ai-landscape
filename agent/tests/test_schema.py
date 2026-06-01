@@ -1,6 +1,11 @@
 import pytest
 from pydantic import ValidationError
-from schema import LandscapeEntry, LandscapeFile
+from schema import (
+    LandscapeEntry,
+    LandscapeFile,
+    MAESTRO_LAYERS,
+    AICM_FAMILIES,
+)
 
 
 def _valid_entry(**overrides):
@@ -25,6 +30,8 @@ def _valid_landscape(**entry_overrides):
         "entries": [_valid_entry(**entry_overrides)],
     }
 
+
+# ── Existing tests (unchanged) ────────────────────────────────────────────────
 
 def test_valid_entry():
     entry = LandscapeEntry(**_valid_entry())
@@ -81,3 +88,157 @@ def test_invalid_subcategory_for_category():
     }
     with pytest.raises(ValidationError, match="subcategory"):
         LandscapeFile(**data)
+
+
+# ── RFC-001 field defaults ────────────────────────────────────────────────────
+
+def test_rfc001_fields_default_empty():
+    entry = LandscapeEntry(**_valid_entry())
+    assert entry.capability_tags == []
+    assert entry.buyer_problems == []
+    assert entry.integrations == []
+    assert entry.maestro_layers == []
+    assert entry.aicm_control_families == []
+    assert entry.csa_member is False
+    assert entry.vendor_type is None
+
+
+def test_csa_member_can_be_true():
+    entry = LandscapeEntry(**_valid_entry(csa_member=True))
+    assert entry.csa_member is True
+
+
+def test_vendor_type_valid_values():
+    for vt in ("ai-native", "cloud-native", "hybrid"):
+        entry = LandscapeEntry(**_valid_entry(vendor_type=vt))
+        assert entry.vendor_type == vt
+
+
+def test_vendor_type_invalid_rejects():
+    with pytest.raises(ValidationError):
+        LandscapeEntry(**_valid_entry(vendor_type="startup"))
+
+
+# ── MAESTRO layer validation ──────────────────────────────────────────────────
+
+def test_maestro_layers_accepts_all_valid():
+    for layer in MAESTRO_LAYERS:
+        entry = LandscapeEntry(**_valid_entry(maestro_layers=[layer]))
+        assert layer in entry.maestro_layers
+
+
+def test_maestro_layers_accepts_multiple():
+    layers = ["L1-foundation-models", "L6-security-controls"]
+    entry = LandscapeEntry(**_valid_entry(maestro_layers=layers))
+    assert entry.maestro_layers == layers
+
+
+def test_maestro_layers_rejects_unknown():
+    with pytest.raises(ValidationError, match="MAESTRO"):
+        LandscapeEntry(**_valid_entry(maestro_layers=["L99-does-not-exist"]))
+
+
+def test_maestro_layers_rejects_partial_match():
+    with pytest.raises(ValidationError, match="MAESTRO"):
+        LandscapeEntry(**_valid_entry(maestro_layers=["L1-foundation-models", "L99-bad"]))
+
+
+def test_maestro_layers_empty_list_accepted():
+    entry = LandscapeEntry(**_valid_entry(maestro_layers=[]))
+    assert entry.maestro_layers == []
+
+
+# ── AICM control family validation ───────────────────────────────────────────
+
+def test_aicm_families_accepts_all_valid():
+    for family in AICM_FAMILIES:
+        entry = LandscapeEntry(**_valid_entry(aicm_control_families=[family]))
+        assert family in entry.aicm_control_families
+
+
+def test_aicm_families_accepts_multiple():
+    families = ["TP", "GRM", "DSP"]
+    entry = LandscapeEntry(**_valid_entry(aicm_control_families=families))
+    assert entry.aicm_control_families == families
+
+
+def test_aicm_families_rejects_unknown():
+    with pytest.raises(ValidationError, match="AICM"):
+        LandscapeEntry(**_valid_entry(aicm_control_families=["XYZ"]))
+
+
+def test_aicm_families_rejects_partial_match():
+    with pytest.raises(ValidationError, match="AICM"):
+        LandscapeEntry(**_valid_entry(aicm_control_families=["TP", "BADONE"]))
+
+
+def test_aicm_families_empty_list_accepted():
+    entry = LandscapeEntry(**_valid_entry(aicm_control_families=[]))
+    assert entry.aicm_control_families == []
+
+
+# ── Category area and description ─────────────────────────────────────────────
+
+def test_category_area_field():
+    data = {
+        "categories": [
+            {
+                "id": "model-security",
+                "name": "Model Security & Integrity",
+                "area": "security-for-ai",
+                "description": "Protecting ML models from attack.",
+            }
+        ],
+        "entries": [_valid_entry(category="model-security")],
+    }
+    lf = LandscapeFile(**data)
+    cat = lf.categories[0]
+    assert cat.area == "security-for-ai"
+    assert cat.description == "Protecting ML models from attack."
+
+
+def test_category_area_is_optional():
+    data = _valid_landscape()
+    lf = LandscapeFile(**data)
+    assert lf.categories[0].area is None
+    assert lf.categories[0].description is None
+
+
+# ── Full RFC-001 entry round-trip ─────────────────────────────────────────────
+
+def test_full_rfc001_entry():
+    data = {
+        "categories": [{"id": "model-security", "name": "Model Security", "area": "security-for-ai"}],
+        "entries": [
+            {
+                "id": "test-vendor",
+                "name": "Test Vendor",
+                "category": "model-security",
+                "organization": "Test Corp",
+                "description": "Detects adversarial attacks on ML models.",
+                "website": "https://testvendor.example.com",
+                "license": "proprietary",
+                "pricing": "enterprise",
+                "api_available": True,
+                "vendor_type": "ai-native",
+                "csa_member": True,
+                "tags": ["model-security", "adversarial-ml"],
+                "capability_tags": ["ai-supply-chain"],
+                "buyer_problems": ["Detect adversarial attacks on deployed models"],
+                "integrations": ["AWS", "Azure"],
+                "maestro_layers": ["L1-foundation-models", "L6-security-controls"],
+                "aicm_control_families": ["TP", "SC"],
+                "added": "2026-06-01",
+                "updated": "2026-06-01",
+            }
+        ],
+    }
+    lf = LandscapeFile(**data)
+    entry = lf.entries[0]
+    assert entry.vendor_type == "ai-native"
+    assert entry.csa_member is True
+    assert entry.capability_tags == ["ai-supply-chain"]
+    assert entry.buyer_problems == ["Detect adversarial attacks on deployed models"]
+    assert entry.integrations == ["AWS", "Azure"]
+    assert "L1-foundation-models" in entry.maestro_layers
+    assert "TP" in entry.aicm_control_families
