@@ -104,6 +104,14 @@ const categoriesByArea = Object.fromEntries(
       </section>
     ))
   }
+  <div id="empty-state" class="empty-state" hidden>
+    <p class="empty-msg">No entries match the current filters.</p>
+    <p class="empty-hint">Try broadening your search or resetting the area and category filters above.</p>
+  </div>
+  <div id="empty-state-csa" class="empty-state" hidden>
+    <p class="empty-msg">No verified CSA member entries yet.</p>
+    <p class="empty-hint">CSA member status must be confirmed against the CSA member roster before publication.</p>
+  </div>
 </main>
 
 <style>
@@ -174,5 +182,22 @@ const categoriesByArea = Object.fromEntries(
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
+  }
+  .empty-state {
+    margin: 40px auto;
+    text-align: center;
+    max-width: 480px;
+    padding: 0 20px;
+  }
+  .empty-msg {
+    font-size: 13px;
+    color: #7eb8f7;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .empty-hint {
+    font-size: 11px;
+    color: #445566;
+    line-height: 1.5;
   }
 </style>

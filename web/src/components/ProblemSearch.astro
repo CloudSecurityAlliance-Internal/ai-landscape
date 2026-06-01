@@ -43,8 +43,12 @@
   }
   .problem-count {
     font-size: 11px;
-    color: #556;
+    color: #7eb8f7;
     white-space: nowrap;
+    transition: color 0.15s;
+  }
+  .problem-count[data-empty="true"] {
+    color: #e05555;
   }
 </style>
 
