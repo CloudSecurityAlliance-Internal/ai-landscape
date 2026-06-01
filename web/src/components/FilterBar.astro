@@ -33,16 +33,16 @@ const AREAS = [
     }
   </div>
   <div class="filter-sep"></div>
-  <div class="filter-group filter-cats">
-    <button class="filter-btn cat-btn active" data-category="all">All Categories</button>
+  <select class="cat-select" id="cat-select">
+    <option value="all">All Categories</option>
     {
       categories.map((cat) => (
-        <button class="filter-btn cat-btn" data-category={cat.id} data-cat-area={cat.area ?? ""}>
+        <option value={cat.id} data-cat-area={cat.area ?? ""}>
           {cat.name}
-        </button>
+        </option>
       ))
     }
-  </div>
+  </select>
   <div class="filter-sep"></div>
   <label class="csa-toggle">
     <input type="checkbox" id="csa-only" />
@@ -54,9 +54,8 @@ const AREAS = [
   .filter-bar {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     padding: 6px 20px;
-    overflow-x: auto;
     background: #0d1520;
     border-bottom: 1px solid #1a2a3a;
     position: sticky;
@@ -69,17 +68,12 @@ const AREAS = [
     gap: 3px;
     flex-shrink: 0;
   }
-  .filter-cats {
-    flex-shrink: 1;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-  }
   .filter-sep {
     width: 1px;
     height: 20px;
     background: #1a2a3a;
     flex-shrink: 0;
-    margin: 0 4px;
+    margin: 0 2px;
   }
   .filter-btn {
     padding: 3px 9px;
@@ -101,6 +95,22 @@ const AREAS = [
     background: #1a3040;
     color: #aad4f7;
     border-color: #2a5070;
+  }
+  .cat-select {
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #1a2a3a;
+    background: #0a1220;
+    color: #aaa;
+    font-size: 11px;
+    cursor: pointer;
+    outline: none;
+    min-width: 160px;
+    flex-shrink: 0;
+  }
+  .cat-select:focus {
+    border-color: #2a4a6a;
+    color: #e0e0e0;
   }
   .csa-toggle {
     display: flex;
@@ -127,76 +137,84 @@ const AREAS = [
   let csaOnly = false;
 
   function applyFilters() {
-    const tiles = document.querySelectorAll<HTMLAnchorElement>(".entry-tile");
+    const query =
+      (
+        document.getElementById("problem-input") as HTMLInputElement
+      )?.value
+        .trim()
+        .toLowerCase() ?? "";
+
+    const tiles = document.querySelectorAll<HTMLElement>(".entry-tile");
+    let visibleCount = 0;
+
     tiles.forEach((tile) => {
-      // Check CSA filter
-      if (csaOnly) {
-        const hasCsa = tile.querySelector(".csa-badge") !== null;
-        if (!hasCsa) {
-          tile.style.display = "none";
-          return;
-        }
-      }
-      tile.style.display = "";
+      const section = tile.closest<HTMLElement>(".category-section");
+      const tileArea = section?.getAttribute("data-area") ?? "";
+      const tileCat = section?.getAttribute("data-category") ?? "";
+
+      const areaMatch = activeArea === "all" || tileArea === activeArea;
+      const catMatch = activeCategory === "all" || tileCat === activeCategory;
+      const csaMatch = !csaOnly || tile.querySelector(".csa-badge") !== null;
+      const searchMatch =
+        !query || (tile.getAttribute("data-search") ?? "").includes(query);
+
+      const show = areaMatch && catMatch && csaMatch && searchMatch;
+      tile.style.display = show ? "" : "none";
+      if (show) visibleCount++;
     });
 
-    // Category sections: show/hide based on area + category filters
+    // Cascade: hide category sections with no visible tiles
     document.querySelectorAll<HTMLElement>(".category-section").forEach((sec) => {
-      const secCat = sec.getAttribute("data-category") ?? "";
-      const secArea = sec.getAttribute("data-area") ?? "";
-
-      const areaMatch = activeArea === "all" || secArea === activeArea;
-      const catMatch = activeCategory === "all" || secCat === activeCategory;
-      sec.style.display = areaMatch && catMatch ? "" : "none";
-    });
-
-    // Area sections: show if they contain any visible category sections
-    document.querySelectorAll<HTMLElement>(".area-section").forEach((sec) => {
-      const anyVisible = [...sec.querySelectorAll<HTMLElement>(".category-section")].some(
-        (c) => c.style.display !== "none"
-      );
+      const anyVisible = [
+        ...sec.querySelectorAll<HTMLElement>(".entry-tile"),
+      ].some((t) => t.style.display !== "none");
       sec.style.display = anyVisible ? "" : "none";
     });
 
-    // Let ProblemSearch reconcile its own query on top, if active
-    if (typeof (window as any).__applyProblemSearch === "function") {
-      (window as any).__applyProblemSearch();
-    }
-
-    // Show/hide category buttons based on selected area
-    document.querySelectorAll<HTMLBtn>(".cat-btn[data-category]").forEach((btn) => {
-      const btnArea = btn.getAttribute("data-cat-area") ?? "";
-      const btnCat = btn.getAttribute("data-category") ?? "";
-      if (btnCat === "all") return;
-      btn.style.display = activeArea === "all" || btnArea === activeArea ? "" : "none";
+    // Cascade: hide area sections with no visible categories
+    document.querySelectorAll<HTMLElement>(".area-section").forEach((sec) => {
+      const anyVisible = [
+        ...sec.querySelectorAll<HTMLElement>(".category-section"),
+      ].some((c) => c.style.display !== "none");
+      sec.style.display = anyVisible ? "" : "none";
     });
+
+    // Update search result count
+    const countEl = document.getElementById("problem-count");
+    if (countEl) {
+      countEl.textContent = query
+        ? `${visibleCount} result${visibleCount !== 1 ? "s" : ""}`
+        : "";
+    }
   }
 
-  // Area filter
+  // Expose for ProblemSearch to call
+  (window as any).__applyFilters = applyFilters;
+
+  // Area buttons
   document.querySelectorAll<HTMLBtn>(".area-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
-      document.querySelectorAll<HTMLBtn>(".area-btn").forEach((b) => b.classList.remove("active"));
+      document
+        .querySelectorAll<HTMLBtn>(".area-btn")
+        .forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
       activeArea = btn.getAttribute("data-area") ?? "all";
-      // Reset category to "all" when switching area
+      // Reset category when switching area
       activeCategory = "all";
-      document.querySelectorAll<HTMLBtn>(".cat-btn").forEach((b) => b.classList.remove("active"));
-      document.querySelector<HTMLBtn>('.cat-btn[data-category="all"]')?.classList.add("active");
+      const sel = document.getElementById("cat-select") as HTMLSelectElement;
+      if (sel) sel.value = "all";
       applyFilters();
     });
   });
 
-  // Category filter
-  document.querySelectorAll<HTMLBtn>(".cat-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll<HTMLBtn>(".cat-btn").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      activeCategory = btn.getAttribute("data-category") ?? "all";
-      applyFilters();
-    });
+  // Category dropdown
+  const catSelect = document.getElementById("cat-select") as HTMLSelectElement;
+  catSelect?.addEventListener("change", () => {
+    activeCategory = catSelect.value;
+    applyFilters();
   });
 
-  // CSA members toggle
+  // CSA toggle
   const csaCheckbox = document.getElementById("csa-only") as HTMLInputElement;
   csaCheckbox?.addEventListener("change", () => {
     csaOnly = csaCheckbox.checked;
