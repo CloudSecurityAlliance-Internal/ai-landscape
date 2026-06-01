@@ -40,6 +40,14 @@ class Category(BaseModel):
     subcategories: list[Subcategory] = Field(default_factory=list)
 
 
+class ReviewMetadata(BaseModel):
+    status: Literal["seed", "needs-review", "reviewed", "verified"]
+    last_reviewed: Optional[date] = None
+    reviewed_by: Optional[str] = None
+    verification_needed: list[str] = Field(default_factory=list)
+    notes: Optional[str] = None
+
+
 class LandscapeEntry(BaseModel):
     # Core identity
     id: str
@@ -72,6 +80,7 @@ class LandscapeEntry(BaseModel):
     aicm_control_families: list[str] = Field(default_factory=list)
     csa_member: bool = False
     vendor_type: Optional[Literal["ai-native", "cloud-native", "hybrid"]] = None
+    review: Optional[ReviewMetadata] = None
 
     @field_validator("maestro_layers", mode="after")
     @classmethod
