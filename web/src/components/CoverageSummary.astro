@@ -1,0 +1,464 @@
+---
+interface Entry {
+  id: string;
+  name: string;
+  category: string;
+  vendor_type?: string;
+  capability_tags?: string[];
+  integrations?: string[];
+  maestro_layers?: string[];
+  aicm_control_families?: string[];
+}
+
+interface Category {
+  id: string;
+  name: string;
+  area: string;
+}
+
+interface Props {
+  landscape: { categories: Category[]; entries: Entry[] };
+}
+
+const { landscape } = Astro.props;
+const { entries, categories } = landscape;
+
+const totalEntries = entries.length;
+const totalCategories = categories.length;
+const totalAreas = 3;
+
+// By area
+const AREA_LABELS: Record<string, string> = {
+  "security-for-ai": "Security for AI",
+  "ai-for-security": "AI for Security",
+  "ai-governance-risk": "Governance & Risk",
+};
+const byArea = Object.fromEntries(
+  Object.keys(AREA_LABELS).map((areaId) => [
+    areaId,
+    entries.filter((e) => categories.find((c) => c.id === e.category)?.area === areaId).length,
+  ])
+);
+
+// By vendor type
+const VENDOR_LABELS: Record<string, string> = {
+  "ai-native": "AI-Native",
+  "cloud-native": "Cloud-Native",
+  hybrid: "Hybrid",
+};
+const byVendorType: Record<string, number> = {};
+for (const e of entries) {
+  if (e.vendor_type) byVendorType[e.vendor_type] = (byVendorType[e.vendor_type] ?? 0) + 1;
+}
+
+// Top integrations (exact string match, top 8)
+const integrationCounts: Record<string, number> = {};
+for (const e of entries) {
+  for (const integ of e.integrations ?? []) {
+    integrationCounts[integ] = (integrationCounts[integ] ?? 0) + 1;
+  }
+}
+const topIntegrations = Object.entries(integrationCounts)
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 8);
+
+// Top capability tags (top 6 by cross-entry frequency)
+const capTagCounts: Record<string, number> = {};
+for (const e of entries) {
+  for (const tag of e.capability_tags ?? []) {
+    capTagCounts[tag] = (capTagCounts[tag] ?? 0) + 1;
+  }
+}
+const topCapTags = Object.entries(capTagCounts)
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 6);
+
+// MAESTRO layer coverage
+const MAESTRO_LAYERS = [
+  { id: "L1-foundation-models", short: "L1", label: "Foundation Models" },
+  { id: "L2-data-operations", short: "L2", label: "Data Operations" },
+  { id: "L3-agent-frameworks", short: "L3", label: "Agent Frameworks" },
+  { id: "L4-deployment-infrastructure", short: "L4", label: "Deployment Infra" },
+  { id: "L5-observability-feedback", short: "L5", label: "Observability & Feedback" },
+  { id: "L6-security-controls", short: "L6", label: "Security Controls" },
+  { id: "L7-ecosystem-governance", short: "L7", label: "Ecosystem Governance" },
+];
+const maestroCounts: Record<string, number> = {};
+for (const e of entries) {
+  for (const layer of e.maestro_layers ?? []) {
+    maestroCounts[layer] = (maestroCounts[layer] ?? 0) + 1;
+  }
+}
+
+// AICM control families, sorted by entry count
+const aicmCounts: Record<string, number> = {};
+for (const e of entries) {
+  for (const fam of e.aicm_control_families ?? []) {
+    aicmCounts[fam] = (aicmCounts[fam] ?? 0) + 1;
+  }
+}
+const sortedAicm = Object.entries(aicmCounts).sort((a, b) => b[1] - a[1]);
+
+// Categories with 0 or 1 entries — potential areas for additional research
+const entriesByCategory = Object.fromEntries(
+  categories.map((cat) => [cat.id, entries.filter((e) => e.category === cat.id).length])
+);
+const emptyCategories = categories.filter((cat) => (entriesByCategory[cat.id] ?? 0) === 0);
+const sparseCategories = categories.filter((cat) => (entriesByCategory[cat.id] ?? 0) === 1);
+---
+
+<details class="coverage-panel">
+  <summary class="coverage-summary">
+    <span class="coverage-title">Market Coverage</span>
+    <span class="coverage-headline">
+      <span class="hl-num">{totalEntries}</span> entries &middot;
+      <span class="hl-num">{totalCategories}</span> categories &middot;
+      <span class="hl-num">{totalAreas}</span> areas
+    </span>
+  </summary>
+
+  <div class="coverage-body">
+    <div class="stat-row">
+
+      <div class="stat-group">
+        <div class="stat-group-label">By Area</div>
+        {Object.entries(AREA_LABELS).map(([areaId, label]) => (
+          <div class="stat-item">
+            <span class="stat-name">{label}</span>
+            <span class="stat-count">{byArea[areaId] ?? 0}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="stat-group">
+        <div class="stat-group-label">Vendor Type</div>
+        {Object.entries(VENDOR_LABELS).map(([type, label]) => (
+          <div class="stat-item">
+            <span class="stat-name">{label}</span>
+            <span class="stat-count">{byVendorType[type] ?? 0}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="stat-group stat-group--integrations">
+        <div class="stat-group-label">Top Integrations</div>
+        <div class="integ-grid">
+          {topIntegrations.map(([name, count]) => (
+            <span class="integ-item">
+              {name}<span class="integ-count">{count}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div class="stat-group">
+        <div class="stat-group-label">Ancillary Cap. Tags</div>
+        {topCapTags.map(([tag, count]) => (
+          <div class="stat-item">
+            <span class="stat-name stat-name--code">{tag}</span>
+            <span class="stat-count">&times;{count}</span>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+    <div class="framework-row">
+
+      <div class="maestro-group">
+        <div class="stat-group-label">MAESTRO Layer Coverage</div>
+        <div class="maestro-bars">
+          {MAESTRO_LAYERS.map(({ id, short, label }) => {
+            const count = maestroCounts[id] ?? 0;
+            const pct = totalEntries > 0 ? Math.round((count / totalEntries) * 100) : 0;
+            return (
+              <div class="maestro-item" title={`${label}: ${count} of ${totalEntries} entries`}>
+                <span class="maestro-short">{short}</span>
+                <div class="bar-track">
+                  {pct > 0 && <div class="bar-fill" style={`width: ${pct}%`} />}
+                </div>
+                <span class="maestro-count">{count}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div class="aicm-group">
+        <div class="stat-group-label">AICM Control Families</div>
+        <div class="aicm-chips">
+          {sortedAicm.map(([family, count]) => (
+            <span class="aicm-chip" title={`${count} entries cover ${family}`}>
+              <span class="aicm-code">{family}</span>
+              <span class="aicm-count">{count}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+    </div>
+
+    {(emptyCategories.length > 0 || sparseCategories.length > 0) && (
+      <div class="gaps-row">
+        <div class="gaps-header">
+          <span class="stat-group-label">Categories with 0–1 entries</span>
+          <span class="gaps-note">Seed dataset — potential areas for additional research, not confirmed market gaps</span>
+        </div>
+        <div class="gaps-chips">
+          {emptyCategories.map((cat) => (
+            <span class="gaps-chip gaps-chip--empty" title="0 entries in seed dataset">{cat.name}</span>
+          ))}
+          {sparseCategories.map((cat) => (
+            <span class="gaps-chip gaps-chip--sparse" title="1 entry in seed dataset">{cat.name}</span>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</details>
+
+<style>
+  .coverage-panel {
+    background: #f0f6fc;
+    border-bottom: 1px solid #d0d7de;
+    font-size: 11px;
+    color: #1f2328;
+  }
+
+  .coverage-summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 20px;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    font-size: 11px;
+  }
+  .coverage-summary::-webkit-details-marker {
+    display: none;
+  }
+  .coverage-summary::before {
+    content: "▶";
+    font-size: 8px;
+    color: #005b99;
+    display: inline-block;
+    transition: transform 0.15s;
+    flex-shrink: 0;
+  }
+  details[open] > .coverage-summary::before {
+    transform: rotate(90deg);
+  }
+
+  .coverage-title {
+    font-weight: 700;
+    color: #005b99;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+  }
+  .coverage-headline {
+    color: #57606a;
+    font-size: 10px;
+  }
+  .hl-num {
+    font-weight: 700;
+    color: #005b99;
+  }
+
+  .coverage-body {
+    padding: 8px 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* ── Stat row ─────────────────────────────────────── */
+  .stat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    align-items: flex-start;
+  }
+  .stat-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 110px;
+  }
+  .stat-group--integrations {
+    min-width: 220px;
+  }
+  .stat-group-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #005b99;
+    margin-bottom: 3px;
+  }
+  .stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .stat-name {
+    font-size: 10px;
+    color: #57606a;
+  }
+  .stat-name--code {
+    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    font-size: 9px;
+    color: #1e40af;
+  }
+  .stat-count {
+    font-size: 10px;
+    font-weight: 600;
+    color: #1f2328;
+    flex-shrink: 0;
+  }
+
+  /* ── Integrations grid ────────────────────────────── */
+  .integ-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 12px;
+  }
+  .integ-item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 3px;
+    font-size: 10px;
+    color: #57606a;
+    white-space: nowrap;
+  }
+  .integ-count {
+    font-size: 9px;
+    font-weight: 600;
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 0 4px;
+    border-radius: 8px;
+  }
+
+  /* ── Framework row ────────────────────────────────── */
+  .framework-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    align-items: flex-start;
+    padding-top: 6px;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  /* ── MAESTRO bars ─────────────────────────────────── */
+  .maestro-group {
+    flex-shrink: 0;
+  }
+  .maestro-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .maestro-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .maestro-short {
+    font-size: 9px;
+    font-weight: 700;
+    color: #005b99;
+    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    width: 18px;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    width: 88px;
+    height: 6px;
+    background: #dbeafe;
+    border-radius: 3px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .bar-fill {
+    height: 100%;
+    background: #1a78c2;
+    border-radius: 3px;
+  }
+  .maestro-count {
+    font-size: 9px;
+    color: #57606a;
+    width: 14px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ── AICM chips ───────────────────────────────────── */
+  .aicm-group {
+    flex: 1 1 180px;
+  }
+  .aicm-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+  .aicm-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-size: 9px;
+  }
+  .aicm-code {
+    font-weight: 700;
+    color: #005b99;
+    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  }
+  .aicm-count {
+    color: #57606a;
+  }
+
+  /* ── Gaps row ─────────────────────────────────────── */
+  .gaps-row {
+    padding-top: 6px;
+    border-top: 1px solid #e2e8f0;
+  }
+  .gaps-header {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .gaps-note {
+    font-size: 9px;
+    color: #9ca3af;
+    font-style: italic;
+  }
+  .gaps-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+  .gaps-chip {
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+  .gaps-chip--empty {
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fecaca;
+  }
+  .gaps-chip--sparse {
+    background: #fff7ed;
+    color: #c2410c;
+    border-color: #fed7aa;
+  }
+</style>
