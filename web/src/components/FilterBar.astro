@@ -48,7 +48,34 @@ const AREAS = [
     <input type="checkbox" id="csa-only" />
     <span>CSA Members only</span>
   </label>
+  <div class="filter-sep"></div>
+  <button class="about-btn" id="about-btn" title="How to use this map">?</button>
 </nav>
+
+<div id="info-panel" class="info-panel" hidden>
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="info-label">Primary category</span>
+      <span class="info-text">Each vendor's column placement — their main market segment within the landscape.</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Ancillary tags</span>
+      <span class="info-text">Purple chips on each tile — cross-cutting capabilities beyond the primary category. A vendor can appear in multiple capability contexts without being miscategorized.</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Problem search</span>
+      <span class="info-text">Describe your security problem in plain language. Matches vendor descriptions, tags, and buyer problems — no category vocabulary required.</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">AICM / MAESTRO mappings</span>
+      <span class="info-text">Each vendor is mapped to CSA AI Controls Matrix (AICM) control families and MAESTRO AI stack layers. These mappings are part of the vendor metadata and searchable by code — e.g. <code>IAM</code>, <code>SC</code>, <code>L3-agent-frameworks</code>.</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Integrations</span>
+      <span class="info-text">Ecosystem mapping — platforms and tools each vendor supports. Search by platform name (e.g. <code>Splunk</code>, <code>AWS</code>) to find vendors that fit your stack.</span>
+    </div>
+  </div>
+</div>
 
 <style>
   .filter-bar {
@@ -127,6 +154,60 @@ const AREAS = [
     accent-color: #7eb8f7;
     cursor: pointer;
   }
+  .about-btn {
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #1a2a3a;
+    background: transparent;
+    color: #556677;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .about-btn:hover,
+  .about-btn.active {
+    background: #1e3a5f;
+    color: #7eb8f7;
+    border-color: #2a4a6a;
+  }
+  .info-panel {
+    background: #0a1220;
+    border-bottom: 1px solid #1a2a3a;
+    padding: 10px 20px;
+  }
+  .info-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+  }
+  .info-item {
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
+    font-size: 11px;
+    flex: 1 1 220px;
+    max-width: 480px;
+  }
+  .info-label {
+    color: #7eb8f7;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .info-text {
+    color: #556677;
+    line-height: 1.4;
+  }
+  .info-text code {
+    background: #1a2a3a;
+    color: #aad4f7;
+    padding: 0 3px;
+    border-radius: 2px;
+    font-size: 10px;
+    font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  }
 </style>
 
 <script>
@@ -145,6 +226,7 @@ const AREAS = [
         .toLowerCase() ?? "";
 
     const tiles = document.querySelectorAll<HTMLElement>(".entry-tile");
+    const totalTiles = tiles.length;
     let visibleCount = 0;
 
     tiles.forEach((tile) => {
@@ -179,12 +261,31 @@ const AREAS = [
       sec.style.display = anyVisible ? "" : "none";
     });
 
-    // Update search result count
+    // Update result count — show whenever any filter is active
+    const anyFilterActive =
+      activeArea !== "all" || activeCategory !== "all" || csaOnly || !!query;
     const countEl = document.getElementById("problem-count");
     if (countEl) {
-      countEl.textContent = query
-        ? `${visibleCount} result${visibleCount !== 1 ? "s" : ""}`
-        : "";
+      if (anyFilterActive) {
+        countEl.textContent = `${visibleCount} of ${totalTiles} match`;
+        countEl.setAttribute("data-empty", visibleCount === 0 ? "true" : "false");
+      } else {
+        countEl.textContent = "";
+        countEl.removeAttribute("data-empty");
+      }
+    }
+
+    // Show appropriate empty state when no entries match
+    const emptyEl = document.getElementById("empty-state") as HTMLElement | null;
+    const emptyCSAEl = document.getElementById("empty-state-csa") as HTMLElement | null;
+    if (emptyEl && emptyCSAEl) {
+      if (visibleCount === 0) {
+        emptyEl.hidden = csaOnly;
+        emptyCSAEl.hidden = !csaOnly;
+      } else {
+        emptyEl.hidden = true;
+        emptyCSAEl.hidden = true;
+      }
     }
   }
 
@@ -219,5 +320,15 @@ const AREAS = [
   csaCheckbox?.addEventListener("change", () => {
     csaOnly = csaCheckbox.checked;
     applyFilters();
+  });
+
+  // About panel toggle
+  const aboutBtn = document.getElementById("about-btn") as HTMLButtonElement;
+  const infoPanel = document.getElementById("info-panel") as HTMLElement;
+  aboutBtn?.addEventListener("click", () => {
+    infoPanel.hidden = !infoPanel.hidden;
+    aboutBtn.classList.toggle("active", !infoPanel.hidden);
+    aboutBtn.textContent = infoPanel.hidden ? "?" : "✕";
+    aboutBtn.title = infoPanel.hidden ? "How to use this map" : "Close";
   });
 </script>
