@@ -20,6 +20,7 @@ interface Entry {
   buyer_problems?: string[];
   maestro_layers?: string[];
   aicm_control_families?: string[];
+  review?: { status?: string; last_reviewed?: string | null; reviewed_by?: string | null };
   added: string;
 }
 

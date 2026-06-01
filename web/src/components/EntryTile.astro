@@ -1,4 +1,10 @@
 ---
+interface ReviewMeta {
+  status?: string;
+  last_reviewed?: string | null;
+  reviewed_by?: string | null;
+}
+
 interface Entry {
   id: string;
   name: string;
@@ -18,6 +24,7 @@ interface Entry {
   buyer_problems?: string[];
   maestro_layers?: string[];
   aicm_control_families?: string[];
+  review?: ReviewMeta;
   added: string;
 }
 
@@ -32,6 +39,15 @@ const vendorTypeLabel: Record<string, string> = {
   "cloud-native": "Cloud-Native",
   hybrid: "Hybrid",
 };
+
+const reviewStatusLabel: Record<string, string> = {
+  seed: "seed",
+  "needs-review": "needs-review",
+  reviewed: "reviewed",
+  verified: "verified",
+};
+
+const reviewStatus = entry.review?.status ?? "unknown";
 
 const searchText = [
   entry.name,
@@ -55,6 +71,7 @@ const searchText = [
   class="entry-tile"
   data-pagefind-body
   data-search={searchText}
+  data-review-status={reviewStatus}
   title={`${entry.name} — ${entry.description} (${entry.organization})`}
 >
   <div class="tile-top">
@@ -86,6 +103,9 @@ const searchText = [
         <span class="chip chip-cap">{tag}</span>
       ))
     }
+    <span class:list={["chip", "chip-review", `chip-review--${reviewStatus}`]}>
+      {reviewStatusLabel[reviewStatus] ?? reviewStatus}
+    </span>
   </div>
   {
     (entry.integrations ?? []).length > 0 && (
@@ -189,6 +209,30 @@ const searchText = [
     background: #dbeafe;
     color: #1e40af;
     border: 1px solid #bfdbfe;
+  }
+  .chip-review {
+    margin-left: auto;
+  }
+  .chip-review--seed,
+  .chip-review--unknown {
+    background: #f6f8fa;
+    color: #57606a;
+    border: 1px solid #d0d7de;
+  }
+  .chip-review--needs-review {
+    background: #fff8c5;
+    color: #7d4e00;
+    border: 1px solid #d4a72c;
+  }
+  .chip-review--reviewed {
+    background: #dafbe1;
+    color: #1a4731;
+    border: 1px solid #74d99f;
+  }
+  .chip-review--verified {
+    background: #ddf4ff;
+    color: #0550ae;
+    border: 1px solid #79c0ff;
   }
   .integrations {
     color: #9ca3af;
