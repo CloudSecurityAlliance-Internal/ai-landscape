@@ -2,6 +2,7 @@
 interface Entry {
   id: string;
   name: string;
+  category: string;
   description: string;
   website: string;
   logo?: string;
@@ -9,7 +10,14 @@ interface Entry {
   pricing: string;
   license: string;
   api_available?: boolean;
+  vendor_type?: string;
+  csa_member?: boolean;
   tags?: string[];
+  capability_tags?: string[];
+  integrations?: string[];
+  buyer_problems?: string[];
+  maestro_layers?: string[];
+  aicm_control_families?: string[];
   added: string;
 }
 
@@ -18,10 +26,26 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
-  .toISOString()
-  .split("T")[0];
-const isNew = entry.added > thirtyDaysAgo;
+
+const vendorTypeLabel: Record<string, string> = {
+  "ai-native": "AI-Native",
+  "cloud-native": "Cloud-Native",
+  hybrid: "Hybrid",
+};
+
+const searchText = [
+  entry.name,
+  entry.organization,
+  entry.description,
+  ...(entry.tags ?? []),
+  ...(entry.capability_tags ?? []),
+  ...(entry.buyer_problems ?? []),
+  ...(entry.integrations ?? []),
+  ...(entry.maestro_layers ?? []),
+  ...(entry.aicm_control_families ?? []),
+]
+  .join(" ")
+  .toLowerCase();
 ---
 
 <a
@@ -30,31 +54,57 @@ const isNew = entry.added > thirtyDaysAgo;
   rel="noopener noreferrer"
   class="entry-tile"
   data-pagefind-body
+  data-search={searchText}
   title={`${entry.name} — ${entry.description} (${entry.organization})`}
 >
+  <div class="tile-top">
+    {
+      entry.logo ? (
+        <img
+          src={`/${entry.logo}`}
+          alt={entry.name}
+          class="logo"
+          width="18"
+          height="18"
+        />
+      ) : (
+        <div class="logo-placeholder">{entry.name[0]}</div>
+      )
+    }
+    <span class="name">{entry.name}</span>
+    {entry.csa_member && <span class="csa-badge" title="CSA Member">CSA</span>}
+  </div>
+  <div class="org">{entry.organization}</div>
+  <div class="chips">
+    {
+      entry.vendor_type && (
+        <span class="chip chip-vendor">{vendorTypeLabel[entry.vendor_type] ?? entry.vendor_type}</span>
+      )
+    }
+    {
+      (entry.capability_tags ?? []).slice(0, 2).map((tag) => (
+        <span class="chip chip-cap">{tag}</span>
+      ))
+    }
+  </div>
   {
-    entry.logo ? (
-      <img
-        src={`/${entry.logo}`}
-        alt={entry.name}
-        class="logo"
-        width="20"
-        height="20"
-      />
-    ) : (
-      <div class="logo-placeholder">{entry.name[0]}</div>
+    (entry.integrations ?? []).length > 0 && (
+      <div class="integrations">
+        {(entry.integrations ?? []).slice(0, 3).join(" · ")}
+        {(entry.integrations ?? []).length > 3 && (
+          <span class="more">+{(entry.integrations ?? []).length - 3}</span>
+        )}
+      </div>
     )
   }
-  <span class="name">{entry.name}</span>
-  {isNew && <span class="new-badge">NEW</span>}
 </a>
 
 <style>
   .entry-tile {
     display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 8px;
+    flex-direction: column;
+    gap: 3px;
+    padding: 6px 8px;
     background: #0f1a2a;
     border: 1px solid #1a2a3a;
     border-radius: 4px;
@@ -62,28 +112,34 @@ const isNew = entry.added > thirtyDaysAgo;
     color: #ccc;
     font-size: 11px;
     transition: border-color 0.15s, background 0.15s;
-    max-width: 160px;
+    width: 168px;
+    min-height: 72px;
   }
   .entry-tile:hover {
     border-color: #2a4a6a;
     color: #fff;
     background: #111f30;
   }
+  .tile-top {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
   .logo {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     object-fit: contain;
     flex-shrink: 0;
   }
   .logo-placeholder {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     background: #1e3a5f;
     border-radius: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: bold;
     color: #7eb8f7;
     flex-shrink: 0;
@@ -92,13 +148,57 @@ const isNew = entry.added > thirtyDaysAgo;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: 600;
+    color: #e0e0e0;
+    flex: 1;
   }
-  .new-badge {
+  .csa-badge {
     font-size: 8px;
-    background: #1a3d2b;
-    color: #6fcc8c;
+    background: #1a3a5f;
+    color: #7eb8f7;
+    border: 1px solid #2a4a6a;
     padding: 1px 4px;
     border-radius: 2px;
     flex-shrink: 0;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .org {
+    color: #666;
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .chips {
+    display: flex;
+    gap: 3px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    font-size: 9px;
+    padding: 1px 4px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .chip-vendor {
+    background: #1a2a1a;
+    color: #6fcc8c;
+    border: 1px solid #1e3a1e;
+  }
+  .chip-cap {
+    background: #1a1a2a;
+    color: #9988dd;
+    border: 1px solid #2a2a3a;
+  }
+  .integrations {
+    color: #555;
+    font-size: 9px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .more {
+    color: #666;
   }
 </style>

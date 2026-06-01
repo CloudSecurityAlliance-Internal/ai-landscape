@@ -1,0 +1,59 @@
+---
+// No props — pure client-side search component
+---
+
+<div class="problem-search">
+  <input
+    type="search"
+    id="problem-input"
+    class="problem-input"
+    placeholder="Search by problem, tool, or keyword…"
+    autocomplete="off"
+    spellcheck="false"
+  />
+  <span id="problem-count" class="problem-count"></span>
+</div>
+
+<style>
+  .problem-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+  .problem-input {
+    flex: 1;
+    min-width: 160px;
+    max-width: 320px;
+    padding: 4px 10px;
+    background: #0a1220;
+    border: 1px solid #1a2a3a;
+    border-radius: 4px;
+    color: #ccc;
+    font-size: 12px;
+    outline: none;
+  }
+  .problem-input:focus {
+    border-color: #2a4a6a;
+    color: #e0e0e0;
+  }
+  .problem-input::placeholder {
+    color: #445;
+  }
+  .problem-count {
+    font-size: 11px;
+    color: #556;
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  const input = document.getElementById("problem-input") as HTMLInputElement;
+
+  input?.addEventListener("input", () => {
+    if (typeof (window as any).__applyFilters === "function") {
+      (window as any).__applyFilters();
+    }
+  });
+</script>

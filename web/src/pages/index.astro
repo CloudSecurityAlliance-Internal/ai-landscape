@@ -4,9 +4,13 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import LandscapeGrid from "../components/LandscapeGrid.astro";
 import FilterBar from "../components/FilterBar.astro";
+import ProblemSearch from "../components/ProblemSearch.astro";
 
 const landscapePath = resolve(process.cwd(), "../data/landscape.yaml");
 const landscape = yaml.load(readFileSync(landscapePath, "utf8")) as any;
+
+const totalEntries = landscape.entries.length;
+const totalCategories = landscape.categories.length;
 ---
 
 <!doctype html>
@@ -14,10 +18,10 @@ const landscape = yaml.load(readFileSync(landscapePath, "utf8")) as any;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CSA AI Landscape</title>
+    <title>CSA AI Security Landscape</title>
     <meta
       name="description"
-      content="A map of the AI ecosystem by the Cloud Security Alliance"
+      content="Vendor-neutral market map for AI security and observability — Cloud Security Alliance"
     />
     <style>
       *,
@@ -36,46 +40,70 @@ const landscape = yaml.load(readFileSync(landscapePath, "utf8")) as any;
       header {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding: 10px 20px;
+        padding: 0 20px;
         background: #0d1520;
         border-bottom: 1px solid #1a2a3a;
         position: sticky;
         top: 0;
         z-index: 10;
         height: 52px;
+        gap: 20px;
+      }
+      .brand {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        flex-shrink: 0;
       }
       .site-title {
-        font-size: 1rem;
+        font-size: 14px;
         color: #7eb8f7;
-        font-weight: 600;
+        font-weight: 700;
+        letter-spacing: 0.3px;
       }
       .site-subtitle {
-        font-size: 11px;
-        color: #555;
-        margin-left: 8px;
+        font-size: 10px;
+        color: #445566;
       }
-      #search {
-        width: 260px;
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex: 1;
+        justify-content: flex-end;
+        min-width: 0;
+      }
+      .meta-stat {
+        font-size: 10px;
+        color: #445;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .meta-stat strong {
+        color: #7eb8f7;
       }
     </style>
     <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
   </head>
   <body>
     <header>
-      <div>
-        <span class="site-title">CSA AI Landscape</span>
+      <div class="brand">
+        <span class="site-title">CSA AI Security Landscape</span>
         <span class="site-subtitle"
-          >{landscape.entries.length} tools across {landscape.categories.length} categories</span
+          >Vendor-neutral market map for AI security and observability</span
         >
       </div>
-      <div id="search"></div>
+      <div class="header-right">
+        <span class="meta-stat"
+          ><strong>{totalEntries}</strong> tools &middot; <strong
+            >{totalCategories}</strong
+          > categories</span
+        >
+        <ProblemSearch />
+      </div>
     </header>
     <FilterBar categories={landscape.categories} />
     <LandscapeGrid landscape={landscape} />
     <script is:inline src="/pagefind/pagefind-ui.js"></script>
-    <script is:inline>
-      new PagefindUI({ element: "#search", showSubResults: false });
-    </script>
   </body>
 </html>
