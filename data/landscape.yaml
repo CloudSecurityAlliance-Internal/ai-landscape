@@ -576,3 +576,776 @@ entries:
     aicm_control_families: [GRM, CAI, DSP]
     added: 2026-06-01
     updated: 2026-06-01
+
+  # ── Security for AI (continued) ──────────────────────────────────────────────
+
+  - id: mindgard
+    name: Mindgard
+    category: model-security
+    organization: Mindgard
+    description: >-
+      AI security testing platform that probes ML models and LLM applications
+      for adversarial vulnerabilities, model extraction risks, and safety
+      failures using automated attack simulation.
+    website: https://mindgard.ai
+    github: null
+    license: proprietary
+    pricing: paid
+    api_available: true
+    vendor_type: ai-native
+    csa_member: false
+    tags: [model-security, adversarial-ml, ai-red-teaming, llm-security]
+    capability_tags: [ai-red-teaming]
+    buyer_problems:
+      - Test ML models for adversarial vulnerabilities before and after deployment
+      - Identify model extraction and inversion attack exposure
+      - Run automated safety and security evaluations against LLM applications
+      - Generate evidence of adversarial testing for compliance and audit purposes
+    integrations: [AWS, Azure, GCP, Hugging Face]
+    maestro_layers:
+      - L1-foundation-models
+      - L6-security-controls
+    aicm_control_families: [TP, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: calypsoai
+    name: CalypsoAI
+    category: model-security
+    organization: CalypsoAI
+    description: >-
+      Enterprise AI security platform providing model access controls, usage
+      governance, and content scanning for organizations deploying LLMs
+      internally or through third-party APIs.
+    website: https://calypsoai.com
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: ai-native
+    csa_member: false
+    tags: [model-security, llm-security, access-control, ai-governance]
+    capability_tags: [agent-security, ai-governance]
+    buyer_problems:
+      - Control which AI models employees can access and under what policies
+      - Scan model inputs and outputs for sensitive data and policy violations
+      - Maintain audit logs of all AI interactions for compliance reporting
+      - Enforce content and usage policies across multiple LLM providers
+    integrations: [OpenAI, Anthropic, Azure OpenAI, AWS, Okta]
+    maestro_layers:
+      - L1-foundation-models
+      - L3-agent-frameworks
+      - L6-security-controls
+    aicm_control_families: [TP, IAM, GRM]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: guardrails-ai
+    name: Guardrails AI
+    category: prompt-defense
+    organization: Guardrails AI
+    description: >-
+      Open-source framework for adding structured validation, output guards,
+      and safety checks to LLM applications through a library of pre-built
+      and custom validators for inputs and outputs.
+    website: https://guardrails.ai
+    github: https://github.com/guardrails-ai/guardrails
+    license: Apache-2.0
+    pricing: freemium
+    api_available: true
+    vendor_type: ai-native
+    csa_member: false
+    tags: [open-source, guardrails, llm-security, output-validation]
+    capability_tags: [agent-security, rag-data-security]
+    buyer_problems:
+      - Add input and output validation to LLM applications without building custom logic
+      - Enforce structured output schemas and safety constraints at the code level
+      - Detect and filter toxic, off-topic, or policy-violating LLM responses
+      - Integrate reusable safety validators across multiple LLM application projects
+    integrations: [OpenAI, Anthropic, Azure OpenAI, LangChain, LlamaIndex, Hugging Face]
+    maestro_layers:
+      - L3-agent-frameworks
+      - L6-security-controls
+    aicm_control_families: [TP, DSP]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: prompt-security
+    name: Prompt Security
+    category: prompt-defense
+    organization: Prompt Security
+    description: >-
+      Enterprise platform for securing AI assistant deployments by scanning
+      LLM inputs and outputs for prompt injection attempts, sensitive data
+      exposure, and policy violations across AI tools and copilots.
+    website: https://prompt.security
+    github: null
+    license: proprietary
+    pricing: paid
+    api_available: true
+    vendor_type: ai-native
+    csa_member: false
+    tags: [prompt-injection, llm-security, guardrails, dlp]
+    capability_tags: [rag-data-security, agent-security]
+    buyer_problems:
+      - Block prompt injection and jailbreak attempts across AI assistant deployments
+      - Prevent sensitive data from being sent to or returned by LLM APIs
+      - Enforce usage policies across employee-facing AI tools and copilots
+      - Get visibility into AI tool usage and security events across the organization
+    integrations: [OpenAI, Anthropic, Azure OpenAI, Microsoft Copilot, Slack, Google Workspace]
+    maestro_layers:
+      - L3-agent-frameworks
+      - L6-security-controls
+    aicm_control_families: [TP, DSP, IAM]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: nvidia-nemo-guardrails
+    name: NVIDIA NeMo Guardrails
+    category: prompt-defense
+    organization: NVIDIA
+    description: >-
+      Open-source toolkit for adding programmable, topic-aware guardrails to
+      conversational AI and LLM-based applications, including dialogue flow
+      control, content moderation, and policy enforcement rails.
+    website: https://github.com/NVIDIA/NeMo-Guardrails
+    github: https://github.com/NVIDIA/NeMo-Guardrails
+    license: Apache-2.0
+    pricing: free
+    api_available: false
+    vendor_type: ai-native
+    csa_member: false
+    tags: [open-source, guardrails, dialogue-control, llm-security]
+    capability_tags: [agent-security]
+    buyer_problems:
+      - Add topic, content, and behavioral guardrails to conversational AI applications
+      - Prevent LLMs from responding to disallowed request types or going off-topic
+      - Implement programmable conversation flows with built-in safety boundaries
+      - Test and iterate on guardrail policies without modifying the underlying model
+    integrations: [OpenAI, Anthropic, LangChain, LlamaIndex, Hugging Face]
+    maestro_layers:
+      - L3-agent-frameworks
+      - L6-security-controls
+    aicm_control_families: [TP]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: astrix-security
+    name: Astrix Security
+    category: agent-security
+    organization: Astrix Security
+    description: >-
+      Non-human identity (NHI) security platform that discovers and governs
+      app-to-app connections, API credentials, OAuth grants, and service
+      account access used by AI agents and automated workflows.
+    website: https://astrix.security
+    github: null
+    license: proprietary
+    pricing: paid
+    api_available: true
+    vendor_type: ai-native
+    csa_member: false
+    tags: [nhi, agent-security, oauth, service-accounts, api-security]
+    capability_tags: [ai-identity, ai-supply-chain]
+    buyer_problems:
+      - Discover all non-human identities and API connections used by AI agents
+      - Detect over-privileged OAuth grants and service account credentials
+      - Monitor AI agent connections for anomalous or unauthorized activity
+      - Enforce least-privilege access policies for machine identities and API keys
+    integrations: [GitHub, Salesforce, Slack, Google Workspace, AWS, Azure, Okta, Jira]
+    maestro_layers:
+      - L3-agent-frameworks
+      - L4-deployment-infrastructure
+      - L6-security-controls
+    aicm_control_families: [IAM, TP, SC]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: jfrog-security
+    name: JFrog Security
+    category: ai-supply-chain
+    organization: JFrog
+    description: >-
+      Software supply chain security platform that scans ML model artifacts,
+      Python packages, and container images for malware, embedded secrets,
+      and CVEs within artifact management workflows.
+    website: https://jfrog.com/security
+    github: null
+    license: proprietary
+    pricing: freemium
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: false
+    tags: [supply-chain, artifact-security, model-scanning, devsecops]
+    capability_tags: [model-security]
+    buyer_problems:
+      - Scan ML models and AI artifacts for malware before deploying to production
+      - Identify secrets and credentials embedded in AI model files or training scripts
+      - Enforce security policy gates on model artifacts in CI/CD pipelines
+      - Maintain a secure artifact registry for ML models alongside software packages
+    integrations: [GitHub, GitLab, Jenkins, AWS, Azure, GCP, Hugging Face, Docker]
+    maestro_layers:
+      - L1-foundation-models
+      - L2-data-operations
+      - L4-deployment-infrastructure
+    aicm_control_families: [SC, INS, TP]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: securiti-ai
+    name: Securiti AI
+    category: rag-data-security
+    organization: Securiti
+    description: >-
+      AI data security and privacy platform that discovers, classifies, and
+      governs sensitive data in AI training pipelines, RAG document stores,
+      and data lakes used by LLM applications.
+    website: https://securiti.ai
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: ai-native
+    csa_member: false
+    tags: [data-security, privacy, rag-security, data-classification, dlp]
+    capability_tags: [ai-governance, ai-risk-compliance]
+    buyer_problems:
+      - Discover and classify sensitive data in document stores used for RAG
+      - Prevent PII and regulated data from being ingested into AI training pipelines
+      - Enforce data residency and privacy policies on AI data flows
+      - Generate compliance evidence for data used in AI systems
+    integrations: [AWS S3, Azure Blob, GCP, Snowflake, Databricks, SharePoint, OneDrive]
+    maestro_layers:
+      - L2-data-operations
+      - L6-security-controls
+    aicm_control_families: [DSP, GRM, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: pyrit
+    name: PyRIT
+    category: ai-red-teaming
+    organization: Microsoft
+    description: >-
+      Open-source AI red teaming automation framework for systematically
+      generating and executing adversarial prompt campaigns against
+      generative AI systems to identify safety and security failures.
+    website: https://github.com/Azure/PyRIT
+    github: https://github.com/Azure/PyRIT
+    license: MIT
+    pricing: free
+    api_available: false
+    vendor_type: ai-native
+    csa_member: false
+    tags: [open-source, red-teaming, adversarial-testing, llm-security]
+    capability_tags: [model-security, prompt-defense]
+    buyer_problems:
+      - Automate adversarial prompt campaigns to test generative AI systems at scale
+      - Identify failure modes in LLM applications before production deployment
+      - Generate structured red teaming reports for governance and accountability
+      - Extend automated attacks with custom strategies and target connectors
+    integrations: [OpenAI, Azure OpenAI, Anthropic, Hugging Face, Ollama]
+    maestro_layers:
+      - L1-foundation-models
+      - L3-agent-frameworks
+      - L6-security-controls
+    aicm_control_families: [TP, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: promptfoo
+    name: Promptfoo
+    category: ai-red-teaming
+    organization: Promptfoo
+    description: >-
+      Open-source tool for LLM evaluation, prompt testing, and automated
+      vulnerability scanning that integrates into development workflows to
+      detect safety issues and regressions across model releases.
+    website: https://promptfoo.dev
+    github: https://github.com/promptfoo/promptfoo
+    license: MIT
+    pricing: freemium
+    api_available: false
+    vendor_type: ai-native
+    csa_member: false
+    tags: [open-source, llm-testing, red-teaming, evaluation, vulnerability-scanning]
+    capability_tags: [prompt-defense, model-security]
+    buyer_problems:
+      - Catch safety regressions between LLM releases before they reach production
+      - Run automated vulnerability scans for prompt injection and jailbreak vectors
+      - Compare model outputs across providers or versions with repeatable test suites
+      - Integrate LLM security testing into CI/CD pipelines alongside functional tests
+    integrations: [OpenAI, Anthropic, Azure OpenAI, Hugging Face, Ollama, Mistral, LangChain]
+    maestro_layers:
+      - L1-foundation-models
+      - L6-security-controls
+    aicm_control_families: [TP, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  # ── AI for Security (continued) ──────────────────────────────────────────────
+
+  - id: vectra-ai
+    name: Vectra AI
+    category: ai-soc
+    organization: Vectra AI
+    description: >-
+      AI-driven network detection and response (NDR) platform that uses
+      behavioral AI to detect active attack behaviors across hybrid cloud,
+      data center, SaaS, and identity environments.
+    website: https://vectra.ai
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: ai-native
+    csa_member: false
+    tags: [ndr, threat-detection, behavioral-ai, network-security, ai-soc]
+    capability_tags: [ai-threat-intel]
+    buyer_problems:
+      - Detect attacker behaviors in network traffic without relying on signatures
+      - Identify lateral movement and privilege escalation in hybrid cloud environments
+      - Prioritize real threats from alert noise using AI-based signal scoring
+      - Investigate attacks across network, cloud, and SaaS from a unified view
+    integrations: [AWS, Azure, GCP, Microsoft 365, CrowdStrike, Splunk, Microsoft Sentinel, ServiceNow]
+    maestro_layers:
+      - L4-deployment-infrastructure
+      - L5-observability-feedback
+      - L6-security-controls
+    aicm_control_families: [TP, IRS]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: sentinelone-purple-ai
+    name: SentinelOne Purple AI
+    category: ai-soc
+    organization: SentinelOne
+    description: >-
+      AI-powered security operations assistant within the SentinelOne
+      Singularity platform enabling analysts to investigate threats,
+      hunt for activity, and receive remediation guidance using natural language.
+    website: https://sentinelone.com
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: false
+    tags: [ai-soc, threat-hunting, natural-language, xdr, security-copilot]
+    capability_tags: [ai-threat-intel]
+    buyer_problems:
+      - Reduce time writing complex queries by using natural language for threat hunting
+      - Surface investigation context and remediation steps during active incidents
+      - Enable analysts to run investigations without deep query language expertise
+      - Accelerate triage and response by correlating evidence automatically
+    integrations: [AWS, Azure, GCP, Okta, ServiceNow, Splunk, Jira]
+    maestro_layers:
+      - L5-observability-feedback
+      - L6-security-controls
+    aicm_control_families: [TP, IRS, GRM]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: exabeam
+    name: Exabeam
+    category: ai-soc
+    organization: Exabeam
+    description: >-
+      Cloud-native SIEM and UEBA platform using AI and behavioral analytics
+      to detect insider threats, compromised accounts, and advanced attacks
+      through timeline-based user and entity behavior analysis.
+    website: https://exabeam.com
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: false
+    tags: [siem, ueba, behavioral-analytics, insider-threat, ai-soc]
+    capability_tags: [ai-threat-intel, ai-identity]
+    buyer_problems:
+      - Detect compromised accounts and insider threats using behavioral baselines
+      - Reduce alert fatigue by surfacing only anomalous and high-risk events
+      - Build automated investigation timelines to accelerate analyst triage
+      - Correlate user behavior across identity, cloud, endpoint, and network logs
+    integrations: [Okta, CrowdStrike, Microsoft 365, Splunk, AWS, Azure, Palo Alto Networks, ServiceNow]
+    maestro_layers:
+      - L5-observability-feedback
+      - L6-security-controls
+      - L7-ecosystem-governance
+    aicm_control_families: [TP, IRS, GRM]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: anomali
+    name: Anomali
+    category: ai-threat-intel
+    organization: Anomali
+    description: >-
+      AI-powered threat intelligence platform that aggregates, correlates,
+      and operationalizes threat data from commercial, open-source, and
+      internal feeds with SIEM and SOAR integration capabilities.
+    website: https://anomali.com
+    github: null
+    license: proprietary
+    pricing: paid
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: false
+    tags: [threat-intelligence, tip, stix-taxii, ioc-management, ai-soc]
+    capability_tags: [ai-soc]
+    buyer_problems:
+      - Consolidate threat feeds from multiple sources into a single operationalized platform
+      - Match indicators of compromise against internal telemetry in real time
+      - Share threat intelligence across teams using STIX/TAXII standards
+      - Enrich SOC alerts with threat context to reduce investigation time
+    integrations: [Splunk, Microsoft Sentinel, IBM QRadar, Palo Alto XSOAR, CrowdStrike, ServiceNow, MISP]
+    maestro_layers:
+      - L5-observability-feedback
+      - L7-ecosystem-governance
+    aicm_control_families: [TP, GRM]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: wiz
+    name: Wiz
+    category: ai-vuln-management
+    organization: Wiz
+    description: >-
+      Agentless cloud security platform providing contextual risk assessment,
+      attack path analysis, and vulnerability prioritization across cloud
+      environments without deploying agents in workloads.
+    website: https://wiz.io
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: false
+    tags: [cloud-security, agentless, attack-path, vulnerability-management, cspm]
+    capability_tags: [ai-risk-compliance, ai-soc]
+    buyer_problems:
+      - Get cloud security posture visibility without deploying agents in every workload
+      - Identify and prioritize attack paths most likely to reach critical assets
+      - Contextualize vulnerability severity by actual cloud exposure and sensitivity
+      - Detect toxic combinations of misconfigurations, vulnerabilities, and permissions
+    integrations: [AWS, Azure, GCP, Kubernetes, GitHub, Jira, ServiceNow, Splunk, PagerDuty]
+    maestro_layers:
+      - L4-deployment-infrastructure
+      - L5-observability-feedback
+      - L7-ecosystem-governance
+    aicm_control_families: [INS, GRM, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: orca-security
+    name: Orca Security
+    category: ai-vuln-management
+    organization: Orca Security
+    description: >-
+      Agentless cloud security platform combining vulnerability management,
+      compliance posture assessment, and attack path analysis using
+      SideScanning technology to read workload data without installing agents.
+    website: https://orca.security
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: false
+    tags: [cloud-security, agentless, vulnerability-management, cspm, sidescan]
+    capability_tags: [ai-risk-compliance]
+    buyer_problems:
+      - Assess cloud workload vulnerabilities without agent deployment overhead
+      - Identify which vulnerabilities are reachable from the internet and exploitable
+      - Track compliance posture across cloud environments with continuous assessment
+      - Get a unified risk view across cloud infrastructure and workloads
+    integrations: [AWS, Azure, GCP, Kubernetes, GitHub, Jira, ServiceNow, Splunk, PagerDuty]
+    maestro_layers:
+      - L4-deployment-infrastructure
+      - L5-observability-feedback
+    aicm_control_families: [INS, GRM, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: silverfort
+    name: Silverfort
+    category: ai-identity
+    organization: Silverfort
+    description: >-
+      Unified identity protection platform that extends adaptive access controls
+      and MFA enforcement to service accounts, command-line tools, and
+      machine-to-machine connections without modifying applications or deploying agents.
+    website: https://silverfort.com
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: hybrid
+    csa_member: false
+    tags: [identity-security, mfa, service-accounts, nhi, lateral-movement]
+    capability_tags: [agent-security]
+    buyer_problems:
+      - Enforce MFA on service accounts and machine identities that traditional IAM cannot cover
+      - Detect and block lateral movement using compromised service account credentials
+      - Get unified visibility into authentication activity across on-premises and cloud identities
+      - Reduce service account sprawl and identify dormant or over-privileged machine identities
+    integrations:
+      - Active Directory
+      - Microsoft Entra ID
+      - Okta
+      - CrowdStrike
+      - Splunk
+      - AWS IAM
+      - ServiceNow
+    maestro_layers:
+      - L4-deployment-infrastructure
+      - L6-security-controls
+    aicm_control_families: [IAM, TP]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  # ── AI Governance, Observability & Risk (continued) ──────────────────────────
+
+  - id: weights-and-biases
+    name: Weights & Biases
+    category: ai-observability
+    organization: Weights & Biases
+    description: >-
+      ML experiment tracking, model evaluation, and production monitoring
+      platform providing visibility into training runs, model performance
+      metrics, dataset versions, and LLM evaluation results.
+    website: https://wandb.ai
+    github: null
+    license: proprietary
+    pricing: freemium
+    api_available: true
+    vendor_type: ai-native
+    csa_member: false
+    tags: [ml-observability, experiment-tracking, model-evaluation, llm-monitoring]
+    capability_tags: [ai-governance]
+    buyer_problems:
+      - Track and compare ML training runs, hyperparameters, and metrics across experiments
+      - Evaluate LLM application quality with structured test suites and human feedback
+      - Maintain versioned datasets and model artifacts with lineage tracking
+      - Monitor production model performance and detect behavioral changes over time
+    integrations: [AWS SageMaker, Azure ML, GCP Vertex AI, Hugging Face, PyTorch, TensorFlow, LangChain]
+    maestro_layers:
+      - L5-observability-feedback
+    aicm_control_families: [GRM, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: langfuse
+    name: Langfuse
+    category: ai-observability
+    organization: Langfuse
+    description: >-
+      Open-source LLM observability and evaluation platform for tracing,
+      debugging, and monitoring generative AI applications, with prompt
+      management, user feedback collection, and cost tracking.
+    website: https://langfuse.com
+    github: https://github.com/langfuse/langfuse
+    license: MIT
+    pricing: freemium
+    api_available: true
+    vendor_type: ai-native
+    csa_member: false
+    tags: [open-source, llm-tracing, observability, prompt-management, evaluation]
+    capability_tags: [ai-governance]
+    buyer_problems:
+      - Trace LLM application requests end-to-end to debug unexpected outputs
+      - Track token usage, latency, and cost across LLM providers and application versions
+      - Collect and analyze user feedback to evaluate output quality over time
+      - Manage and version prompt templates across LLM application environments
+    integrations: [OpenAI, Anthropic, Azure OpenAI, LangChain, LlamaIndex, Hugging Face, Mistral]
+    maestro_layers:
+      - L3-agent-frameworks
+      - L5-observability-feedback
+    aicm_control_families: [GRM, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: datadog-llm-observability
+    name: Datadog LLM Observability
+    category: ai-observability
+    organization: Datadog
+    description: >-
+      LLM application monitoring capabilities within the Datadog platform,
+      providing request tracing, token usage tracking, latency metrics,
+      and output quality evaluation integrated with existing observability stacks.
+    website: https://datadoghq.com
+    github: null
+    license: proprietary
+    pricing: paid
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: false
+    tags: [llm-monitoring, observability, tracing, token-tracking, apm]
+    capability_tags: [ai-risk-compliance]
+    buyer_problems:
+      - Monitor LLM application performance and quality within an existing observability stack
+      - Correlate LLM traces with infrastructure metrics and application performance data
+      - Detect latency spikes and quality regressions in production AI applications
+      - Track token consumption and cost across LLM providers and application versions
+    integrations: [OpenAI, Anthropic, Azure OpenAI, AWS, Azure, GCP, LangChain, Kubernetes]
+    maestro_layers:
+      - L5-observability-feedback
+      - L7-ecosystem-governance
+    aicm_control_families: [GRM, CAI, INS]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: dynatrace
+    name: Dynatrace
+    category: ai-observability
+    organization: Dynatrace
+    description: >-
+      Full-stack observability platform with AI-powered analytics for monitoring
+      application performance, infrastructure, and AI/ML workloads including
+      generative AI application tracing and anomaly detection.
+    website: https://dynatrace.com
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: false
+    tags: [observability, apm, ai-analytics, infrastructure-monitoring, anomaly-detection]
+    capability_tags: [ai-risk-compliance]
+    buyer_problems:
+      - Monitor AI application performance alongside the rest of the application stack
+      - Detect anomalies in AI workloads using automated baseline and root cause analysis
+      - Get unified observability across cloud infrastructure, services, and AI components
+      - Track resource consumption and performance of AI inference workloads
+    integrations: [AWS, Azure, GCP, Kubernetes, VMware, Salesforce, ServiceNow, Splunk]
+    maestro_layers:
+      - L4-deployment-infrastructure
+      - L5-observability-feedback
+    aicm_control_families: [GRM, INS]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: holistic-ai
+    name: Holistic AI
+    category: ai-governance
+    organization: Holistic AI
+    description: >-
+      AI risk assessment and governance platform that audits AI systems for
+      bias, robustness, privacy, and regulatory compliance, generating
+      evidence documentation for EU AI Act and NIST AI RMF requirements.
+    website: https://holisticai.com
+    github: null
+    license: proprietary
+    pricing: paid
+    api_available: true
+    vendor_type: ai-native
+    csa_member: false
+    tags: [ai-governance, bias-assessment, responsible-ai, eu-ai-act, nist-ai-rmf]
+    capability_tags: [ai-risk-compliance, ai-observability]
+    buyer_problems:
+      - Audit AI systems for bias, fairness, and robustness before regulatory scrutiny
+      - Generate compliance evidence for EU AI Act risk classification requirements
+      - Track AI system risk across the model lifecycle from development to production
+      - Assess third-party AI vendor and tool risk against regulatory frameworks
+    integrations: [AWS SageMaker, Azure ML, GCP Vertex AI, Hugging Face, MLflow, Databricks]
+    maestro_layers:
+      - L7-ecosystem-governance
+    aicm_control_families: [GRM, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: ibm-openpages
+    name: IBM OpenPages
+    category: ai-governance
+    organization: IBM
+    description: >-
+      Enterprise GRC and AI model risk management platform providing model
+      inventory, risk assessment workflows, audit trails, and policy libraries
+      for organizations deploying AI systems in regulated environments.
+    website: https://ibm.com/products/openpages
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: false
+    tags: [grc, model-risk, ai-governance, compliance, audit]
+    capability_tags: [ai-risk-compliance]
+    buyer_problems:
+      - Maintain a centralized inventory of AI models with associated risk classifications
+      - Automate governance workflows for model approval, review, and retirement cycles
+      - Generate audit-ready documentation for model risk management under regulatory requirements
+      - Integrate AI model governance into existing enterprise GRC processes and risk frameworks
+    integrations: [IBM Watson, Salesforce, ServiceNow, Jira, AWS, Azure, Archer]
+    maestro_layers:
+      - L7-ecosystem-governance
+    aicm_control_families: [GRM, CAI, IRS]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: trustarc
+    name: TrustArc
+    category: ai-risk-compliance
+    organization: TrustArc
+    description: >-
+      Privacy and AI compliance management platform with regulatory mapping
+      for GDPR, CCPA, and EU AI Act requirements, including AI-specific
+      data governance and privacy impact assessment workflows.
+    website: https://trustarc.com
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: false
+    tags: [privacy, compliance, eu-ai-act, gdpr, pia, ai-governance]
+    capability_tags: [ai-governance]
+    buyer_problems:
+      - Conduct privacy impact assessments on AI systems processing personal data
+      - Track and demonstrate compliance with EU AI Act data governance requirements
+      - Manage data subject rights obligations arising from AI-driven products
+      - Assess AI vendor privacy practices as part of third-party risk management
+    integrations: [Salesforce, ServiceNow, Microsoft 365, AWS, Azure]
+    maestro_layers:
+      - L7-ecosystem-governance
+    aicm_control_families: [GRM, CAI, DSP]
+    added: 2026-06-01
+    updated: 2026-06-01
+
+  - id: microsoft-purview
+    name: Microsoft Purview
+    category: ai-risk-compliance
+    organization: Microsoft
+    description: >-
+      Data governance and compliance platform with capabilities for
+      discovering, classifying, and governing sensitive data in AI
+      interactions and enforcing data policies across Microsoft AI services.
+    website: https://microsoft.com/security/microsoft-purview
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: false
+    tags: [data-governance, compliance, dlp, ai-governance, microsoft-365]
+    capability_tags: [ai-governance, rag-data-security]
+    buyer_problems:
+      - Discover and classify sensitive data processed through Microsoft AI services
+      - Enforce data policies and prevent sensitive information from appearing in AI outputs
+      - Maintain compliance audit trails for AI data access and usage within the Microsoft ecosystem
+      - Assess data risk exposure introduced by AI tool adoption across the organization
+    integrations:
+      - Microsoft 365
+      - Azure OpenAI
+      - Microsoft Copilot
+      - SharePoint
+      - Teams
+      - Power BI
+      - Defender for Cloud
+    maestro_layers:
+      - L2-data-operations
+      - L7-ecosystem-governance
+    aicm_control_families: [DSP, GRM, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
