@@ -144,6 +144,16 @@ entries:
     aicm_control_families: [TP, INS, SC]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: protect-ai
     name: Protect AI
@@ -175,6 +185,16 @@ entries:
     aicm_control_families: [SC, TP, INS]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: lakera-guard
     name: Lakera Guard
@@ -205,6 +225,16 @@ entries:
     aicm_control_families: [TP, IAM]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: zenity
     name: Zenity
@@ -242,6 +272,16 @@ entries:
     aicm_control_families: [IAM, TP, GRM]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: nightfall-ai
     name: Nightfall AI
@@ -280,6 +320,16 @@ entries:
     aicm_control_families: [DSP, TP, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: garak
     name: Garak
@@ -310,6 +360,16 @@ entries:
     aicm_control_families: [TP, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   # ── AI for Security ──────────────────────────────────────────────────────────
 
@@ -351,6 +411,16 @@ entries:
     aicm_control_families: [TP, IRS, GRM]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: recorded-future
     name: Recorded Future Intelligence
@@ -388,6 +458,16 @@ entries:
     aicm_control_families: [TP, GRM]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: balbix
     name: Balbix
@@ -426,6 +506,16 @@ entries:
     aicm_control_families: [GRM, INS, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: crowdstrike-falcon-identity
     name: CrowdStrike Falcon Identity
@@ -463,6 +553,16 @@ entries:
     aicm_control_families: [IAM, TP]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   # ── AI Governance, Observability & Risk ──────────────────────────────────────
 
@@ -503,6 +603,16 @@ entries:
     aicm_control_families: [GRM, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: credo-ai
     name: Credo AI
@@ -539,6 +649,16 @@ entries:
     aicm_control_families: [GRM, CAI, IRS]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: onetrust-ai-governance
     name: OneTrust AI Governance
@@ -576,6 +696,16 @@ entries:
     aicm_control_families: [GRM, CAI, DSP]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   # ── Security for AI (continued) ──────────────────────────────────────────────
 
@@ -608,6 +738,16 @@ entries:
     aicm_control_families: [TP, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: calypsoai
     name: CalypsoAI
@@ -639,6 +779,16 @@ entries:
     aicm_control_families: [TP, IAM, GRM]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: guardrails-ai
     name: Guardrails AI
@@ -669,6 +819,16 @@ entries:
     aicm_control_families: [TP, DSP]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: prompt-security
     name: Prompt Security
@@ -699,6 +859,16 @@ entries:
     aicm_control_families: [TP, DSP, IAM]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: nvidia-nemo-guardrails
     name: NVIDIA NeMo Guardrails
@@ -729,6 +899,16 @@ entries:
     aicm_control_families: [TP]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: astrix-security
     name: Astrix Security
@@ -760,6 +940,16 @@ entries:
     aicm_control_families: [IAM, TP, SC]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: jfrog-security
     name: JFrog Security
@@ -791,6 +981,16 @@ entries:
     aicm_control_families: [SC, INS, TP]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: securiti-ai
     name: Securiti AI
@@ -821,6 +1021,16 @@ entries:
     aicm_control_families: [DSP, GRM, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: pyrit
     name: PyRIT
@@ -852,6 +1062,16 @@ entries:
     aicm_control_families: [TP, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: promptfoo
     name: Promptfoo
@@ -882,6 +1102,16 @@ entries:
     aicm_control_families: [TP, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   # ── AI for Security (continued) ──────────────────────────────────────────────
 
@@ -915,6 +1145,16 @@ entries:
     aicm_control_families: [TP, IRS]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: sentinelone-purple-ai
     name: SentinelOne Purple AI
@@ -945,6 +1185,16 @@ entries:
     aicm_control_families: [TP, IRS, GRM]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: exabeam
     name: Exabeam
@@ -976,6 +1226,16 @@ entries:
     aicm_control_families: [TP, IRS, GRM]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: anomali
     name: Anomali
@@ -1006,6 +1266,16 @@ entries:
     aicm_control_families: [TP, GRM]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: wiz
     name: Wiz
@@ -1037,6 +1307,16 @@ entries:
     aicm_control_families: [INS, GRM, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: orca-security
     name: Orca Security
@@ -1067,6 +1347,16 @@ entries:
     aicm_control_families: [INS, GRM, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: silverfort
     name: Silverfort
@@ -1104,6 +1394,16 @@ entries:
     aicm_control_families: [IAM, TP]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   # ── AI Governance, Observability & Risk (continued) ──────────────────────────
 
@@ -1135,6 +1435,16 @@ entries:
     aicm_control_families: [GRM, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: langfuse
     name: Langfuse
@@ -1165,6 +1475,16 @@ entries:
     aicm_control_families: [GRM, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: datadog-llm-observability
     name: Datadog LLM Observability
@@ -1195,6 +1515,16 @@ entries:
     aicm_control_families: [GRM, CAI, INS]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: dynatrace
     name: Dynatrace
@@ -1225,6 +1555,16 @@ entries:
     aicm_control_families: [GRM, INS]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: holistic-ai
     name: Holistic AI
@@ -1254,6 +1594,16 @@ entries:
     aicm_control_families: [GRM, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: ibm-openpages
     name: IBM OpenPages
@@ -1283,6 +1633,16 @@ entries:
     aicm_control_families: [GRM, CAI, IRS]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: trustarc
     name: TrustArc
@@ -1312,6 +1672,16 @@ entries:
     aicm_control_families: [GRM, CAI, DSP]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
 
   - id: microsoft-purview
     name: Microsoft Purview
@@ -1349,3 +1719,13 @@ entries:
     aicm_control_families: [DSP, GRM, CAI]
     added: 2026-06-01
     updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."

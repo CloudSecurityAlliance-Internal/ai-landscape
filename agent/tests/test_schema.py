@@ -3,6 +3,7 @@ from pydantic import ValidationError
 from schema import (
     LandscapeEntry,
     LandscapeFile,
+    ReviewMetadata,
     MAESTRO_LAYERS,
     AICM_FAMILIES,
 )
@@ -242,3 +243,52 @@ def test_full_rfc001_entry():
     assert entry.integrations == ["AWS", "Azure"]
     assert "L1-foundation-models" in entry.maestro_layers
     assert "TP" in entry.aicm_control_families
+
+
+# ── Review metadata ───────────────────────────────────────────────────────────
+
+def test_review_metadata_valid():
+    rm = ReviewMetadata(
+        status="seed",
+        last_reviewed=None,
+        reviewed_by=None,
+        verification_needed=["csa_member", "pricing", "integrations", "description"],
+        notes="Seed entry. Requires human review before production publication.",
+    )
+    assert rm.status == "seed"
+    assert rm.last_reviewed is None
+    assert rm.reviewed_by is None
+    assert rm.verification_needed == ["csa_member", "pricing", "integrations", "description"]
+
+
+def test_review_metadata_defaults_when_omitted():
+    entry = LandscapeEntry(**_valid_entry())
+    assert entry.review is None
+
+
+def test_review_status_invalid_rejected():
+    with pytest.raises(ValidationError):
+        ReviewMetadata(status="approved")
+
+
+def test_review_verification_needed_defaults_empty():
+    rm = ReviewMetadata(status="needs-review")
+    assert rm.verification_needed == []
+
+
+def test_full_entry_with_review_metadata():
+    data = _valid_landscape(
+        review={
+            "status": "seed",
+            "last_reviewed": None,
+            "reviewed_by": None,
+            "verification_needed": ["csa_member", "pricing", "integrations", "description"],
+            "notes": "Seed entry. Requires human review before production publication.",
+        }
+    )
+    lf = LandscapeFile(**data)
+    entry = lf.entries[0]
+    assert entry.review is not None
+    assert entry.review.status == "seed"
+    assert "csa_member" in entry.review.verification_needed
+    assert entry.review.last_reviewed is None
