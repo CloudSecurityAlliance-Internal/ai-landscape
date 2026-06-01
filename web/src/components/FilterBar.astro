@@ -83,8 +83,8 @@ const AREAS = [
     align-items: center;
     gap: 8px;
     padding: 6px 20px;
-    background: #0d1520;
-    border-bottom: 1px solid #1a2a3a;
+    background: #ffffff;
+    border-bottom: 1px solid #d0d7de;
     position: sticky;
     top: 52px;
     z-index: 9;
@@ -98,37 +98,37 @@ const AREAS = [
   .filter-sep {
     width: 1px;
     height: 20px;
-    background: #1a2a3a;
+    background: #d0d7de;
     flex-shrink: 0;
     margin: 0 2px;
   }
   .filter-btn {
     padding: 3px 9px;
     border-radius: 4px;
-    border: 1px solid #1a2a3a;
+    border: 1px solid #d0d7de;
     background: transparent;
-    color: #888;
+    color: #57606a;
     cursor: pointer;
     white-space: nowrap;
     font-size: 11px;
   }
-  .filter-btn.active,
   .filter-btn:hover {
-    background: #1e3a5f;
-    color: #7eb8f7;
-    border-color: #2a4a6a;
+    background: #f0f6fc;
+    color: #005b99;
+    border-color: #005b99;
   }
+  .filter-btn.active,
   .area-btn.active {
-    background: #1a3040;
-    color: #aad4f7;
-    border-color: #2a5070;
+    background: #005b99;
+    color: #ffffff;
+    border-color: #005b99;
   }
   .cat-select {
     padding: 3px 8px;
     border-radius: 4px;
-    border: 1px solid #1a2a3a;
-    background: #0a1220;
-    color: #aaa;
+    border: 1px solid #d0d7de;
+    background: #ffffff;
+    color: #1f2328;
     font-size: 11px;
     cursor: pointer;
     outline: none;
@@ -136,30 +136,30 @@ const AREAS = [
     flex-shrink: 0;
   }
   .cat-select:focus {
-    border-color: #2a4a6a;
-    color: #e0e0e0;
+    border-color: #005b99;
+    color: #1f2328;
   }
   .csa-toggle {
     display: flex;
     align-items: center;
     gap: 5px;
     font-size: 11px;
-    color: #7eb8f7;
+    color: #005b99;
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
     user-select: none;
   }
   .csa-toggle input {
-    accent-color: #7eb8f7;
+    accent-color: #005b99;
     cursor: pointer;
   }
   .about-btn {
     padding: 3px 8px;
     border-radius: 4px;
-    border: 1px solid #1a2a3a;
+    border: 1px solid #d0d7de;
     background: transparent;
-    color: #556677;
+    color: #57606a;
     cursor: pointer;
     font-size: 12px;
     font-weight: 700;
@@ -168,13 +168,13 @@ const AREAS = [
   }
   .about-btn:hover,
   .about-btn.active {
-    background: #1e3a5f;
-    color: #7eb8f7;
-    border-color: #2a4a6a;
+    background: #005b99;
+    color: #ffffff;
+    border-color: #005b99;
   }
   .info-panel {
-    background: #0a1220;
-    border-bottom: 1px solid #1a2a3a;
+    background: #f0f6fc;
+    border-bottom: 1px solid #d0d7de;
     padding: 10px 20px;
   }
   .info-grid {
@@ -191,18 +191,18 @@ const AREAS = [
     max-width: 480px;
   }
   .info-label {
-    color: #7eb8f7;
+    color: #005b99;
     font-weight: 700;
     white-space: nowrap;
     flex-shrink: 0;
   }
   .info-text {
-    color: #556677;
+    color: #57606a;
     line-height: 1.4;
   }
   .info-text code {
-    background: #1a2a3a;
-    color: #aad4f7;
+    background: #dbeafe;
+    color: #1e40af;
     padding: 0 3px;
     border-radius: 2px;
     font-size: 10px;
