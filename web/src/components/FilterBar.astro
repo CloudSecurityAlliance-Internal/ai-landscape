@@ -2,6 +2,7 @@
 interface Category {
   id: string;
   name: string;
+  area?: string;
 }
 
 interface Props {
@@ -9,40 +10,86 @@ interface Props {
 }
 
 const { categories } = Astro.props;
+
+const AREAS = [
+  { id: "all", label: "All Areas" },
+  { id: "security-for-ai", label: "Security for AI" },
+  { id: "ai-for-security", label: "AI for Security" },
+  { id: "ai-governance-risk", label: "Governance/Risk" },
+];
 ---
 
 <nav class="filter-bar">
-  <button class="filter-btn active" data-category="all">All</button>
-  {
-    categories.map((cat) => (
-      <button class="filter-btn" data-category={cat.id}>
-        {cat.name}
-      </button>
-    ))
-  }
+  <div class="filter-group">
+    {
+      AREAS.map((area, i) => (
+        <button
+          class:list={["filter-btn", "area-btn", i === 0 && "active"]}
+          data-area={area.id}
+        >
+          {area.label}
+        </button>
+      ))
+    }
+  </div>
+  <div class="filter-sep"></div>
+  <div class="filter-group filter-cats">
+    <button class="filter-btn cat-btn active" data-category="all">All Categories</button>
+    {
+      categories.map((cat) => (
+        <button class="filter-btn cat-btn" data-category={cat.id} data-cat-area={cat.area ?? ""}>
+          {cat.name}
+        </button>
+      ))
+    }
+  </div>
+  <div class="filter-sep"></div>
+  <label class="csa-toggle">
+    <input type="checkbox" id="csa-only" />
+    <span>CSA Members only</span>
+  </label>
 </nav>
 
 <style>
   .filter-bar {
     display: flex;
-    gap: 4px;
-    padding: 8px 20px;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 20px;
     overflow-x: auto;
     background: #0d1520;
     border-bottom: 1px solid #1a2a3a;
     position: sticky;
     top: 52px;
     z-index: 9;
+    flex-wrap: nowrap;
+  }
+  .filter-group {
+    display: flex;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+  .filter-cats {
+    flex-shrink: 1;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .filter-sep {
+    width: 1px;
+    height: 20px;
+    background: #1a2a3a;
+    flex-shrink: 0;
+    margin: 0 4px;
   }
   .filter-btn {
-    padding: 4px 10px;
+    padding: 3px 9px;
     border-radius: 4px;
     border: 1px solid #1a2a3a;
     background: transparent;
     color: #888;
     cursor: pointer;
     white-space: nowrap;
-    font-size: 12px;
+    font-size: 11px;
   }
   .filter-btn.active,
   .filter-btn:hover {
@@ -50,21 +97,109 @@ const { categories } = Astro.props;
     color: #7eb8f7;
     border-color: #2a4a6a;
   }
+  .area-btn.active {
+    background: #1a3040;
+    color: #aad4f7;
+    border-color: #2a5070;
+  }
+  .csa-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: #7eb8f7;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    user-select: none;
+  }
+  .csa-toggle input {
+    accent-color: #7eb8f7;
+    cursor: pointer;
+  }
 </style>
 
 <script>
-  document.querySelectorAll(".filter-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document
-        .querySelectorAll(".filter-btn")
-        .forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      const cat = btn.getAttribute("data-category");
-      document.querySelectorAll(".category-section").forEach((section) => {
-        const show =
-          cat === "all" || section.getAttribute("data-category") === cat;
-        (section as HTMLElement).style.display = show ? "" : "none";
-      });
+  type HTMLBtn = HTMLButtonElement;
+
+  let activeArea = "all";
+  let activeCategory = "all";
+  let csaOnly = false;
+
+  function applyFilters() {
+    const tiles = document.querySelectorAll<HTMLAnchorElement>(".entry-tile");
+    tiles.forEach((tile) => {
+      // Check CSA filter
+      if (csaOnly) {
+        const hasCsa = tile.querySelector(".csa-badge") !== null;
+        if (!hasCsa) {
+          tile.style.display = "none";
+          return;
+        }
+      }
+      tile.style.display = "";
     });
+
+    // Category sections: show/hide based on area + category filters
+    document.querySelectorAll<HTMLElement>(".category-section").forEach((sec) => {
+      const secCat = sec.getAttribute("data-category") ?? "";
+      const secArea = sec.getAttribute("data-area") ?? "";
+
+      const areaMatch = activeArea === "all" || secArea === activeArea;
+      const catMatch = activeCategory === "all" || secCat === activeCategory;
+      sec.style.display = areaMatch && catMatch ? "" : "none";
+    });
+
+    // Area sections: show if they contain any visible category sections
+    document.querySelectorAll<HTMLElement>(".area-section").forEach((sec) => {
+      const anyVisible = [...sec.querySelectorAll<HTMLElement>(".category-section")].some(
+        (c) => c.style.display !== "none"
+      );
+      sec.style.display = anyVisible ? "" : "none";
+    });
+
+    // Let ProblemSearch reconcile its own query on top, if active
+    if (typeof (window as any).__applyProblemSearch === "function") {
+      (window as any).__applyProblemSearch();
+    }
+
+    // Show/hide category buttons based on selected area
+    document.querySelectorAll<HTMLBtn>(".cat-btn[data-category]").forEach((btn) => {
+      const btnArea = btn.getAttribute("data-cat-area") ?? "";
+      const btnCat = btn.getAttribute("data-category") ?? "";
+      if (btnCat === "all") return;
+      btn.style.display = activeArea === "all" || btnArea === activeArea ? "" : "none";
+    });
+  }
+
+  // Area filter
+  document.querySelectorAll<HTMLBtn>(".area-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll<HTMLBtn>(".area-btn").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeArea = btn.getAttribute("data-area") ?? "all";
+      // Reset category to "all" when switching area
+      activeCategory = "all";
+      document.querySelectorAll<HTMLBtn>(".cat-btn").forEach((b) => b.classList.remove("active"));
+      document.querySelector<HTMLBtn>('.cat-btn[data-category="all"]')?.classList.add("active");
+      applyFilters();
+    });
+  });
+
+  // Category filter
+  document.querySelectorAll<HTMLBtn>(".cat-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll<HTMLBtn>(".cat-btn").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeCategory = btn.getAttribute("data-category") ?? "all";
+      applyFilters();
+    });
+  });
+
+  // CSA members toggle
+  const csaCheckbox = document.getElementById("csa-only") as HTMLInputElement;
+  csaCheckbox?.addEventListener("change", () => {
+    csaOnly = csaCheckbox.checked;
+    applyFilters();
   });
 </script>

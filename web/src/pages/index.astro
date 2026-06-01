@@ -4,9 +4,13 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import LandscapeGrid from "../components/LandscapeGrid.astro";
 import FilterBar from "../components/FilterBar.astro";
+import ProblemSearch from "../components/ProblemSearch.astro";
 
 const landscapePath = resolve(process.cwd(), "../data/landscape.yaml");
 const landscape = yaml.load(readFileSync(landscapePath, "utf8")) as any;
+
+const totalEntries = landscape.entries.length;
+const totalCategories = landscape.categories.length;
 ---
 
 <!doctype html>
@@ -14,10 +18,10 @@ const landscape = yaml.load(readFileSync(landscapePath, "utf8")) as any;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CSA AI Landscape</title>
+    <title>CSA AI Security Landscape</title>
     <meta
       name="description"
-      content="A map of the AI ecosystem by the Cloud Security Alliance"
+      content="Vendor-neutral market map for AI security and observability — Cloud Security Alliance"
     />
     <style>
       *,
@@ -37,45 +41,94 @@ const landscape = yaml.load(readFileSync(landscapePath, "utf8")) as any;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 10px 20px;
+        padding: 0 20px;
         background: #0d1520;
         border-bottom: 1px solid #1a2a3a;
         position: sticky;
         top: 0;
         z-index: 10;
         height: 52px;
+        gap: 16px;
+      }
+      .brand {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        flex-shrink: 0;
       }
       .site-title {
-        font-size: 1rem;
+        font-size: 14px;
         color: #7eb8f7;
-        font-weight: 600;
+        font-weight: 700;
+        letter-spacing: 0.3px;
       }
       .site-subtitle {
-        font-size: 11px;
-        color: #555;
-        margin-left: 8px;
+        font-size: 10px;
+        color: #445566;
       }
-      #search {
-        width: 260px;
+      .header-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+      .meta-stat {
+        font-size: 10px;
+        color: #445;
+        white-space: nowrap;
+      }
+      .meta-stat strong {
+        color: #7eb8f7;
+      }
+      .header-badges {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-shrink: 0;
+      }
+      .badge {
+        font-size: 9px;
+        padding: 2px 6px;
+        border-radius: 3px;
+        white-space: nowrap;
+        letter-spacing: 0.3px;
+      }
+      .badge-csa {
+        background: #1a3a5f;
+        color: #7eb8f7;
+        border: 1px solid #2a4a6a;
+      }
+      .badge-ccm {
+        background: #1a2a1a;
+        color: #6fcc8c;
+        border: 1px solid #1e3a1e;
       }
     </style>
     <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
   </head>
   <body>
     <header>
-      <div>
-        <span class="site-title">CSA AI Landscape</span>
+      <div class="brand">
+        <span class="site-title">CSA AI Security Landscape</span>
         <span class="site-subtitle"
-          >{landscape.entries.length} tools across {landscape.categories.length} categories</span
+          >Vendor-neutral market map for AI security and observability</span
         >
       </div>
-      <div id="search"></div>
+      <div class="header-badges">
+        <span class="badge badge-csa">CSA Framework Overlays</span>
+        <span class="badge badge-ccm">CCM · AICM · MAESTRO</span>
+      </div>
+      <div class="header-meta">
+        <span class="meta-stat"
+          ><strong>{totalEntries}</strong> tools across <strong
+            >{totalCategories}</strong
+          > categories</span
+        >
+      </div>
+      <ProblemSearch />
     </header>
     <FilterBar categories={landscape.categories} />
     <LandscapeGrid landscape={landscape} />
     <script is:inline src="/pagefind/pagefind-ui.js"></script>
-    <script is:inline>
-      new PagefindUI({ element: "#search", showSubResults: false });
-    </script>
   </body>
 </html>

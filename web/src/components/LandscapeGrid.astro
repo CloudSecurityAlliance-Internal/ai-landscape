@@ -12,13 +12,22 @@ interface Entry {
   pricing: string;
   license: string;
   api_available?: boolean;
+  vendor_type?: string;
+  csa_member?: boolean;
   tags?: string[];
+  capability_tags?: string[];
+  integrations?: string[];
+  buyer_problems?: string[];
+  maestro_layers?: string[];
+  aicm_control_families?: string[];
   added: string;
 }
 
 interface Category {
   id: string;
   name: string;
+  area: string;
+  description?: string;
 }
 
 interface Props {
@@ -27,25 +36,69 @@ interface Props {
 
 const { landscape } = Astro.props;
 
+const AREAS = [
+  {
+    id: "security-for-ai",
+    label: "Security for AI",
+    description:
+      "Capabilities that protect AI systems from attack, manipulation, and abuse.",
+  },
+  {
+    id: "ai-for-security",
+    label: "AI for Security",
+    description: "Capabilities that use AI to power security operations.",
+  },
+  {
+    id: "ai-governance-risk",
+    label: "AI Governance, Observability & Risk",
+    description:
+      "Capabilities providing visibility, control, and accountability over AI.",
+  },
+];
+
 const byCategory = Object.fromEntries(
   landscape.categories.map((cat) => [
     cat.id,
     landscape.entries.filter((e) => e.category === cat.id),
   ])
 );
+
+const categoriesByArea = Object.fromEntries(
+  AREAS.map((area) => [
+    area.id,
+    landscape.categories.filter((cat) => cat.area === area.id),
+  ])
+);
 ---
 
 <main class="landscape">
   {
-    landscape.categories.map((cat) => (
-      <section class="category-section" data-category={cat.id}>
-        <h2 class="category-header">
-          {cat.name}
-          <span class="count">{byCategory[cat.id]?.length ?? 0}</span>
-        </h2>
-        <div class="tile-grid">
-          {(byCategory[cat.id] ?? []).map((entry) => (
-            <EntryTile entry={entry} />
+    AREAS.map((area) => (
+      <section class="area-section" data-area={area.id}>
+        <div class="area-header">
+          <h2 class="area-title">{area.label}</h2>
+          <span class="area-desc">{area.description}</span>
+        </div>
+        <div class="categories-row">
+          {(categoriesByArea[area.id] ?? []).map((cat) => (
+            <section
+              class="category-section"
+              data-category={cat.id}
+              data-area={area.id}
+            >
+              <h3 class="category-header">
+                {cat.name}
+                <span class="count">{byCategory[cat.id]?.length ?? 0}</span>
+              </h3>
+              {cat.description && (
+                <p class="category-desc">{cat.description}</p>
+              )}
+              <div class="tile-grid">
+                {(byCategory[cat.id] ?? []).map((entry) => (
+                  <EntryTile entry={entry} />
+                ))}
+              </div>
+            </section>
           ))}
         </div>
       </section>
@@ -57,28 +110,65 @@ const byCategory = Object.fromEntries(
   .landscape {
     padding: 16px 20px;
   }
+  .area-section {
+    margin-bottom: 32px;
+  }
+  .area-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1a2a3a;
+  }
+  .area-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #7eb8f7;
+    white-space: nowrap;
+  }
+  .area-desc {
+    font-size: 11px;
+    color: #445566;
+  }
+  .categories-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+  }
   .category-section {
-    margin-bottom: 24px;
+    flex: 0 0 auto;
+    min-width: 180px;
   }
   .category-header {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
-    color: #7eb8f7;
-    margin-bottom: 8px;
+    color: #5588aa;
+    margin-bottom: 4px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
   }
   .count {
-    font-size: 10px;
+    font-size: 9px;
     background: #1e3a5f;
     color: #7eb8f7;
-    padding: 2px 6px;
-    border-radius: 10px;
+    padding: 1px 5px;
+    border-radius: 8px;
     font-weight: normal;
     letter-spacing: 0;
+  }
+  .category-desc {
+    font-size: 10px;
+    color: #445566;
+    margin-bottom: 6px;
+    max-width: 360px;
+    line-height: 1.4;
   }
   .tile-grid {
     display: flex;

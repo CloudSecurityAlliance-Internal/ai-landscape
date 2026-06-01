@@ -1,0 +1,88 @@
+---
+// No props — pure client-side search component
+---
+
+<div class="problem-search">
+  <input
+    type="search"
+    id="problem-input"
+    class="problem-input"
+    placeholder="Search by problem, tool, or keyword…"
+    autocomplete="off"
+    spellcheck="false"
+  />
+  <span id="problem-count" class="problem-count"></span>
+</div>
+
+<style>
+  .problem-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .problem-input {
+    width: 280px;
+    padding: 4px 10px;
+    background: #0a1220;
+    border: 1px solid #1a2a3a;
+    border-radius: 4px;
+    color: #ccc;
+    font-size: 12px;
+    outline: none;
+  }
+  .problem-input:focus {
+    border-color: #2a4a6a;
+    color: #e0e0e0;
+  }
+  .problem-input::placeholder {
+    color: #445;
+  }
+  .problem-count {
+    font-size: 11px;
+    color: #556;
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  const input = document.getElementById("problem-input") as HTMLInputElement;
+  const countEl = document.getElementById("problem-count") as HTMLSpanElement;
+
+  function applyFilters() {
+    const query = (input?.value ?? "").trim().toLowerCase();
+    const tiles = document.querySelectorAll<HTMLAnchorElement>(".entry-tile");
+    let visible = 0;
+
+    tiles.forEach((tile) => {
+      const text = tile.getAttribute("data-search") ?? "";
+      const matches = !query || text.includes(query);
+      tile.style.display = matches ? "" : "none";
+      if (matches) visible++;
+    });
+
+    // After hiding tiles, hide category sections that have no visible tiles
+    document.querySelectorAll<HTMLElement>(".category-section").forEach((sec) => {
+      const anyVisible = [...sec.querySelectorAll<HTMLAnchorElement>(".entry-tile")].some(
+        (t) => t.style.display !== "none"
+      );
+      sec.style.display = anyVisible ? "" : "none";
+    });
+
+    // Hide area sections that have no visible categories
+    document.querySelectorAll<HTMLElement>(".area-section").forEach((sec) => {
+      const anyVisible = [...sec.querySelectorAll<HTMLElement>(".category-section")].some(
+        (c) => c.style.display !== "none"
+      );
+      sec.style.display = anyVisible ? "" : "none";
+    });
+
+    if (countEl) {
+      countEl.textContent = query ? `${visible} result${visible !== 1 ? "s" : ""}` : "";
+    }
+  }
+
+  // Expose so FilterBar can call it too
+  (window as any).__applyProblemSearch = applyFilters;
+
+  input?.addEventListener("input", applyFilters);
+</script>
