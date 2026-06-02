@@ -123,6 +123,7 @@ const searchText = [
       </div>
     )
   }
+  <div class="match-reason" hidden></div>
 </button>
 
 <style>
@@ -252,5 +253,28 @@ const searchText = [
   }
   .more {
     color: #9ca3af;
+  }
+  /* Problem match tiers — data-match-tier set dynamically by FilterBar JS */
+  .entry-tile[data-match-tier="strong"] {
+    border-color: #16a34a;
+    background: #f0fdf4;
+    box-shadow: inset 3px 0 0 #16a34a, 0 1px 4px rgba(22, 163, 74, 0.12);
+  }
+  .entry-tile[data-match-tier="possible"] {
+    border-color: #d97706;
+    background: #fffbeb;
+    box-shadow: inset 3px 0 0 #d97706, 0 1px 4px rgba(217, 119, 6, 0.10);
+  }
+  .match-reason {
+    font-size: 9px;
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 1px;
+    color: #16a34a;
+  }
+  .entry-tile[data-match-tier="possible"] .match-reason {
+    color: #d97706;
   }
 </style>

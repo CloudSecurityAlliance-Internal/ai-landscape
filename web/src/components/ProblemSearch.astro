@@ -12,6 +12,7 @@
     spellcheck="false"
   />
   <span id="problem-count" class="problem-count"></span>
+  <span id="match-summary" class="match-summary" hidden></span>
 </div>
 
 <style>
@@ -49,6 +50,10 @@
   }
   .problem-count[data-empty="true"] {
     color: #dc2626;
+  }
+  .match-summary {
+    font-size: 11px;
+    white-space: nowrap;
   }
 </style>
 

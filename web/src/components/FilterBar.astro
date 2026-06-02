@@ -234,6 +234,9 @@ const AREAS = [
 </style>
 
 <script>
+  import { scoreEntry } from "../lib/problemMatcher";
+  import type { EntryMatchData } from "../lib/problemMatcher";
+
   type HTMLBtn = HTMLButtonElement;
 
   let activeArea = "all";
@@ -243,15 +246,15 @@ const AREAS = [
 
   function applyFilters() {
     const query =
-      (
-        document.getElementById("problem-input") as HTMLInputElement
-      )?.value
-        .trim()
-        .toLowerCase() ?? "";
+      (document.getElementById("problem-input") as HTMLInputElement)?.value.trim() ?? "";
+    const problemActive = query.length > 0;
 
     const tiles = document.querySelectorAll<HTMLElement>(".entry-tile");
     const totalTiles = tiles.length;
     let visibleCount = 0;
+    let strongCount = 0;
+    let possibleCount = 0;
+    let hiddenByProblem = 0;
 
     tiles.forEach((tile) => {
       const section = tile.closest<HTMLElement>(".category-section");
@@ -261,44 +264,124 @@ const AREAS = [
       const areaMatch = activeArea === "all" || tileArea === activeArea;
       const catMatch = activeCategory === "all" || tileCat === activeCategory;
       const csaMatch = !csaOnly || tile.querySelector(".csa-badge") !== null;
-      const searchMatch =
-        !query || (tile.getAttribute("data-search") ?? "").includes(query);
       const reviewMatch =
         activeReviewStatus === "all" ||
         (tile.getAttribute("data-review-status") ?? "unknown") === activeReviewStatus;
 
-      const show = areaMatch && catMatch && csaMatch && searchMatch && reviewMatch;
+      const passesStructural = areaMatch && catMatch && csaMatch && reviewMatch;
+
+      let show = passesStructural;
+      let tier: "strong" | "possible" | "none" = "none";
+      let reason = "";
+
+      if (passesStructural && problemActive) {
+        const raw = tile.getAttribute("data-entry");
+        if (raw) {
+          try {
+            const entry = JSON.parse(raw) as Record<string, unknown>;
+            const result = scoreEntry(query, {
+              name: (entry.name as string) ?? "",
+              organization: (entry.organization as string) ?? "",
+              category: (entry.category as string) ?? "",
+              categoryName: (entry.categoryName as string) ?? "",
+              description: (entry.description as string) ?? "",
+              tags: (entry.tags as string[]) ?? [],
+              capability_tags: (entry.capability_tags as string[]) ?? [],
+              buyer_problems: (entry.buyer_problems as string[]) ?? [],
+              integrations: (entry.integrations as string[]) ?? [],
+              maestro_layers: (entry.maestro_layers as string[]) ?? [],
+              aicm_control_families: (entry.aicm_control_families as string[]) ?? [],
+            } satisfies EntryMatchData);
+            tier = result.tier;
+            reason = result.reason;
+            if (tier === "none") {
+              show = false;
+              hiddenByProblem++;
+            }
+          } catch {
+            // malformed data-entry — treat as no match
+            show = false;
+            hiddenByProblem++;
+          }
+        }
+      }
+
       tile.style.display = show ? "" : "none";
+
+      // Set or clear match-tier decoration and reason text
+      const reasonEl = tile.querySelector<HTMLElement>(".match-reason");
+      if (show && problemActive) {
+        tile.setAttribute("data-match-tier", tier);
+        if (reasonEl) {
+          reasonEl.textContent = reason;
+          reasonEl.hidden = !reason;
+        }
+        if (tier === "strong") strongCount++;
+        else if (tier === "possible") possibleCount++;
+      } else {
+        tile.removeAttribute("data-match-tier");
+        if (reasonEl) {
+          reasonEl.textContent = "";
+          reasonEl.hidden = true;
+        }
+      }
+
       if (show) visibleCount++;
     });
 
     // Cascade: hide category sections with no visible tiles
     document.querySelectorAll<HTMLElement>(".category-section").forEach((sec) => {
-      const anyVisible = [
-        ...sec.querySelectorAll<HTMLElement>(".entry-tile"),
-      ].some((t) => t.style.display !== "none");
+      const anyVisible = [...sec.querySelectorAll<HTMLElement>(".entry-tile")].some(
+        (t) => t.style.display !== "none"
+      );
       sec.style.display = anyVisible ? "" : "none";
     });
 
     // Cascade: hide area sections with no visible categories
     document.querySelectorAll<HTMLElement>(".area-section").forEach((sec) => {
-      const anyVisible = [
-        ...sec.querySelectorAll<HTMLElement>(".category-section"),
-      ].some((c) => c.style.display !== "none");
+      const anyVisible = [...sec.querySelectorAll<HTMLElement>(".category-section")].some(
+        (c) => c.style.display !== "none"
+      );
       sec.style.display = anyVisible ? "" : "none";
     });
 
-    // Update result count — show whenever any filter is active
+    // Update summary elements
     const anyFilterActive =
-      activeArea !== "all" || activeCategory !== "all" || csaOnly || !!query || activeReviewStatus !== "all";
+      activeArea !== "all" ||
+      activeCategory !== "all" ||
+      csaOnly ||
+      problemActive ||
+      activeReviewStatus !== "all";
+
     const countEl = document.getElementById("problem-count");
-    if (countEl) {
-      if (anyFilterActive) {
-        countEl.textContent = `${visibleCount} of ${totalTiles} match`;
-        countEl.setAttribute("data-empty", visibleCount === 0 ? "true" : "false");
-      } else {
+    const summaryEl = document.getElementById("match-summary");
+
+    if (problemActive) {
+      // Hide plain count, show problem match summary
+      if (countEl) {
         countEl.textContent = "";
         countEl.removeAttribute("data-empty");
+      }
+      if (summaryEl) {
+        summaryEl.hidden = false;
+        summaryEl.innerHTML =
+          `<span style="color:#16a34a;font-weight:600">Strong: ${strongCount}</span>` +
+          ` <span style="color:#9ca3af">·</span> ` +
+          `<span style="color:#d97706;font-weight:600">Possible: ${possibleCount}</span>` +
+          ` <span style="color:#9ca3af">·</span> ` +
+          `<span style="color:#9ca3af">Hidden: ${hiddenByProblem}</span>`;
+      }
+    } else {
+      // Hide summary, show plain filter count
+      if (summaryEl) summaryEl.hidden = true;
+      if (countEl) {
+        if (anyFilterActive) {
+          countEl.textContent = `${visibleCount} of ${totalTiles} match`;
+          countEl.setAttribute("data-empty", visibleCount === 0 ? "true" : "false");
+        } else {
+          countEl.textContent = "";
+          countEl.removeAttribute("data-empty");
+        }
       }
     }
 
