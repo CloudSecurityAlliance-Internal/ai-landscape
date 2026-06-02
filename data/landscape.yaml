@@ -250,7 +250,7 @@ entries:
     pricing: enterprise
     api_available: true
     vendor_type: ai-native
-    csa_member: false
+    csa_member: true
     tags: [agent-security, nhi, copilot-security, ai-governance]
     capability_tags: [ai-identity, prompt-defense]
     buyer_problems:
@@ -277,7 +277,6 @@ entries:
       last_reviewed: null
       reviewed_by: null
       verification_needed:
-        - csa_member
         - pricing
         - integrations
         - description
@@ -675,7 +674,7 @@ entries:
     pricing: enterprise
     api_available: true
     vendor_type: cloud-native
-    csa_member: false
+    csa_member: true
     tags: [ai-governance, eu-ai-act, nist-ai-rmf, privacy, third-party-risk]
     capability_tags: [ai-governance, rag-data-security]
     buyer_problems:
@@ -701,7 +700,6 @@ entries:
       last_reviewed: null
       reviewed_by: null
       verification_needed:
-        - csa_member
         - pricing
         - integrations
         - description
@@ -924,7 +922,7 @@ entries:
     pricing: paid
     api_available: true
     vendor_type: ai-native
-    csa_member: false
+    csa_member: true
     tags: [nhi, agent-security, oauth, service-accounts, api-security]
     capability_tags: [ai-identity, ai-supply-chain]
     buyer_problems:
@@ -945,7 +943,6 @@ entries:
       last_reviewed: null
       reviewed_by: null
       verification_needed:
-        - csa_member
         - pricing
         - integrations
         - description
@@ -1006,7 +1003,7 @@ entries:
     pricing: enterprise
     api_available: true
     vendor_type: ai-native
-    csa_member: false
+    csa_member: true
     tags: [data-security, privacy, rag-security, data-classification, dlp]
     capability_tags: [ai-governance, ai-risk-compliance]
     buyer_problems:
@@ -1026,7 +1023,6 @@ entries:
       last_reviewed: null
       reviewed_by: null
       verification_needed:
-        - csa_member
         - pricing
         - integrations
         - description
@@ -1046,7 +1042,7 @@ entries:
     pricing: free
     api_available: false
     vendor_type: ai-native
-    csa_member: false
+    csa_member: true
     tags: [open-source, red-teaming, adversarial-testing, llm-security]
     capability_tags: [model-security, prompt-defense]
     buyer_problems:
@@ -1067,7 +1063,6 @@ entries:
       last_reviewed: null
       reviewed_by: null
       verification_needed:
-        - csa_member
         - pricing
         - integrations
         - description
@@ -1170,7 +1165,7 @@ entries:
     pricing: enterprise
     api_available: true
     vendor_type: cloud-native
-    csa_member: false
+    csa_member: true
     tags: [ai-soc, threat-hunting, natural-language, xdr, security-copilot]
     capability_tags: [ai-threat-intel]
     buyer_problems:
@@ -1190,7 +1185,6 @@ entries:
       last_reviewed: null
       reviewed_by: null
       verification_needed:
-        - csa_member
         - pricing
         - integrations
         - description
@@ -1291,7 +1285,7 @@ entries:
     pricing: enterprise
     api_available: true
     vendor_type: cloud-native
-    csa_member: false
+    csa_member: true
     tags: [cloud-security, agentless, attack-path, vulnerability-management, cspm]
     capability_tags: [ai-risk-compliance, ai-soc]
     buyer_problems:
@@ -1312,7 +1306,6 @@ entries:
       last_reviewed: null
       reviewed_by: null
       verification_needed:
-        - csa_member
         - pricing
         - integrations
         - description
@@ -1332,7 +1325,7 @@ entries:
     pricing: enterprise
     api_available: true
     vendor_type: cloud-native
-    csa_member: false
+    csa_member: true
     tags: [cloud-security, agentless, vulnerability-management, cspm, sidescan]
     capability_tags: [ai-risk-compliance]
     buyer_problems:
@@ -1352,7 +1345,6 @@ entries:
       last_reviewed: null
       reviewed_by: null
       verification_needed:
-        - csa_member
         - pricing
         - integrations
         - description
@@ -1500,7 +1492,7 @@ entries:
     pricing: paid
     api_available: true
     vendor_type: cloud-native
-    csa_member: false
+    csa_member: true
     tags: [llm-monitoring, observability, tracing, token-tracking, apm]
     capability_tags: [ai-risk-compliance]
     buyer_problems:
@@ -1520,7 +1512,6 @@ entries:
       last_reviewed: null
       reviewed_by: null
       verification_needed:
-        - csa_member
         - pricing
         - integrations
         - description
@@ -1540,7 +1531,7 @@ entries:
     pricing: enterprise
     api_available: true
     vendor_type: cloud-native
-    csa_member: false
+    csa_member: true
     tags: [observability, apm, ai-analytics, infrastructure-monitoring, anomaly-detection]
     capability_tags: [ai-risk-compliance]
     buyer_problems:
@@ -1560,7 +1551,6 @@ entries:
       last_reviewed: null
       reviewed_by: null
       verification_needed:
-        - csa_member
         - pricing
         - integrations
         - description
@@ -1619,7 +1609,7 @@ entries:
     pricing: enterprise
     api_available: true
     vendor_type: cloud-native
-    csa_member: false
+    csa_member: true
     tags: [grc, model-risk, ai-governance, compliance, audit]
     capability_tags: [ai-risk-compliance]
     buyer_problems:
@@ -1638,7 +1628,6 @@ entries:
       last_reviewed: null
       reviewed_by: null
       verification_needed:
-        - csa_member
         - pricing
         - integrations
         - description
@@ -1697,7 +1686,7 @@ entries:
     pricing: enterprise
     api_available: true
     vendor_type: cloud-native
-    csa_member: false
+    csa_member: true
     tags: [data-governance, compliance, dlp, ai-governance, microsoft-365]
     capability_tags: [ai-governance, rag-data-security]
     buyer_problems:
@@ -1724,7 +1713,6 @@ entries:
       last_reviewed: null
       reviewed_by: null
       verification_needed:
-        - csa_member
         - pricing
         - integrations
         - description
