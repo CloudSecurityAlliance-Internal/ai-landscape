@@ -1717,3 +1717,366 @@ entries:
         - integrations
         - description
       notes: "Seed entry. Requires human review before production publication."
+
+  # ── CSA Executive Member entries — Security for AI ───────────────────────────
+
+  - id: google-model-armor
+    name: Google Cloud Model Armor
+    category: prompt-defense
+    organization: Google
+    description: >-
+      Managed security service for AI applications on Google Cloud that detects
+      and blocks prompt injection, jailbreaks, malicious URLs, and sensitive
+      data exposure in LLM inputs and outputs through a configurable API.
+    website: https://cloud.google.com/security/products/model-armor
+    github: null
+    license: proprietary
+    pricing: paid
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: true
+    tags: [prompt-injection, jailbreak, guardrails, llm-security, gcp]
+    capability_tags: [rag-data-security, agent-security]
+    buyer_problems:
+      - Block prompt injection and jailbreak attempts against GCP-hosted AI applications
+      - Prevent sensitive data and PII from appearing in LLM outputs at the API level
+      - Apply consistent content safety policies across multiple AI application deployments
+      - Detect malicious URLs and unsafe content in LLM inputs before processing
+    integrations: [GCP Vertex AI, Cloud Run, GKE, Apigee, LangChain, LlamaIndex]
+    maestro_layers:
+      - L3-agent-frameworks
+      - L6-security-controls
+    aicm_control_families: [TP, DSP]
+    added: 2026-06-01
+    updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. CSA Executive Member. Requires human review before production publication."
+
+  - id: cyera
+    name: Cyera
+    category: rag-data-security
+    organization: Cyera
+    description: >-
+      Data security platform providing automated discovery, classification, and
+      risk assessment of sensitive data across cloud data stores, including data
+      used in AI training pipelines and RAG document repositories.
+    website: https://cyera.io
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: ai-native
+    csa_member: true
+    tags: [dspm, data-security, data-classification, rag-security, cloud-data]
+    capability_tags: [ai-governance, ai-risk-compliance]
+    buyer_problems:
+      - Discover and classify sensitive data across cloud data stores used in AI applications
+      - Identify over-exposed or misconfigured data repositories that feed AI pipelines
+      - Assess data risk exposure introduced by employee use of AI tools and copilots
+      - Enforce data governance policies across cloud data environments and AI workflows
+    integrations: [AWS, Azure, GCP, Snowflake, Databricks, SharePoint, OneDrive, Okta]
+    maestro_layers:
+      - L2-data-operations
+      - L6-security-controls
+    aicm_control_families: [DSP, GRM, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. CSA Executive Member. Requires human review before production publication."
+
+  - id: okta-ai-agents
+    name: Okta for AI Agents
+    category: agent-security
+    organization: Okta
+    description: >-
+      Identity and access management capabilities extended to AI agent workloads,
+      enabling AI agents to authenticate, obtain scoped OAuth tokens, and have
+      their access governed and audited through the Okta identity platform.
+    website: https://okta.com/ai-agents
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: true
+    tags: [agent-security, nhi, oauth, machine-identity, ai-agents]
+    capability_tags: [ai-identity]
+    buyer_problems:
+      - Issue scoped, auditable credentials for AI agents that interact with enterprise systems
+      - Enforce least-privilege access policies for AI agent identities across SaaS and APIs
+      - Audit all AI agent authentication events and permission grants centrally
+      - Govern which actions and resources AI agents can access through standard identity controls
+    integrations: [Okta Workforce Identity, AWS, Azure, Salesforce, ServiceNow, GitHub]
+    maestro_layers:
+      - L3-agent-frameworks
+      - L4-deployment-infrastructure
+      - L6-security-controls
+    aicm_control_families: [IAM, TP, GRM]
+    added: 2026-06-01
+    updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. CSA Executive Member. Requires human review before production publication."
+
+  # ── CSA Executive Member entries — AI for Security ───────────────────────────
+
+  - id: fortiai-protect
+    name: FortiAI-Protect
+    category: ai-soc
+    organization: Fortinet
+    description: >-
+      AI-powered threat detection capability within the Fortinet Security Fabric
+      that uses behavioral AI to identify advanced threats, anomalous network
+      activity, and attacker techniques across network and endpoint telemetry.
+    website: https://fortinet.com/products/fortiai
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: hybrid
+    csa_member: true
+    tags: [threat-detection, behavioral-ai, network-security, ai-soc, fortinet]
+    capability_tags: [ai-threat-intel]
+    buyer_problems:
+      - Detect advanced threats and unknown attack patterns using AI behavioral analysis
+      - Reduce false positive alert volume in network and endpoint security monitoring
+      - Correlate threat signals across Fortinet Security Fabric components automatically
+      - Accelerate threat investigation with AI-generated attack timelines and context
+    integrations: [FortiGate, FortiSIEM, FortiAnalyzer, FortiSOAR, Splunk, ServiceNow]
+    maestro_layers:
+      - L5-observability-feedback
+      - L6-security-controls
+    aicm_control_families: [TP, IRS]
+    added: 2026-06-01
+    updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. CSA Executive Member. Requires human review before production publication."
+
+  - id: tenable-one
+    name: Tenable One
+    category: ai-vuln-management
+    organization: Tenable
+    description: >-
+      Exposure management platform that aggregates vulnerability and asset risk
+      data across cloud, on-premises, OT, identity, and web application attack
+      surfaces, using AI-driven analysis to prioritize remediation by actual
+      exposure risk.
+    website: https://tenable.com/products/tenable-one
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: hybrid
+    csa_member: true
+    tags: [exposure-management, vulnerability-management, attack-surface, cloud-security, risk-quantification]
+    capability_tags: [ai-risk-compliance]
+    buyer_problems:
+      - Consolidate vulnerability and risk data from cloud, OT, identity, and endpoint sources into a unified exposure view
+      - Prioritize remediation by actual attack path exposure rather than CVSS score alone
+      - Quantify and communicate cyber risk across a diverse, hybrid attack surface
+      - Track remediation progress and SLA compliance across the full asset inventory
+    integrations: [Tenable.io, Tenable.sc, ServiceNow, Splunk, AWS, Azure, GCP, Jira]
+    maestro_layers:
+      - L5-observability-feedback
+      - L7-ecosystem-governance
+    aicm_control_families: [GRM, INS, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. CSA Executive Member. Requires human review before production publication."
+
+  - id: google-scc
+    name: Google Security Command Center
+    category: ai-vuln-management
+    organization: Google
+    description: >-
+      Cloud security and risk management platform for Google Cloud environments
+      that provides asset inventory, vulnerability detection, misconfiguration
+      analysis, and threat detection using AI-driven analysis across GCP workloads.
+    website: https://cloud.google.com/security-command-center
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: true
+    tags: [cspm, cloud-security, vulnerability-management, gcp, threat-detection]
+    capability_tags: [ai-soc, ai-risk-compliance]
+    buyer_problems:
+      - Discover and inventory all GCP assets with continuous posture assessment
+      - Detect critical vulnerabilities and misconfigurations across Google Cloud workloads
+      - Investigate security findings and threat detections from a unified GCP security view
+      - Prioritize security findings by severity and business impact using AI-based analysis
+    integrations: [GCP, BigQuery, Chronicle, Pub/Sub, Splunk, ServiceNow, Jira]
+    maestro_layers:
+      - L4-deployment-infrastructure
+      - L5-observability-feedback
+      - L7-ecosystem-governance
+    aicm_control_families: [INS, GRM, TP]
+    added: 2026-06-01
+    updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. CSA Executive Member. Requires human review before production publication."
+
+  - id: qualys-totalai
+    name: Qualys TotalAI
+    category: ai-vuln-management
+    organization: Qualys
+    description: >-
+      AI security risk management solution that discovers AI and ML assets across
+      enterprise environments, detects vulnerabilities in AI libraries and
+      frameworks, and assesses AI model exposure risk within the Qualys VMDR
+      platform.
+    website: https://qualys.com/apps/totalai
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: hybrid
+    csa_member: true
+    tags: [ai-asset-discovery, vulnerability-management, ai-security, mlsec, risk-assessment]
+    capability_tags: [ai-risk-compliance, ai-supply-chain]
+    buyer_problems:
+      - Discover AI models, ML libraries, and AI application assets across the enterprise attack surface
+      - Identify known vulnerabilities in AI frameworks and ML dependencies before exploitation
+      - Assess the risk posture of AI deployments alongside traditional IT and cloud assets
+      - Prioritize AI security remediation based on actual exposure and business criticality
+    integrations: [AWS, Azure, GCP, Splunk, ServiceNow, Jira, CrowdStrike, Tenable]
+    maestro_layers:
+      - L4-deployment-infrastructure
+      - L5-observability-feedback
+      - L7-ecosystem-governance
+    aicm_control_families: [GRM, INS, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. CSA Executive Member. Requires human review before production publication."
+
+  - id: okta-identity-threat-protection
+    name: Identity Threat Protection with Okta AI
+    category: ai-identity
+    organization: Okta
+    description: >-
+      Continuous identity risk evaluation capability within the Okta platform
+      that uses AI to detect session anomalies, credential-based attacks, and
+      suspicious identity behavior in real time, triggering automated step-up
+      authentication or session termination.
+    website: https://okta.com/products/identity-threat-protection
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: true
+    tags: [itdr, identity-security, session-protection, ai-identity, behavioral-ai]
+    capability_tags: [ai-soc]
+    buyer_problems:
+      - Detect and respond to compromised sessions and account takeover attempts in real time
+      - Identify impossible travel, device anomalies, and behavioral indicators of identity compromise
+      - Trigger automated remediation — step-up auth or session termination — without analyst intervention
+      - Reduce reliance on static access policies by applying continuous risk scoring to active sessions
+    integrations: [Okta Workforce Identity, CrowdStrike, Microsoft Sentinel, Splunk, ServiceNow, Palo Alto Networks]
+    maestro_layers:
+      - L4-deployment-infrastructure
+      - L6-security-controls
+    aicm_control_families: [IAM, TP, IRS]
+    added: 2026-06-01
+    updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. CSA Executive Member. Requires human review before production publication."
+
+  # ── CSA Executive Member entries — AI Governance, Observability & Risk ────────
+
+  - id: zscaler-ai-spm
+    name: Zscaler AI Security Posture Management
+    category: ai-risk-compliance
+    organization: Zscaler
+    description: >-
+      AI security posture management capability within the Zscaler Zero Trust
+      Exchange that discovers, assesses, and governs AI application usage and
+      data exposure risk across an organization's traffic flows.
+    website: https://zscaler.com/products/ai-security
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: true
+    tags: [ai-spm, posture-management, ai-governance, shadow-ai, data-exposure]
+    capability_tags: [ai-governance, rag-data-security]
+    buyer_problems:
+      - Discover which AI applications employees are accessing through corporate networks
+      - Assess data exposure risk from unsanctioned AI tool usage across the workforce
+      - Enforce policy on AI application access based on data sensitivity and risk classification
+      - Maintain an inventory of sanctioned and unsanctioned AI tools with associated risk scores
+    integrations: [Zscaler Internet Access, Zscaler Private Access, Microsoft 365, Okta, CrowdStrike]
+    maestro_layers:
+      - L4-deployment-infrastructure
+      - L7-ecosystem-governance
+    aicm_control_families: [GRM, DSP, CAI]
+    added: 2026-06-01
+    updated: 2026-06-01
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - pricing
+        - integrations
+        - description
+      notes: "Seed entry. CSA Executive Member. Requires human review before production publication."
