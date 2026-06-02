@@ -6,6 +6,7 @@ import LandscapeGrid from "../components/LandscapeGrid.astro";
 import FilterBar from "../components/FilterBar.astro";
 import ProblemSearch from "../components/ProblemSearch.astro";
 import CoverageSummary from "../components/CoverageSummary.astro";
+import EntryDetailModal from "../components/EntryDetailModal.astro";
 
 const landscapePath = resolve(process.cwd(), "../data/landscape.yaml");
 const landscape = yaml.load(readFileSync(landscapePath, "utf8")) as any;
@@ -105,5 +106,6 @@ const totalCategories = landscape.categories.length;
     <FilterBar categories={landscape.categories} />
     <CoverageSummary landscape={landscape} />
     <LandscapeGrid landscape={landscape} />
+    <EntryDetailModal />
   </body>
 </html>

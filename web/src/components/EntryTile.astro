@@ -3,6 +3,8 @@ interface ReviewMeta {
   status?: string;
   last_reviewed?: string | null;
   reviewed_by?: string | null;
+  verification_needed?: string[];
+  notes?: string;
 }
 
 interface Entry {
@@ -11,6 +13,7 @@ interface Entry {
   category: string;
   description: string;
   website: string;
+  github?: string | null;
   logo?: string;
   organization: string;
   pricing: string;
@@ -26,13 +29,17 @@ interface Entry {
   aicm_control_families?: string[];
   review?: ReviewMeta;
   added: string;
+  updated?: string;
 }
 
 interface Props {
   entry: Entry;
+  categoryName?: string;
 }
 
-const { entry } = Astro.props;
+const { entry, categoryName } = Astro.props;
+
+const entryData = JSON.stringify({ ...entry, categoryName: categoryName ?? "" });
 
 const vendorTypeLabel: Record<string, string> = {
   "ai-native": "AI-Native",
@@ -64,14 +71,13 @@ const searchText = [
   .toLowerCase();
 ---
 
-<a
-  href={entry.website}
-  target="_blank"
-  rel="noopener noreferrer"
+<button
+  type="button"
   class="entry-tile"
   data-pagefind-body
   data-search={searchText}
   data-review-status={reviewStatus}
+  data-entry={entryData}
   title={`${entry.name} — ${entry.description} (${entry.organization})`}
 >
   <div class="tile-top">
@@ -117,7 +123,7 @@ const searchText = [
       </div>
     )
   }
-</a>
+</button>
 
 <style>
   .entry-tile {
@@ -128,9 +134,12 @@ const searchText = [
     background: #ffffff;
     border: 1px solid #d0d7de;
     border-radius: 4px;
-    text-decoration: none;
     color: #1f2328;
     font-size: 11px;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    appearance: none;
     transition: border-color 0.15s, box-shadow 0.15s;
     width: 168px;
     min-height: 72px;

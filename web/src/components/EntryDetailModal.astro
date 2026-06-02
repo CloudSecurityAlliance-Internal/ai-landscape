@@ -1,0 +1,576 @@
+---
+// No build-time props — populated entirely by client-side JS from tile data-entry attributes
+---
+
+<dialog id="entry-detail-modal" aria-labelledby="edm-title">
+  <div class="edm-shell">
+    <header class="edm-header">
+      <div class="edm-nameline">
+        <div id="edm-logo" class="edm-logo-wrap"></div>
+        <h2 id="edm-title" class="edm-name"></h2>
+        <span id="edm-csa" class="edm-csa-badge" hidden>CSA</span>
+      </div>
+      <div class="edm-header-btns">
+        <a
+          id="edm-website"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="edm-website-btn"
+        >↗ Website</a>
+        <button id="edm-close" class="edm-close-btn" aria-label="Close detail view">✕</button>
+      </div>
+    </header>
+    <div id="edm-body" class="edm-body"></div>
+  </div>
+</dialog>
+
+<style>
+  /* ── Static shell ─────────────────────────────────────────── */
+  dialog#entry-detail-modal {
+    padding: 0;
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    max-width: min(680px, 92vw);
+    width: 100%;
+    max-height: 85vh;
+    overflow: hidden;
+  }
+
+  dialog#entry-detail-modal::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .edm-shell {
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+    overflow: hidden;
+  }
+
+  .edm-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #d0d7de;
+    background: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .edm-nameline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .edm-logo-wrap {
+    flex-shrink: 0;
+  }
+
+  .edm-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #005b99;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .edm-csa-badge {
+    font-size: 9px;
+    background: #fff3e0;
+    color: #e8641a;
+    border: 1px solid #f0c090;
+    padding: 2px 5px;
+    border-radius: 2px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .edm-header-btns {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .edm-website-btn {
+    font-size: 11px;
+    color: #005b99;
+    text-decoration: none;
+    padding: 4px 10px;
+    border: 1px solid #005b99;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .edm-website-btn:hover {
+    background: #005b99;
+    color: #ffffff;
+  }
+
+  .edm-close-btn {
+    background: transparent;
+    border: 1px solid #d0d7de;
+    border-radius: 4px;
+    color: #57606a;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 4px 8px;
+    line-height: 1;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+
+  .edm-close-btn:hover {
+    background: #f0f6fc;
+    color: #005b99;
+    border-color: #005b99;
+  }
+
+  .edm-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 16px;
+    background: #f5f7fa;
+    min-height: 0;
+  }
+
+  /* ── Injected body content (:global because injected via innerHTML) ── */
+  :global(.edm-logo-img) {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+  }
+
+  :global(.edm-logo-placeholder) {
+    width: 24px;
+    height: 24px;
+    background: #dbeafe;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1e40af;
+  }
+
+  :global(.edm-meta-row) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    align-items: center;
+    font-size: 11px;
+    color: #57606a;
+    margin-bottom: 10px;
+  }
+
+  :global(.edm-meta-org) {
+    font-weight: 600;
+    color: #1f2328;
+  }
+
+  :global(.edm-meta-sep) {
+    color: #d0d7de;
+  }
+
+  :global(.edm-description) {
+    font-size: 12px;
+    line-height: 1.55;
+    color: #1f2328;
+    margin: 0;
+  }
+
+  :global(.edm-hr) {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 12px 0;
+  }
+
+  :global(.edm-overview) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px 16px;
+  }
+
+  :global(.edm-ov-item) {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  :global(.edm-ov-label) {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #57606a;
+  }
+
+  :global(.edm-ov-value) {
+    font-size: 12px;
+    color: #1f2328;
+    font-weight: 500;
+  }
+
+  :global(.edm-ov-link) {
+    font-size: 12px;
+    color: #005b99;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  :global(.edm-ov-link:hover) {
+    text-decoration: underline;
+  }
+
+  :global(.edm-review-seed),
+  :global(.edm-review-unknown) {
+    color: #57606a;
+  }
+
+  :global(.edm-review-needs-review) {
+    color: #7d4e00;
+  }
+
+  :global(.edm-review-reviewed) {
+    color: #1a4731;
+  }
+
+  :global(.edm-review-verified) {
+    color: #0550ae;
+    font-weight: 700;
+  }
+
+  :global(.edm-section) {
+    margin-bottom: 0;
+  }
+
+  :global(.edm-section-label) {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #005b99;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  :global(.edm-spacer) {
+    height: 8px;
+  }
+
+  :global(.edm-problems) {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 11px;
+    color: #1f2328;
+    line-height: 1.65;
+  }
+
+  :global(.edm-chips) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  :global(.edm-chip) {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  :global(.edm-chip--tag) {
+    background: #f6f8fa;
+    color: #57606a;
+    border: 1px solid #d0d7de;
+  }
+
+  :global(.edm-chip--cap) {
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+  }
+
+  :global(.edm-chip--integ) {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+  }
+
+  :global(.edm-chip--maestro) {
+    background: #f0f6fc;
+    color: #005b99;
+    border: 1px solid #d0e8f5;
+    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    font-size: 9px;
+  }
+
+  :global(.edm-chip--aicm) {
+    background: #f0f6fc;
+    color: #005b99;
+    border: 1px solid #d0e8f5;
+    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    font-weight: 700;
+  }
+
+  :global(.edm-chip--verify) {
+    background: #fff8c5;
+    color: #7d4e00;
+    border: 1px solid #d4a72c;
+  }
+
+  :global(.edm-notes) {
+    font-size: 11px;
+    color: #57606a;
+    font-style: italic;
+    margin: 6px 0 0;
+    line-height: 1.4;
+  }
+</style>
+
+<script>
+  const MAESTRO_LABEL: Record<string, string> = {
+    "L1-foundation-models": "L1 · Foundation Models",
+    "L2-data-operations": "L2 · Data Operations",
+    "L3-agent-frameworks": "L3 · Agent Frameworks",
+    "L4-deployment-infrastructure": "L4 · Deployment Infra",
+    "L5-observability-feedback": "L5 · Observability & Feedback",
+    "L6-security-controls": "L6 · Security Controls",
+    "L7-ecosystem-governance": "L7 · Ecosystem Governance",
+  };
+
+  const PRICING_LABEL: Record<string, string> = {
+    free: "Free",
+    freemium: "Freemium",
+    paid: "Paid",
+    enterprise: "Enterprise",
+  };
+
+  const VENDOR_LABEL: Record<string, string> = {
+    "ai-native": "AI-Native",
+    "cloud-native": "Cloud-Native",
+    hybrid: "Hybrid",
+  };
+
+  const REVIEW_LABEL: Record<string, string> = {
+    seed: "Seed",
+    "needs-review": "Needs Review",
+    reviewed: "Reviewed",
+    verified: "Verified",
+  };
+
+  function esc(s: unknown): string {
+    return String(s ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function chips(items: string[], cls: string): string {
+    return items.map((t) => `<span class="edm-chip ${cls}">${esc(t)}</span>`).join("");
+  }
+
+  function openModal(entry: Record<string, any>): void {
+    const dialog = document.getElementById("entry-detail-modal") as HTMLDialogElement;
+    const titleEl = document.getElementById("edm-title") as HTMLElement;
+    const csaEl = document.getElementById("edm-csa") as HTMLElement;
+    const logoEl = document.getElementById("edm-logo") as HTMLElement;
+    const websiteEl = document.getElementById("edm-website") as HTMLAnchorElement;
+    const bodyEl = document.getElementById("edm-body") as HTMLElement;
+
+    // Populate static header elements
+    titleEl.textContent = entry.name as string;
+    csaEl.hidden = !entry.csa_member;
+    logoEl.innerHTML = entry.logo
+      ? `<img src="/${esc(entry.logo)}" alt="${esc(entry.name)}" class="edm-logo-img">`
+      : `<div class="edm-logo-placeholder">${esc((entry.name as string)[0] ?? "?")}</div>`;
+    websiteEl.href = (entry.website as string) ?? "#";
+
+    const parts: string[] = [];
+
+    // Meta row: org · category · date
+    parts.push(
+      `<div class="edm-meta-row">` +
+        `<span class="edm-meta-org">${esc(entry.organization)}</span>` +
+        `<span class="edm-meta-sep">·</span>` +
+        `<span>${esc(entry.categoryName ?? entry.category)}</span>` +
+        `<span class="edm-meta-sep">·</span>` +
+        `<span>Added ${esc(entry.added)}</span>` +
+        `</div>`
+    );
+
+    // Description
+    parts.push(`<p class="edm-description">${esc(entry.description)}</p>`);
+
+    // Overview grid
+    const reviewStatus: string = (entry.review?.status as string) ?? "unknown";
+    const reviewClass = `edm-review-${reviewStatus.replace(/[^a-z-]/g, "")}`;
+    parts.push(`<hr class="edm-hr">`);
+    parts.push(
+      `<div class="edm-overview">` +
+        `<div class="edm-ov-item"><span class="edm-ov-label">License</span>` +
+          `<span class="edm-ov-value">${esc(entry.license ?? "—")}</span></div>` +
+        `<div class="edm-ov-item"><span class="edm-ov-label">Pricing</span>` +
+          `<span class="edm-ov-value">${esc(PRICING_LABEL[entry.pricing as string] ?? entry.pricing ?? "—")}</span></div>` +
+        `<div class="edm-ov-item"><span class="edm-ov-label">API Available</span>` +
+          `<span class="edm-ov-value">${entry.api_available ? "Yes" : "No"}</span></div>` +
+        `<div class="edm-ov-item"><span class="edm-ov-label">Vendor Type</span>` +
+          `<span class="edm-ov-value">${esc(VENDOR_LABEL[entry.vendor_type as string] ?? entry.vendor_type ?? "—")}</span></div>` +
+        `<div class="edm-ov-item"><span class="edm-ov-label">CSA Member</span>` +
+          `<span class="edm-ov-value">${entry.csa_member ? "Yes" : "No"}</span></div>` +
+        `<div class="edm-ov-item"><span class="edm-ov-label">Review Status</span>` +
+          `<span class="edm-ov-value ${esc(reviewClass)}">${esc(REVIEW_LABEL[reviewStatus] ?? reviewStatus)}</span></div>` +
+        (entry.github
+          ? `<div class="edm-ov-item"><span class="edm-ov-label">GitHub</span>` +
+              `<a href="${esc(entry.github)}" target="_blank" rel="noopener noreferrer" class="edm-ov-link">View repo ↗</a></div>`
+          : "") +
+        `</div>`
+    );
+
+    // Buyer problems
+    const problems: string[] = (entry.buyer_problems as string[]) ?? [];
+    if (problems.length > 0) {
+      parts.push(`<hr class="edm-hr">`);
+      parts.push(
+        `<div class="edm-section">` +
+          `<span class="edm-section-label">Buyer Problems</span>` +
+          `<ul class="edm-problems">${problems.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>` +
+          `</div>`
+      );
+    }
+
+    // Tags + capability tags
+    const tags: string[] = (entry.tags as string[]) ?? [];
+    const capTags: string[] = (entry.capability_tags as string[]) ?? [];
+    if (tags.length > 0 || capTags.length > 0) {
+      parts.push(`<hr class="edm-hr">`);
+      if (tags.length > 0) {
+        parts.push(
+          `<div class="edm-section">` +
+            `<span class="edm-section-label">Tags</span>` +
+            `<div class="edm-chips">${chips(tags, "edm-chip--tag")}</div>` +
+            `</div>`
+        );
+      }
+      if (capTags.length > 0) {
+        if (tags.length > 0) parts.push(`<div class="edm-spacer"></div>`);
+        parts.push(
+          `<div class="edm-section">` +
+            `<span class="edm-section-label">Capability Tags</span>` +
+            `<div class="edm-chips">${chips(capTags, "edm-chip--cap")}</div>` +
+            `</div>`
+        );
+      }
+    }
+
+    // Integrations
+    const integrations: string[] = (entry.integrations as string[]) ?? [];
+    if (integrations.length > 0) {
+      parts.push(`<hr class="edm-hr">`);
+      parts.push(
+        `<div class="edm-section">` +
+          `<span class="edm-section-label">Integrations</span>` +
+          `<div class="edm-chips">${chips(integrations, "edm-chip--integ")}</div>` +
+          `</div>`
+      );
+    }
+
+    // MAESTRO layers
+    const maestroLayers: string[] = (entry.maestro_layers as string[]) ?? [];
+    if (maestroLayers.length > 0) {
+      parts.push(`<hr class="edm-hr">`);
+      const layerChips = maestroLayers
+        .map(
+          (l) =>
+            `<span class="edm-chip edm-chip--maestro">${esc(MAESTRO_LABEL[l] ?? l)}</span>`
+        )
+        .join("");
+      parts.push(
+        `<div class="edm-section">` +
+          `<span class="edm-section-label">MAESTRO Layers</span>` +
+          `<div class="edm-chips">${layerChips}</div>` +
+          `</div>`
+      );
+    }
+
+    // AICM control families
+    const aicmFamilies: string[] = (entry.aicm_control_families as string[]) ?? [];
+    if (aicmFamilies.length > 0) {
+      parts.push(`<hr class="edm-hr">`);
+      parts.push(
+        `<div class="edm-section">` +
+          `<span class="edm-section-label">AICM Control Families</span>` +
+          `<div class="edm-chips">${chips(aicmFamilies, "edm-chip--aicm")}</div>` +
+          `</div>`
+      );
+    }
+
+    // Verification needed + notes
+    const verificationNeeded: string[] =
+      (entry.review?.verification_needed as string[]) ?? [];
+    const notes: string | undefined = entry.review?.notes as string | undefined;
+    if (verificationNeeded.length > 0 || notes) {
+      parts.push(`<hr class="edm-hr">`);
+      parts.push(`<div class="edm-section">`);
+      if (verificationNeeded.length > 0) {
+        parts.push(
+          `<span class="edm-section-label">Needs Verification</span>` +
+            `<div class="edm-chips">${chips(verificationNeeded, "edm-chip--verify")}</div>`
+        );
+      }
+      if (notes) {
+        parts.push(`<p class="edm-notes">${esc(notes)}</p>`);
+      }
+      parts.push(`</div>`);
+    }
+
+    bodyEl.innerHTML = parts.join("");
+
+    if (dialog.open) dialog.close();
+    document.body.style.overflow = "hidden";
+    dialog.showModal();
+  }
+
+  function closeModal(): void {
+    const dialog = document.getElementById("entry-detail-modal") as HTMLDialogElement;
+    dialog?.close();
+  }
+
+  // Open on tile click (delegated)
+  document.addEventListener("click", (e) => {
+    const tile = (e.target as Element).closest<HTMLElement>(".entry-tile");
+    if (!tile) return;
+    e.preventDefault();
+    const raw = tile.getAttribute("data-entry");
+    if (!raw) return;
+    try {
+      openModal(JSON.parse(raw) as Record<string, any>);
+    } catch {
+      // malformed JSON — do nothing
+    }
+  });
+
+  // Close button
+  document.getElementById("edm-close")?.addEventListener("click", closeModal);
+
+  // Backdrop click (target is the <dialog> element itself, not its children)
+  document.getElementById("entry-detail-modal")?.addEventListener("click", (e) => {
+    if (e.target === e.currentTarget) closeModal();
+  });
+
+  // Restore body scroll on any close (Escape, button, backdrop)
+  document.getElementById("entry-detail-modal")?.addEventListener("close", () => {
+    document.body.style.overflow = "";
+  });
+</script>
