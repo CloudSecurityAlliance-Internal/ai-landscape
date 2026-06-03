@@ -1108,6 +1108,47 @@ entries:
         - description
       notes: "Seed entry. Requires human review before production publication."
 
+  - id: haize-labs
+    name: Haize Labs
+    category: ai-red-teaming
+    organization: Haize Labs
+    description: >-
+      AI safety and reliability platform that automates red-teaming and
+      adversarial stress-testing of LLMs and AI agents to identify failure
+      modes and safety vulnerabilities before and after production deployment.
+    website: https://haizelabs.com
+    github: https://github.com/haizelabs
+    license: proprietary
+    pricing: enterprise
+    api_available: false
+    vendor_type: ai-native
+    csa_member: false
+    tags: [red-teaming, adversarial-testing, llm-evaluation, ai-safety, jailbreak-detection]
+    capability_tags: [model-security, prompt-defense]
+    buyer_problems:
+      - Identify LLM failure modes and safety vulnerabilities before production deployment
+      - Automate adversarial red-teaming at scale without expensive human researchers
+      - Ensure AI agents meet compliance requirements in regulated industries
+      - Continuously monitor deployed AI systems for new jailbreak and safety regressions
+    integrations: [OpenAI, Anthropic, AI21 Labs]
+    maestro_layers:
+      - L1-foundation-models
+      - L6-security-controls
+    aicm_control_families: [TP, CAI]
+    added: 2026-06-03
+    updated: 2026-06-03
+    review:
+      status: seed
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - pricing
+        - api_available
+        - integrations
+        - description
+      notes: "Seed entry. Requires human review before production publication."
+
   # ── AI for Security (continued) ──────────────────────────────────────────────
 
   - id: vectra-ai
