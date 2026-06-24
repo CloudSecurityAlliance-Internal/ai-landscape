@@ -916,14 +916,14 @@ entries:
       Non-human identity (NHI) security platform that discovers and governs
       app-to-app connections, API credentials, OAuth grants, and service
       account access used by AI agents and automated workflows.
-    website: https://astrix.security
+    website: https://www.astrix.security
     github: null
     license: proprietary
     pricing: paid
     api_available: true
     vendor_type: ai-native
     csa_member: true
-    tags: [nhi, agent-security, oauth, service-accounts, api-security]
+    tags: [nhi, agent-security, oauth, service-accounts, api-security, market-map-identity, market-map-governance, market-map-observability, market-map-supply-chain-integrity, market-map-vendor-neutral-guardrails, csa-agentic-ai-market-map-2026]
     capability_tags: [ai-identity, ai-supply-chain]
     buyer_problems:
       - Discover all non-human identities and API connections used by AI agents
@@ -937,7 +937,7 @@ entries:
       - L6-security-controls
     aicm_control_families: [IAM, TP, SC]
     added: 2026-06-01
-    updated: 2026-06-01
+    updated: 2026-06-24
     review:
       status: seed
       last_reviewed: null
@@ -946,7 +946,7 @@ entries:
         - pricing
         - integrations
         - description
-      notes: "Seed entry. Requires human review before production publication."
+      notes: "Seed entry. Requires human review before production publication. Featured in CSA Agentic AI Security Innovator Market Map (May 2026) under all five categories: Identity, Governance, Observability, Supply Chain Integrity, and Vendor-Neutral Guardrails. CSA membership manually confirmed by the project owner on 2026-06-24."
 
   - id: jfrog-security
     name: JFrog Security
@@ -2121,3 +2121,1107 @@ entries:
         - integrations
         - description
       notes: "Seed entry. CSA Executive Member. Requires human review before production publication."
+
+  # ── CSA Agentic AI Security Innovator Market Map (May 2026) ──────────────────
+  # Companies featured in the CSA "Agentic AI Security Innovator Market Map,"
+  # May 2026. All entries enriched from official company websites. All fields
+  # require human verification before production publication.
+  # Source provenance tag: csa-agentic-ai-market-map-2026
+  # Category tags: market-map-identity, market-map-governance,
+  #   market-map-observability, market-map-supply-chain-integrity,
+  #   market-map-vendor-neutral-guardrails
+
+  - id: adversa-ai
+    name: Adversa AI
+    category: ai-red-teaming
+    organization: Adversa AI
+    description: >-
+      Adversa AI is a continuous AI red teaming platform that automates
+      security testing for AI agents and applications, covering 60+
+      vulnerability classes across agent, model, and MCP layers. It addresses
+      agentic AI attack surfaces — including prompt injection, memory
+      poisoning, tool execution abuse, and inter-agent trust exploitation —
+      with autonomous re-scanning triggered by model, prompt, or tool updates.
+      The platform serves enterprise organizations in finance, insurance, and
+      automotive industries.
+    website: https://adversa.ai
+    github: null
+    license: proprietary
+    pricing: paid
+    api_available: false
+    vendor_type: ai-native
+    csa_member: true
+    tags: [red-teaming, adversarial-ml, ai-security, market-map-governance, market-map-observability, csa-agentic-ai-market-map-2026, agentic-ai-security, mcp-security, continuous-red-teaming, eu-ai-act]
+    capability_tags: [model-security, ai-governance, ai-red-teaming, agent-security]
+    buyer_problems:
+      - Agentic AI systems expose a broad attack surface beyond prompt injection — including memory poisoning, tool execution abuse, and inter-agent trust exploitation — that most security assessments do not cover.
+      - Security testing of AI applications must keep pace with frequent model updates, prompt changes, and new tool integrations without manual re-testing cycles.
+      - Organizations deploying AI agents need audit-ready evidence of security controls to satisfy EU AI Act, NIST AI RMF, ISO/IEC 42001, and DORA compliance requirements.
+      - Enterprise teams lack visibility into novel and adaptive attacks against their specific AI stack, including MCP-layer and multi-modal attack vectors.
+    integrations: [SIEM, MLOps, CI/CD, Jira]
+    maestro_layers:
+      - L1-foundation-models
+      - L3-agent-frameworks
+      - L5-observability-feedback
+      - L6-security-controls
+    aicm_control_families: [TP, CAI, INS, IRS]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+        - pricing
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Governance, Observability. Official website confirmed via CSA PDF. Enriched from adversa.ai \u2014 platform covers 60+ vuln classes, AIRQ open-source risk scoring, deployment SaaS/hybrid/air-gapped. CSA membership manually confirmed by the project owner on 2026-06-24."
+
+  - id: aembit
+    name: Aembit
+    category: ai-identity
+    organization: Aembit
+    description: >-
+      Aembit is a cloud-native non-human identity and access management (IAM)
+      platform that provides secretless, policy-governed access for AI agents,
+      workloads, and service accounts to APIs, databases, and services. It
+      replaces long-lived stored credentials with dynamically issued,
+      short-lived tokens enforced by a centralized control plane and
+      distributed edge agents, enabling just-in-time access with full audit
+      trails.
+    website: https://aembit.io/
+    github: null
+    license: proprietary
+    pricing: freemium
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: true
+    tags: [nhi, workload-identity, agent-security, secrets-management, market-map-identity, market-map-governance, market-map-supply-chain-integrity, csa-agentic-ai-market-map-2026, zero-trust, just-in-time-access, mcp-security, credential-management]
+    capability_tags: [ai-identity, ai-supply-chain, agent-security]
+    buyer_problems:
+      - AI agents and workloads rely on long-lived stored credentials that create secret sprawl and are difficult to rotate or revoke.
+      - Organizations lack visibility and audit trails into what APIs and services non-human identities are accessing at runtime.
+      - Developers must write and maintain authentication logic per-service, increasing engineering overhead and inconsistency.
+      - Enterprises cannot enforce least-privilege or conditional access policies for AI agent-to-service connections across multi-cloud environments.
+    integrations:
+      - AWS IAM
+      - Azure Entra ID
+      - Google Cloud Workload Identity Federation
+      - CrowdStrike
+      - Wiz
+      - HashiCorp Vault
+      - Microsoft Copilot Studio
+      - Anthropic Claude
+      - OpenAI
+      - Google Gemini
+      - Snowflake
+      - PostgreSQL
+      - GitHub Actions
+      - GitLab CI
+      - Jenkins
+      - Kubernetes
+      - Terraform
+      - Slack
+      - Model Context Protocol (MCP)
+    maestro_layers:
+      - L3-agent-frameworks
+      - L4-deployment-infrastructure
+      - L6-security-controls
+      - L7-ecosystem-governance
+    aicm_control_families: [IAM, SC, GRM]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed: []
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Identity, Governance, Supply Chain Integrity. Official website confirmed via CSA PDF. Enriched from aembit.io \u2014 freemium confirmed (free tier: 10 workloads/3 AI agents; Teams: $20/unit/month). SOC2 and ISO27001 certified. CSA membership manually confirmed by the project owner on 2026-06-24."
+
+  - id: aiceberg
+    name: Aiceberg
+    category: ai-observability
+    organization: Aiceberg
+    description: >-
+      Aiceberg is an AI security and observability platform that provides
+      real-time detection and response for AI-related risks across enterprise
+      LLM and agentic AI deployments. It monitors AI interactions for prompt
+      injection, sensitive data exposure, shadow AI usage, and policy
+      violations using over 100 AI-specific risk signals. The platform
+      integrates via ICAP into existing security infrastructure (firewalls,
+      CASB) and natively with agentic frameworks.
+    website: https://aiceberg.ai/
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: ai-native
+    csa_member: false
+    tags: [ai-governance, agent-security, market-map-governance, market-map-observability, market-map-vendor-neutral-guardrails, csa-agentic-ai-market-map-2026, shadow-ai-detection, prompt-injection, dlp, siem-integration, casb, icap, agentic-ai-security, real-time-monitoring]
+    capability_tags: [ai-observability, prompt-defense, ai-governance]
+    buyer_problems:
+      - Lack of visibility into AI system decisions, agent actions, and data flows across enterprise deployments.
+      - Prompt injection and sensitive data (PII, PCI, PHI) exposure through LLM and agentic AI interactions.
+      - Unauthorized or unmanaged shadow AI tool usage within the organization.
+      - Difficulty meeting compliance and audit requirements for AI systems without deterministic, explainable decision records.
+    integrations:
+      - Palo Alto
+      - F5
+      - Zscaler
+      - Fortinet
+      - Check Point
+      - CrowdStrike
+      - Elastic
+      - Splunk
+      - IBM QRadar
+      - Rapid7
+      - Google Workspace
+      - Okta
+      - Azure Active Directory
+      - Ping Identity
+      - CrewAI
+      - LlamaIndex
+      - LangChain
+      - AWS Bedrock
+    maestro_layers:
+      - L3-agent-frameworks
+      - L5-observability-feedback
+      - L6-security-controls
+      - L7-ecosystem-governance
+    aicm_control_families: [GRM, INS, IRS, DSP, IAM]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - pricing
+        - csa_member
+        - confirm acquisition status by Cranium AI and whether brand remains independent
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Governance, Observability, Vendor-Neutral Guardrails. Official website confirmed via CSA PDF. Enriched from aiceberg.ai \u2014 acquired by Cranium AI (noted on site). Three tiers: Discovery, Guardian, Sensitive DLP. ICAP integration for inline enforcement."
+
+  - id: akto
+    name: Akto
+    category: agent-security
+    organization: Akto
+    description: >-
+      Akto is a unified API security, AI agent security, and MCP security
+      platform used by enterprise AppSec teams to discover, test, and protect
+      APIs, LLM workflows, and agentic AI systems. It provides automated red
+      teaming with a 1,000+ probe library, runtime guardrails, and
+      CI/CD-integrated DAST scanning to detect prompt injection, broken
+      authorization, and tool-poisoning attacks. The platform is open source
+      at its core (MIT-licensed) with a commercial enterprise tier.
+    website: https://www.akto.io/
+    github: https://github.com/akto-api-security/akto
+    license: MIT
+    pricing: paid
+    api_available: true
+    vendor_type: ai-native
+    csa_member: true
+    tags: [api-security, agent-security, market-map-identity, market-map-governance, market-map-observability, market-map-supply-chain-integrity, market-map-vendor-neutral-guardrails, csa-agentic-ai-market-map-2026, open-source, dast, mcp-security, red-teaming, runtime-protection, ci-cd-integration]
+    capability_tags: [prompt-defense, ai-supply-chain, ai-red-teaming, agent-security]
+    buyer_problems:
+      - Security teams lack visibility into AI agents, MCP servers, and LLM tools deployed across the enterprise, making it difficult to enforce governance or detect misuse.
+      - APIs and AI agent endpoints are vulnerable to OWASP Top 10 issues, prompt injection, broken object-level authorization, and tool-poisoning attacks that traditional scanners miss.
+      - Development teams need to run API and AI security tests continuously in CI/CD pipelines without manual configuration or disrupting developer workflows.
+      - Organizations deploying agentic AI systems need runtime guardrails and threat detection to block unsafe autonomous actions and data leakage at the execution layer.
+    integrations:
+      - Jenkins
+      - GitHub
+      - BurpSuite
+      - AWS
+      - AWS Bedrock
+      - GCP
+      - Postman
+      - Azure Functions
+      - Cloudflare
+      - OpenAI
+    maestro_layers:
+      - L3-agent-frameworks
+      - L4-deployment-infrastructure
+      - L5-observability-feedback
+      - L6-security-controls
+    aicm_control_families: [SC, INS, IAM, IRS]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+        - confirm boundary between MIT open-source and proprietary AI agent features
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: all five. Official website confirmed via CSA PDF. Enriched from akto.io \u2014 open-source MIT core (1.5k GitHub stars), commercial AI agent security layer. Gartner-recognized in AI agent security 2024 Market Guide. $4.5M seed. CSA membership manually confirmed by the project owner on 2026-06-24."
+
+  - id: arguseye
+    name: ArgusEye
+    category: ai-vuln-management
+    organization: ArgusEye
+    description: >-
+      ArgusEye provides Sentry, an autonomous AI platform that functions as a
+      virtual product security engineer for connected device manufacturers. It
+      continuously performs threat modeling, generates reachability-aware
+      vulnerability findings with CSAF VEX documentation, and compiles
+      regulatory compliance evidence for frameworks including FDA 524B, EU
+      CRA, ISA/IEC 62443, CMMC 2.0, and SPD-5. The platform targets OT,
+      MedTech, robotics, defense, and consumer electronics manufacturers.
+    website: https://arguseye.ai
+    github: https://github.com/arguseye
+    license: proprietary
+    pricing: enterprise
+    api_available: false
+    vendor_type: ai-native
+    csa_member: true
+    tags: [market-map-identity, market-map-governance, market-map-observability, market-map-supply-chain-integrity, csa-agentic-ai-market-map-2026, product-security, cyber-physical, threat-modeling, vulnerability-management, ot-security, medtech-security, regulatory-compliance, sbom, vex]
+    capability_tags: [ai-vuln-management, ai-risk-compliance, ai-governance]
+    buyer_problems:
+      - Connected device manufacturers lack dedicated product security engineering capacity to perform continuous threat modeling across complex hardware and firmware stacks.
+      - Security documentation required for regulatory submissions (FDA 524B, EU CRA, CMMC 2.0) is manual, time-consuming, and difficult to keep current as codebases evolve.
+      - Vulnerability findings in embedded systems often lack reachability context, making it hard to prioritize remediation and generate accurate VEX documents.
+      - Organizations need air-gapped or sovereign deployment options to protect sensitive IP associated with hardware schematics and firmware during security analysis.
+    integrations: []
+    maestro_layers:
+      - L1-foundation-models
+      - L2-data-operations
+      - L6-security-controls
+      - L7-ecosystem-governance
+    aicm_control_families: [GRM, DSP, INS, IRS]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+        - integrations
+        - pricing
+        - github — set to null; https://github.com/arguseye returned 404 during research, correct URL unconfirmed
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Identity, Governance, Observability, Supply Chain Integrity. Official website confirmed via CSA PDF. Enriched from arguseye.ai \u2014 product is Sentry, a cyber-physical product security platform for connected device manufacturers, NOT an AI agent monitoring tool. Initial stub description was incorrect. Co-founders: W. Jackson Schultz (CEO), Lawrence Ibarria (CTO). Air-gapped/sovereign deployment available. CSA membership manually confirmed by the project owner on 2026-06-24."
+
+  - id: daylight-security
+    name: Daylight Security
+    category: ai-soc
+    organization: Daylight Security
+    description: >-
+      Daylight Security delivers Managed Agentic Security Services (MASS),
+      combining AI-driven investigation agents with senior human security
+      experts for continuous managed detection and response (MDR) across SaaS,
+      cloud, and endpoint environments. The platform automates alert triage,
+      threat hunting, phishing investigation, and DLP monitoring end-to-end,
+      correlating identity, cloud posture, and cross-system context to reduce
+      investigation time.
+    website: https://daylight.ai/
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: false
+    vendor_type: ai-native
+    csa_member: false
+    tags: [market-map-identity, csa-agentic-ai-market-map-2026, ai-soc, mdr, threat-hunting, managed-security]
+    capability_tags: [ai-soc, ai-threat-intel]
+    buyer_problems:
+      - Security teams lack the staff and context to investigate high volumes of alerts across SaaS, cloud, and endpoints in a timely manner.
+      - Traditional MDR services rely on underpowered tooling and junior analysts who cannot correlate identity, cloud posture, and endpoint context across modern environments.
+      - Non-deterministic, AI-accelerated attacks move faster than manual triage workflows allow.
+      - Organizations need rapid incident containment (phishing, DLP, endpoint forensics) without maintaining a dedicated 24/7 SOC team.
+    integrations: [Slack, Microsoft Teams, Email, Notion, GitHub]
+    maestro_layers:
+      - L5-observability-feedback
+      - L6-security-controls
+      - L7-ecosystem-governance
+    aicm_control_families: [INS, IRS, DSP]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+        - csa_member
+        - confirm full integration list
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Identity. Official website confirmed via CSA PDF. Enriched from daylight.ai \u2014 Managed Agentic Security Services (MASS) provider. Initial stub description was incorrect (described as AppSec/NHI platform). $40M raised (Bain Capital Ventures, Craft Ventures). Emerged from stealth July 2025. Targets $50M-$1B companies in finance and software."
+
+  - id: entro-security
+    name: Entro Security
+    category: agent-security
+    organization: Entro Security
+    description: >-
+      Entro Security is a non-human identity (NHI) and agentic AI security
+      platform that provides unified discovery, classification, posture
+      management, and lifecycle management for service accounts, API tokens,
+      secrets, and AI agents across cloud, SaaS, CI/CD, and on-premises
+      environments. It addresses the lack of visibility and ownership
+      attribution for machine identities and AI agents by continuously
+      monitoring behavior via its proprietary NHIDR detection engine and
+      automating remediation.
+    website: https://entro.security
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: true
+    tags: [nhi, secrets-management, agent-security, service-accounts, market-map-identity, market-map-governance, market-map-observability, csa-agentic-ai-market-map-2026, non-human-identity, identity-lifecycle, agent-discovery, posture-management, nhidr, machine-identity]
+    capability_tags: [ai-identity, ai-supply-chain, ai-governance]
+    buyer_problems:
+      - Security teams lack visibility into AI agents deployed across cloud, CI/CD, and SaaS environments, including shadow agents deployed without security review.
+      - Non-human identities such as service accounts, API tokens, and machine credentials proliferate without ownership attribution, making rapid remediation difficult.
+      - Overprivileged and orphaned secrets and credentials accumulate over time, expanding the attack surface when they are exposed or misused.
+      - Traditional IAM and PAM tools do not monitor or enforce policy for autonomous AI agent behavior and the sensitive resources agents access at runtime.
+    integrations:
+      - AWS
+      - Azure
+      - GCP
+      - Oracle Cloud Infrastructure
+      - GitHub
+      - GitLab
+      - Bitbucket
+      - GitHub Actions
+      - Jenkins CI
+      - CircleCI
+      - Azure Pipeline
+      - HashiCorp Vault
+      - AWS Secrets Manager
+      - Azure Key Vault
+      - GCP Secrets Manager
+      - CyberArk Conjur
+      - 1Password
+      - Okta
+      - Microsoft Entra ID
+      - Active Directory
+      - Kubernetes
+      - Splunk
+      - Datadog
+      - Elastic
+      - Microsoft Sentinel
+      - CrowdStrike Falcon
+      - Wiz
+      - Slack
+      - Microsoft Teams
+      - Jira
+      - ServiceNow
+      - Salesforce
+      - Snowflake
+    maestro_layers:
+      - L3-agent-frameworks
+      - L4-deployment-infrastructure
+      - L6-security-controls
+      - L7-ecosystem-governance
+    aicm_control_families: [IAM, INS, GRM, SC]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Identity, Governance, Observability. Official website confirmed via CSA PDF. Enriched from entro.security \u2014 60+ integrations, NHIDR proprietary engine. Gartner Cool Vendor in Identity First. Customers: Kayak, Paramount, Elastic, Dropbox. CSA membership manually confirmed by the project owner on 2026-06-24."
+
+  - id: harmonic-security
+    name: Harmonic
+    category: ai-governance
+    organization: Harmonic Security
+    description: >-
+      Harmonic Security is an AI governance and control platform that provides
+      real-time visibility and policy enforcement across browser-based AI
+      tools, desktop AI applications, SaaS-embedded AI, and AI agent and MCP
+      server workflows. It uses intent-based classification rather than
+      keyword matching to govern what data employees and agents share with AI
+      surfaces, addressing shadow AI discovery, data loss prevention, and AI
+      agent security in enterprise environments.
+    website: https://www.harmonic.security/
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: ai-native
+    csa_member: true
+    tags: [llm-security, ai-dlp, market-map-governance, market-map-observability, market-map-vendor-neutral-guardrails, csa-agentic-ai-market-map-2026, shadow-ai, data-loss-prevention, genai-dlp, ai-agent-security, mcp-security, browser-extension, intent-classification]
+    capability_tags: [ai-governance, prompt-defense, ai-observability]
+    buyer_problems:
+      - Lack of visibility into which AI tools employees are using and what data is being shared with them (shadow AI).
+      - Data leakage through AI prompts sent to external LLM services via browsers, desktop apps, and embedded SaaS AI features.
+      - No governance or policy enforcement over AI agent and MCP server tool calls that operate autonomously.
+      - Difficulty demonstrating AI compliance posture to auditors in regulated industries without centralized usage logs.
+    integrations:
+      - Microsoft Intune
+      - JAMF
+      - Kandji
+      - Group Policy
+      - Google Chrome
+      - Microsoft Edge
+      - Firefox
+      - Safari
+      - Canva
+      - Grammarly
+      - Google Workspace
+      - Salesforce
+      - OpenTelemetry
+      - AWS
+    maestro_layers:
+      - L3-agent-frameworks
+      - L5-observability-feedback
+      - L6-security-controls
+      - L7-ecosystem-governance
+    aicm_control_families: [GRM, DSP, IAM, INS]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Governance, Observability, Vendor-Neutral Guardrails. Official website confirmed via CSA PDF. Enriched from harmonic.security \u2014 founded August 2023, SOC 2 Type 2, HIPAA, ISO 27001 certified. MCP Gateway launched October 2025. RSA Innovation Sandbox finalist April 2024. In-Q-Tel backed. CSA membership manually confirmed by the project owner on 2026-06-24."
+
+  - id: knostic
+    name: Knostic
+    category: agent-security
+    organization: Knostic
+    description: >-
+      Knostic is an AI agent and coding safety platform providing MCP server
+      security, shadow AI discovery, and runtime protection for AI coding
+      assistants. Its Kirin product secures AI coding assistants and
+      autonomous agents by blocking destructive commands, redacting secrets,
+      and preventing data exfiltration. The platform also offers OpenAnt, an
+      open-source LLM vulnerability discovery tool for CI/CD pipelines.
+    website: https://knostic.ai
+    github: null
+    license: proprietary
+    pricing: freemium
+    api_available: false
+    vendor_type: ai-native
+    csa_member: false
+    tags: [llm-security, market-map-governance, market-map-observability, market-map-supply-chain-integrity, csa-agentic-ai-market-map-2026, mcp-security, shadow-ai, coding-assistant-security, supply-chain]
+    capability_tags: [agent-security, ai-risk-compliance, ai-supply-chain]
+    buyer_problems:
+      - Security teams lack visibility into unsanctioned AI tool usage (shadow AI, citizen coder apps) across the organization.
+      - AI coding assistants and autonomous agents can execute destructive commands, exfiltrate data, or expose secrets and PII without runtime controls.
+      - MCP servers and IDE extensions introduce supply chain risks that existing security tools do not address.
+      - Development pipelines lack automated LLM vulnerability discovery and remediation capabilities integrated into CI/CD workflows.
+    integrations: [Cursor, VS Code, Claude, GitHub, MCP servers]
+    maestro_layers:
+      - L3-agent-frameworks
+      - L6-security-controls
+      - L7-ecosystem-governance
+    aicm_control_families: [IAM, SC, DSP]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+        - csa_member
+        - github — set to null; https://github.com/knostic-ai returned 404 during research, correct URL unconfirmed
+        - pricing tier details
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Governance, Observability, Supply Chain Integrity. Official website confirmed via CSA PDF. Enriched from knostic.ai \u2014 product positioning shifted from LLM access control to AI coding safety and MCP security. Free tier (up to 5 licenses), open-source OpenAnt tool available."
+
+  - id: permiso-security
+    name: Permiso Security
+    category: ai-identity
+    organization: Permiso Security
+    description: >-
+      Permiso is an identity security platform that discovers, protects, and
+      defends human, non-human, and AI identities across cloud, SaaS,
+      on-premises, and CI/CD environments using a Universal Identity Graph. It
+      provides Identity Security Posture Management (ISPM), Identity Threat
+      Detection and Response (ITDR), and AI agent runtime security —
+      attributing every agent action, API call, and tool use to a specific
+      identity in real time.
+    website: https://permiso.io
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: ai-native
+    csa_member: false
+    tags: [itdr, cloud-identity, behavioral-analytics, market-map-identity, market-map-observability, market-map-supply-chain-integrity, csa-agentic-ai-market-map-2026, identity-threat-detection-response, non-human-identity, ai-agent-security, runtime-security]
+    capability_tags: [ai-soc, agent-security, ai-identity]
+    buyer_problems:
+      - Lack of visibility into all human, non-human, and AI identities across cloud and SaaS environments, including shadow agents and unowned service accounts.
+      - Inability to attribute AI agent actions — tool calls, API requests, and data access — to a specific identity in real time.
+      - Difficulty detecting credential compromise, account takeover, insider threats, and LLM-jacking across authentication boundaries.
+      - Excessive privilege exposure from stale access, toxic permission combinations, and over-privileged AI agents that increase blast radius.
+    integrations:
+      - AWS
+      - Microsoft Azure
+      - Google Cloud Platform
+      - Okta
+      - Microsoft Entra ID
+      - Microsoft 365
+      - Google Workspace
+      - GitHub
+      - GitLab
+      - Bitbucket
+      - Slack
+      - Snowflake
+      - Salesforce
+      - ServiceNow
+      - Databricks
+      - OpenAI
+      - Anthropic
+      - Terraform
+      - 1Password
+      - Cloudflare
+      - Ping Identity
+      - Duo Security
+    maestro_layers:
+      - L3-agent-frameworks
+      - L4-deployment-infrastructure
+      - L5-observability-feedback
+      - L6-security-controls
+    aicm_control_families: [IAM, INS, IRS, SC]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+        - csa_member
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Identity, Observability, Supply Chain Integrity. Official website confirmed via CSA PDF. Enriched from permiso.io \u2014 Universal Identity Graph approach, SandyClaw sandboxing tool for pre-production agent analysis, P0 Labs threat research team (1,500+ detection signals). 2026 SC Award winner. Customers: Autodesk, Nutanix, ACV Auctions."
+
+  - id: security-consultant-ou
+    name: Security Consultant OÜ
+    category: ai-risk-compliance
+    organization: Security Consultant OÜ
+    description: >-
+      Record unresolved \u2014 company identity is unconfirmed. The CSA PDF
+      hyperlinks to https://www.securityconsultant.com, but that site
+      appears to be an unrelated challenge-tracking platform. No product
+      capabilities can be established until the correct entity and website
+      are verified by a human reviewer.
+    website: https://www.securityconsultant.com
+    github: null
+    license: proprietary
+    pricing: paid
+    api_available: false
+    vendor_type: null
+    csa_member: false
+    tags: [market-map-governance, csa-agentic-ai-market-map-2026]
+    capability_tags: []
+    buyer_problems: []
+    integrations: []
+    maestro_layers: []
+    aicm_control_families: []
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - "website \u2014 CRITICAL: https://www.securityconsultant.com appears to be an unrelated challenge-tracking productivity platform for security practitioners with no AI security products; the correct URL for the Estonian Security Consultant O\u00dc entity is unverified"
+        - csa_member
+        - description \u2014 all product details unconfirmed pending correct URL
+        - pricing — schema-required placeholder (no null allowed); current value "paid" is unverified
+        - api_available — schema-required placeholder (no null allowed); current value false is unverified
+        - vendor_type
+        - category — schema-required placeholder; current value "ai-risk-compliance" is unverified
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Governance. CSA PDF hyperlink resolves to https://www.securityconsultant.com. CRITICAL FINDING: research of that URL found an unrelated challenge-tracking productivity platform with no AI security products or services. The correct entity for Security Consultant O\u00dc (Estonian private limited company) requires human verification. All product metadata in this record is inferred only and must not be used until the correct entity and URL are confirmed. Capability tags, MAESTRO layers, and AICM control families cleared pending URL resolution. category, pricing, and api_available retain schema-required placeholder values that cannot be null; none are verified for this unresolved record."
+
+  - id: silmaril
+    name: Silmaril
+    category: agent-security
+    organization: Silmaril
+    description: >-
+      Silmaril is a runtime AI application firewall that intercepts and blocks
+      harmful AI agent behaviors by evaluating user intent, application
+      context, tool calls, and execution state before dangerous outcomes
+      occur. It targets prompt injection, context poisoning, web-based
+      injection, and multi-stage attack chains across agentic workflows. The
+      product deploys as SaaS or self-hosted and integrates via SDKs with
+      major agent frameworks and cloud platforms.
+    website: https://silmaril.dev
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: ai-native
+    csa_member: true
+    tags: [market-map-vendor-neutral-guardrails, csa-agentic-ai-market-map-2026, prompt-injection, runtime-firewall, ai-agent-security, agentic-ai, yc-backed]
+    capability_tags: [agent-security, prompt-defense]
+    buyer_problems:
+      - AI agents are vulnerable to prompt injection from public inputs, web pages, and poisoned context sources that can cause unauthorized actions or data exfiltration.
+      - Multi-stage agentic attacks chain prompt injection, tool misuse, and policy bypass in ways that static filters miss.
+      - Organizations need runtime enforcement of agent behavior without rebuilding application logic or deploying heavy perimeter controls.
+      - Security teams lack visibility into what AI agents are doing with tool calls and execution state before harmful outcomes occur.
+    integrations:
+      - LiteLLM
+      - Vercel AI SDK
+      - LangChain
+      - LangGraph
+      - AWS ECS
+      - AWS EKS
+      - Google Cloud Run
+      - Google GKE
+      - Azure Container Apps
+      - Azure AKS
+      - Oracle Cloud OKE
+    maestro_layers:
+      - L3-agent-frameworks
+      - L6-security-controls
+    aicm_control_families: [TP, INS, IRS]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - pricing tier details
+        - github — set to null; https://github.com/Silmaril-Security was not confirmed during research
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Vendor-Neutral Guardrails. Official website confirmed via CSA PDF. Enriched from silmaril.dev \u2014 ModernBERT-based multihead classifier, 20ms P90 latency, 131+ attack techniques catalogued. SDK support: TypeScript, Python, Go, Java. YC-backed. AICPA SOC and ISO 27001 certified. Claims CSA membership. CSA membership manually confirmed by the project owner on 2026-06-24."
+
+  - id: skyhawk-security
+    name: Skyhawk Security
+    category: ai-red-teaming
+    organization: Skyhawk Security
+    description: >-
+      Skyhawk Security is an agentless, AI-powered cloud security platform
+      that combines continuous threat detection and response (CDR) with
+      adversarial simulation using digital twin technology. It ingests alerts
+      from CNAPPs, SIEMs, and cloud-native tools, then validates which threats
+      are genuinely exploitable, reducing alert noise by up to 99% to surface
+      only actionable risks. The platform targets lean security teams managing
+      multi-cloud environments who need prioritized, exploitability-confirmed
+      findings.
+    website: https://www.skyhawk.security
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: cloud-native
+    csa_member: true
+    tags: [threat-detection, cloud-security, behavioral-ai, ai-soc, market-map-identity, market-map-observability, csa-agentic-ai-market-map-2026, purple-team, digital-twin, ctem, cnapp, agentless, breach-attack-simulation]
+    capability_tags: [ai-red-teaming, ai-observability, ai-threat-intel]
+    buyer_problems:
+      - Security and development teams receive hundreds of thousands of cloud alerts, the vast majority of which pose no genuine business risk.
+      - CSPM and CNAPP severity scores do not reliably indicate which vulnerabilities are actually exploitable.
+      - Organizations lack continuous offensive security testing in cloud environments due to the skills gap in cloud-based red teaming.
+      - Security teams cannot safely validate automated remediation responses before deploying them to production environments.
+    integrations:
+      - AWS
+      - Azure
+      - GCP
+      - AWS Inspector
+      - AWS GuardDuty
+      - Wiz
+    maestro_layers:
+      - L4-deployment-infrastructure
+      - L5-observability-feedback
+      - L6-security-controls
+    aicm_control_families: [TP, IRS, INS]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Identity, Observability. Official website confirmed via CSA PDF. Enriched from skyhawk.security \u2014 digital twin architecture for adversarial simulation. Gartner Hype Cycle for Enterprise Architecture 2026 sample vendor. June 2026 awards: Best Use of AI in Cloud Security, Best Vulnerability Scanner. Based in Tel Aviv. CSA membership manually confirmed by the project owner on 2026-06-24."
+
+  - id: straiker
+    name: Straiker
+    category: agent-security
+    organization: Straiker
+    description: >-
+      Straiker is an agentic AI security platform that provides discovery,
+      adversarial testing, and runtime protection for AI agents and Model
+      Context Protocol (MCP) infrastructure. It helps enterprises identify
+      agent vulnerabilities and misconfigurations, red-team agents before
+      production deployment, and block threats such as prompt injection, data
+      leakage, and tool manipulation at runtime. SOC 2 Type II and ISO 27001
+      certified.
+    website: https://www.straiker.ai/
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: ai-native
+    csa_member: true
+    tags: [agent-security, market-map-governance, market-map-observability, market-map-supply-chain-integrity, market-map-vendor-neutral-guardrails, csa-agentic-ai-market-map-2026, mcp-security, agent-runtime-protection, ai-red-teaming, prompt-injection-detection, agentic-ai-security, soc2-certified, iso27001-certified]
+    capability_tags: [agent-security, prompt-defense, ai-governance, ai-supply-chain, ai-red-teaming]
+    buyer_problems:
+      - AI agents and MCP servers are deployed without visibility into their attack surface, misconfigurations, or risky tool connections.
+      - Security teams lack automated ways to test AI agents for exploitable attack paths before production deployment.
+      - Runtime threats such as prompt injection, tool manipulation, and data leakage in agentic workflows are not detected by traditional security controls.
+      - Enterprises need compliance and governance evidence for AI agent deployments to meet audit and regulatory requirements.
+    integrations: [AWS Marketplace, Portkey, Anthropic Claude Code, OTLP, eBPF sensors]
+    maestro_layers:
+      - L3-agent-frameworks
+      - L5-observability-feedback
+      - L6-security-controls
+      - L7-ecosystem-governance
+    aicm_control_families: [GRM, INS, IRS, SC, TP]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+        - github — none found on site
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Governance, Observability, Supply Chain Integrity, Vendor-Neutral Guardrails. Official website confirmed via CSA PDF. Enriched from straiker.ai \u2014 founded by former Palo Alto Networks SVP Ankur Shah and Akamai VP Sreenath Kurupati. Lightspeed, Bain Capital Ventures, Rain Capital. Three products: Discover AI, Ascend AI, Defend AI. Gartner sample vendor in Agentic AI Security. CSA membership manually confirmed by the project owner on 2026-06-24."
+
+  - id: surepath-ai
+    name: Surepath AI
+    category: ai-governance
+    organization: Surepath AI
+    description: >-
+      Surepath AI (acquired by F5) is a generative AI governance and security
+      platform that provides enterprises with real-time visibility, policy
+      enforcement, and data loss prevention across employee use of public and
+      private AI models. It intercepts AI interactions via a proxy
+      architecture to detect shadow AI, redact sensitive information, enforce
+      role-based access controls, and maintain audit trails for compliance.
+    website: https://www.surepath.ai/
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: false
+    vendor_type: cloud-native
+    csa_member: true
+    tags: [ai-governance, saas-security, shadow-ai, data-security, market-map-governance, market-map-observability, market-map-vendor-neutral-guardrails, csa-agentic-ai-market-map-2026, dlp, mcp-security, proxy-based, soc2, agent-governance]
+    capability_tags: [ai-governance, ai-observability, ai-risk-compliance, prompt-defense]
+    buyer_problems:
+      - Lack of visibility into employee use of generative AI tools, including unauthorized shadow AI applications.
+      - Risk of sensitive data leakage through AI prompts submitted to public models.
+      - Inability to enforce granular access controls and data policies across AI interactions at scale.
+      - Difficulty demonstrating AI governance compliance and audit-readiness for regulatory or insurance purposes.
+    integrations:
+      - AWS
+      - Azure
+      - GCP
+      - Dell
+      - NVIDIA
+      - Forcepoint
+      - Equinix
+    maestro_layers:
+      - L3-agent-frameworks
+      - L5-observability-feedback
+      - L6-security-controls
+      - L7-ecosystem-governance
+    aicm_control_families: [GRM, DSP, IAM, SC]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+        - confirm F5 acquisition brand continuity
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Governance, Observability, Vendor-Neutral Guardrails. Official website confirmed via CSA PDF. Enriched from surepath.ai \u2014 acquired by F5; product platform redirects to f5.com/products/ai-security-platform. SOC 2 Type 2 certified. MCP traffic governance added March 2026. CrowdStrike/AWS/NVIDIA Cybersecurity Startup Accelerator alum. CSA membership manually confirmed by the project owner on 2026-06-24."
+
+  - id: surf-ai
+    name: Surf AI
+    category: ai-soc
+    organization: Surf AI
+    description: >-
+      Surf AI is an agentic security operations platform that automates
+      security posture management across identity, cloud, SaaS, and data
+      environments. It uses a graph-based model to map asset ownership and
+      dependencies, then drives continuous automated remediation to reduce the
+      attack surface without requiring manual intervention at each step. The
+      platform targets enterprise security teams seeking to reduce mean time
+      to remediation (MTTR) across large, complex infrastructures.
+    website: https://surf.ai
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: false
+    vendor_type: ai-native
+    csa_member: false
+    tags: [ai-identity, market-map-identity, market-map-governance, market-map-observability, csa-agentic-ai-market-map-2026, ai-soc, security-automation, posture-management, agentic-remediation]
+    capability_tags: [ai-soc, ai-observability]
+    buyer_problems:
+      - Security teams lack the bandwidth to manually remediate the volume of exposures identified across identity, cloud, SaaS, and data systems.
+      - Dormant accounts, expired certificates, and overexposed data persist because manual remediation processes cannot keep pace with attacker exploitation timelines.
+      - Visibility into asset ownership and cross-system dependencies is fragmented, making it difficult to assess impact before taking action.
+      - High manual effort in security operations drives slow mean time to remediation (MTTR) and increased licensing costs for underutilized tools.
+    integrations: [AWS Marketplace, Upwind]
+    maestro_layers:
+      - L4-deployment-infrastructure
+      - L5-observability-feedback
+      - L6-security-controls
+    aicm_control_families: [IAM, DSP, INS, IRS]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+        - csa_member
+        - integrations — only AWS Marketplace and Upwind found
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Identity, Governance, Observability. Official website confirmed via CSA PDF. Enriched from surf.ai \u2014 platform is agentic SecOps/automated remediation, NOT AI agent identity security. Initial stub description was incorrect. Accel, Cyberstarts, Boldstart Ventures. Customer: Cushman & Wakefield."
+
+  - id: tenet-security
+    name: Tenet Security
+    category: agent-security
+    organization: Tenet Security
+    description: >-
+      Tenet Security is a runtime AI agent security platform that protects
+      autonomous agents from manipulation, hijacking, and unauthorized
+      behavior in enterprise environments. It provides agent discovery,
+      detection, real-time blocking, and automated red-teaming across
+      developer endpoints and cloud infrastructure. The platform addresses
+      agentjacking attacks and aligns with the OWASP Top-10 for Agentic
+      Applications and MITRE ATLAS frameworks.
+    website: https://www.tenetsecurity.ai
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: false
+    vendor_type: ai-native
+    csa_member: false
+    tags: [agent-security, market-map-governance, market-map-observability, market-map-vendor-neutral-guardrails, csa-agentic-ai-market-map-2026, runtime-protection, agentjacking, mcp-security, owasp-top10-agents, mitre-atlas]
+    capability_tags: [agent-security, ai-red-teaming, ai-observability]
+    buyer_problems:
+      - AI agents deployed across enterprise environments lack runtime visibility into their actions, tool usage, and communications, creating blind spots for security teams.
+      - Autonomous AI agents are vulnerable to prompt injection, goal manipulation, and MCP-layer exploitation that can cause data exfiltration or execution of malicious code.
+      - Organizations cannot identify how many AI agents are running in their environment, what tools they access, or whether agent behavior has drifted from its intended purpose.
+      - Security teams need automated validation of agents against known attack frameworks (OWASP, MITRE ATLAS) before and during production deployment.
+    integrations: [AWS Bedrock, Cursor, Model Context Protocol (MCP)]
+    maestro_layers:
+      - L3-agent-frameworks
+      - L5-observability-feedback
+      - L6-security-controls
+    aicm_control_families: [INS, IRS, SC, GRM]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+        - csa_member
+        - pricing
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Governance, Observability, Vendor-Neutral Guardrails. Official website confirmed via CSA PDF. Enriched from tenetsecurity.ai \u2014 $6M funding (Westly Group, MizMaa Ventures). Patent-pending Agent-Side Simulation technology. Co-founders ex-Unit 8200 and ex-Cisco GenAI Security Research. 2026 Fortress Cybersecurity Award winner."
+
+  - id: terra-security
+    name: Terra Security
+    category: ai-red-teaming
+    organization: Terra Security
+    description: >-
+      Terra Platform is an agentic offensive security platform that automates
+      continuous penetration testing across web applications, network
+      infrastructure, and AI systems including LLM integrations and agentic
+      deployments. It chains validated attack paths using AI agents with
+      human-in-the-loop controls through the Terra Portal, reducing testing
+      cycles from weeks to hours. The platform serves enterprise security
+      teams and managed security providers seeking continuous attack surface
+      validation.
+    website: https://terra.security
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: false
+    vendor_type: ai-native
+    csa_member: false
+    tags: [market-map-observability, csa-agentic-ai-market-map-2026, offensive-security, continuous-pentesting, ai-red-teaming, attack-surface-validation, autonomous-pentesting]
+    capability_tags: [ai-red-teaming, agent-security]
+    buyer_problems:
+      - Point-in-time penetration tests leave organizations exposed between engagements, missing vulnerabilities introduced by continuous development and deployment.
+      - Manual pentesting is slow and expensive, preventing organizations from validating their attack surface as frequently as changes occur.
+      - AI systems, LLM integrations, and agentic deployments introduce novel attack surfaces that traditional pentesting tools and methodologies do not cover.
+      - Security teams receive excessive vulnerability noise that is not confirmed exploitable, making it difficult to prioritize remediation efforts.
+    integrations: [AWS]
+    maestro_layers:
+      - L3-agent-frameworks
+      - L6-security-controls
+      - L7-ecosystem-governance
+    aicm_control_families: [GRM, INS, IRS]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - api_available
+        - csa_member
+        - pricing
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: Observability. Official website confirmed via CSA PDF. Enriched from terra.security \u2014 continuous automated pentesting platform (NOT AI observability/SPM). Initial stub description and category were incorrect. First AWS partner with Security Competency for Autonomous Security Validation. CSA membership confirmed on site."
+
+  - id: the-cyber-bear-group
+    name: The Cyber Bear Group
+    category: ai-observability
+    organization: The Cyber Bear Group, Inc.
+    description: >-
+      The Cyber Bear Group (CBG) is a boutique cybersecurity management
+      consulting firm and technology company that also develops Grizzly, an
+      enterprise asset intelligence and digital operations visibility
+      platform. Grizzly provides real-time asset discovery, attack surface
+      mapping, compliance automation, and incident response forensics. CBG
+      serves public and private companies and government entities across
+      finance, healthcare, defense, and telecommunications.
+    website: https://grizzlycbg.io
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: hybrid
+    csa_member: false
+    tags: [market-map-identity, market-map-governance, market-map-observability, market-map-supply-chain-integrity, market-map-vendor-neutral-guardrails, csa-agentic-ai-market-map-2026, asset-discovery, attack-surface-management, compliance-automation, vciso, cybersecurity-consulting, wosb, vosb]
+    capability_tags: [ai-governance, ai-observability, ai-risk-compliance]
+    buyer_problems:
+      - Organizations lack real-time visibility into all assets across their digital environment, leaving shadow IT and dark data that creates blind spots for security teams.
+      - Manual asset inventory processes fail to keep pace with dynamic infrastructure, resulting in outdated records and compliance gaps.
+      - Security teams lack the forensic context and pre-built response plans needed to respond rapidly to incidents.
+      - Small and mid-sized organizations cannot access enterprise-grade cybersecurity consulting and vCISO services at a proportionate cost.
+    integrations: []
+    maestro_layers:
+      - L2-data-operations
+      - L5-observability-feedback
+      - L6-security-controls
+    aicm_control_families: [GRM, INS, IRS]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - integrations — Grizzly claims universal integration but no specific named integrations found
+        - confirm API_available from Grizzly documentation
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: all five. Official website confirmed via CSA PDF \u2014 grizzlycbg.io is JS-rendered; primary research from cyberbeargroup.com. Initial stub description incorrectly described as agentic AI security; product is asset intelligence/digital operations visibility. WOSB and VOSB certified. Founded 2017. Based Orchard Park, NY."
+
+  - id: token-security
+    name: Token Security
+    category: ai-identity
+    organization: Token Security
+    description: >-
+      Token Security is an AI agent and non-human identity (NHI) security
+      platform that continuously discovers, contextualizes, and governs
+      machine identities — including AI agents, service accounts, API keys,
+      and MCP servers — across cloud, SaaS, and on-premises environments. It
+      addresses the challenge that NHI and AI agent identities vastly
+      outnumber human identities yet lack equivalent visibility, lifecycle
+      management, and least-privilege enforcement.
+    website: https://www.token.security/
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: ai-native
+    csa_member: true
+    tags: [nhi, token-security, agent-security, secrets-management, api-security, market-map-identity, market-map-governance, market-map-observability, market-map-supply-chain-integrity, market-map-vendor-neutral-guardrails, csa-agentic-ai-market-map-2026, non-human-identity, lifecycle-management, mcp-security, least-privilege, identity-threat-detection]
+    capability_tags: [ai-identity, ai-supply-chain, ai-governance, ai-observability]
+    buyer_problems:
+      - Organizations lack comprehensive discovery of AI agents, MCP servers, and non-human identities across hybrid cloud and SaaS environments, creating blind spots for credential abuse.
+      - AI agents and service accounts accumulate excessive permissions over time, and teams have no automated mechanism to detect privilege drift or enforce least-privilege access.
+      - Security teams cannot attribute ownership or accountability to orphaned machine identities, making remediation risky and slow in production environments.
+      - Multi-agent ecosystems lack correlated audit trails and behavioral anomaly detection, leaving lateral movement by compromised agents undetected until damage occurs.
+    integrations:
+      - AWS
+      - Azure
+      - GCP
+      - Okta
+      - Microsoft Entra ID
+      - Google Workspace
+      - Active Directory
+      - GitHub
+      - GitLab
+      - Bitbucket
+      - Jenkins
+      - GitHub Actions
+      - CircleCI
+      - CrowdStrike
+      - Microsoft Defender
+      - SentinelOne
+      - Microsoft Sentinel
+      - Wiz
+      - Splunk
+      - Datadog
+      - Elastic
+      - HashiCorp Vault
+      - CyberArk
+      - AWS Secrets Manager
+      - Snowflake
+      - Databricks
+      - Salesforce
+      - ServiceNow
+      - Slack
+      - Microsoft Teams
+      - PagerDuty
+      - OpenAI
+      - Anthropic Claude
+      - AWS Bedrock
+      - Microsoft Copilot
+      - Salesforce Agentforce
+    maestro_layers:
+      - L3-agent-frameworks
+      - L4-deployment-infrastructure
+      - L5-observability-feedback
+      - L6-security-controls
+      - L7-ecosystem-governance
+    aicm_control_families: [IAM, SC, GRM, INS]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - github — open-source GCI tool exists but URL unconfirmed
+        - pricing tier details
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: all five. Official website confirmed via CSA PDF. Enriched from token.security \u2014 1000+ integrations, RSA Innovation Sandbox 2026 Finalist. Free tool AI Privilege Guardian and open-source GPTs Compliance Insights (GCI) available. Customers: HiBob, Udemy, Elastic, GEHA, Klaviyo. CSA membership manually confirmed by the project owner on 2026-06-24."
+
+  - id: vorlon
+    name: Vorlon
+    category: agent-security
+    organization: Vorlon
+    description: >-
+      Vorlon is an agentic ecosystem security platform that monitors and
+      enforces controls over how AI agents, SaaS applications, and non-human
+      identities access and move sensitive data. It uses a patented DataMatrix
+      engine to map data flows across agents, apps, and integrations without
+      requiring endpoint agents or proxies, and provides real-time enforcement
+      via its Vorlon Guardian gateway. The platform targets enterprise
+      security teams deploying AI at scale who need visibility into shadow AI,
+      NHI sprawl, and data exfiltration risks.
+    website: https://vorlon.io
+    github: null
+    license: proprietary
+    pricing: enterprise
+    api_available: true
+    vendor_type: ai-native
+    csa_member: false
+    tags: [agent-security, runtime-protection, market-map-identity, market-map-governance, market-map-observability, market-map-supply-chain-integrity, market-map-vendor-neutral-guardrails, csa-agentic-ai-market-map-2026, non-human-identity, saas-security, shadow-ai-discovery, behavioral-detection, audit-trail, data-in-motion]
+    capability_tags: [agent-security, ai-observability, ai-identity, ai-governance]
+    buyer_problems:
+      - Security teams lack visibility into what AI agents do after gaining credentials, creating blind spots for data exfiltration through SaaS-to-AI integrations.
+      - Non-human identities (service accounts, OAuth tokens, AI agents) are proliferating faster than traditional identity governance tools can cover.
+      - Organizations cannot discover unauthorized or shadow AI tools and integrations operating within their SaaS ecosystem.
+      - Incident response teams struggle to determine blast radius and trace event sequences when integration-layer breaches occur.
+    integrations: [SIEM, SOAR, ITSM, Identity Providers (IdP), Model Context Protocol (MCP)]
+    maestro_layers:
+      - L3-agent-frameworks
+      - L4-deployment-infrastructure
+      - L5-observability-feedback
+      - L6-security-controls
+    aicm_control_families: [IAM, DSP, INS, IRS, SC]
+    added: 2026-06-24
+    updated: 2026-06-24
+    review:
+      status: needs-review
+      last_reviewed: null
+      reviewed_by: null
+      verification_needed:
+        - csa_member
+        - github
+      notes: "Stub added from CSA Agentic AI Security Innovator Market Map (May 2026). Market-map categories: all five. Official website confirmed via CSA PDF. Enriched from vorlon.io \u2014 founded 2022 by Demisto co-founders (Amir Khayat, Amichay Spivak). Accel and Shield Capital. Patented DataMatrix engine. Deploy in 24 hours, read-only API only. Customers: CarGurus, ThoughtSpot, OPENLANE, Dutchie."
